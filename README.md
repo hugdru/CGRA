@@ -1,6 +1,6 @@
 **Especificações e reference guides WebGL**
-*[WebGL 1.0 Reference Guide](https://msdn.microsoft.com/en-us/library/ie/dn621085(v=vs.85).aspx)
-*[WebGL Reference Guide](http://media.wiley.com/product_ancillary/88/11188553/DOWNLOAD/9781118855386-bc02.pdf)
+1. [WebGL 1.0 Reference Guide](https://msdn.microsoft.com/en-us/library/ie/dn621085(v=vs.85).aspx)
+2. [WebGL Reference Guide](http://media.wiley.com/product_ancillary/88/11188553/DOWNLOAD/9781118855386-bc02.pdf)
 *[WebGL Reference Card](https://www.khronos.org/files/webgl/webgl-reference-card-1_0.pdf)
 *[Especificação WebGL 1.0](https://www.khronos.org/registry/webgl/specs/1.0/)
 

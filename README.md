@@ -10,7 +10,8 @@
 3. [Mozilla WebGL Documentation](https://developer.mozilla.org/en-US/docs/Web/WebGL)
 4. [Repositório de demontrações do Khronos Group](https://www.khronos.org/webgl/wiki/Demo_Repository)
 
-**Good Javascript Books**
+**Good Javascript Books and Resources**
 1. [Secrets of the JavaScript Ninja](http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X/ref=sr_1_1?ie=UTF8&qid=1425147889&sr=8-1&keywords=javascript+ninja)
 2. [Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript](http://www.amazon.com/Effective-JavaScript-Specific-Software-Development/dp/0321812182/ref=sr_1_3?ie=UTF8&qid=1425147889&sr=8-3&keywords=javascript+ninja)
 3. [Linguagens e Tecnologias Web](http://paginas.fe.up.pt/~arestivo/doku/doku.php/classes:years:2014:ltw)
+4. [Javascript Object-Oriented Guide](http://www.objectplayground.com/)

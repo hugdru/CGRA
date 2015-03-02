@@ -9,6 +9,7 @@
 2. [WebGL Fundamentals](http://webglfundamentals.org/)
 3. [Mozilla WebGL Documentation](https://developer.mozilla.org/en-US/docs/Web/WebGL)
 4. [Repositório de demontrações do Khronos Group](https://www.khronos.org/webgl/wiki/Demo_Repository)
+5. [webCFG Documentation](http://paginas.fe.up.pt/~ruirodrig/pub/sw/webcgf/docs/)
 
 **Good Javascript Books and Resources**
 1. [Secrets of the JavaScript Ninja](http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X/ref=sr_1_1?ie=UTF8&qid=1425147889&sr=8-1&keywords=javascript+ninja)

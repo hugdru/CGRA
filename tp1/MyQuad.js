@@ -1,34 +1,29 @@
 /**
- * MyObject
+ * MyQuad
  * @param {WebGLRenderingContext} scene
  * @constructor
  */
-function MyObject(scene) {
+function MyQuad(scene) {
     CGFobject.call(this, scene);
 
     this.initBuffers();
 }
 
-MyObject.prototype = Object.create(CGFobject.prototype);
-MyObject.prototype.constructor = MyObject;
+MyQuad.prototype = Object.create(CGFobject.prototype);
+MyQuad.prototype.constructor = MyQuad;
 
-MyObject.prototype.initBuffers = function() {
+MyQuad.prototype.initBuffers = function() {
     this.vertices = [
         // Base
         -0.5,  -0.5,  0,
         0.5,   -0.5,  0,
         -0.5,  0.5,   0,
-        0.5,   0.5,   0,
-        // Telhado
-        -1,  0.5,  0,
-        1,   0.5,  0,
-        0,   1.5,  0
+        0.5,   0.5,   0
     ];
 
     this.indices = [
         0,  1,  2,
-        3,  2,  1,
-        4,  5,  6
+        3,  2,  1
     ];
 
     this.primitiveType = this.scene.gl.TRIANGLES;

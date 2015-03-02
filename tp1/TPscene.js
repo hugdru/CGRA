@@ -20,6 +20,7 @@ TPscene.prototype.init = function(application) {
 
     this.axis = new CGFaxis(this);
     this.table = new MyTable(this);
+    this.floor = new MyFloor(this);
 };
 
 TPscene.prototype.initLights = function() {
@@ -67,6 +68,9 @@ TPscene.prototype.display = function() {
 
     // ---- END Background, camera and axis setup
 
+    this.translate(4, 0.05, 3); // (8, 0.1, 3)/2
+    this.floor.display();
+    this.translate(0, 1.80, 0); // (_, 3.50/2 + 0.1/2, _)
     this.table.display();
 
     this.shader.unbind();

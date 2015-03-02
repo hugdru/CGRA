@@ -34,7 +34,7 @@ serialInclude = function(a) {
 };
 
 serialInclude.l = [];
-serialInclude(['../lib/CGF.js', 'TPscene.js', 'MyUnitCube.js', 'MyQuad.js', 'MyUnitCubeQuad.js', 'MyTable.js',
+serialInclude(['../lib/CGF.js', 'TPscene.js', 'MyUnitCube.js', 'MyQuad.js', 'MyUnitCubeQuad.js', 'MyTable.js', 'MyFloor.js',
 
 main = function()
 {

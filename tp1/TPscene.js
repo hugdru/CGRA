@@ -72,47 +72,55 @@ TPscene.prototype.display = function() {
 
     // ---- BEGIN Geometric transformation section
 
-    // NOTE: OpenGL transformation matrices are transposed
+    //// NOTE: OpenGL transformation matrices are transposed
 
-    // Translate (5, 0, 2)
+    //// Translate (5, 0, 2)
 
-    var tra = [
-        1.0,  0.0,  0.0,  0.0,
-        0.0,  1.0,  0.0,  0.0,
-        0.0,  0.0,  1.0,  0.0,
-        5.0,  0.0,  2.0,  1.0
-    ];
+    //var tra = [
+        //1.0, 0.0, 0.0, 0.0,
+        //0.0, 1.0, 0.0, 0.0,
+        //0.0, 0.0, 1.0, 0.0,
+        //5.0, 0.0, 2.0, 1.0
+    //];
 
-    // Rotate 30 degrees around Y
-    // These constants would normally be pre-computed at initialization time
-    // they are placed here just to simplify the example
+    //// Rotate 30 degrees around Y
+    //// These constants would normally be pre-computed at initialization time
+    //// they are placed here just to simplify the example
 
-    var deg2rad = Math.PI / 180.0;
-    var a_rad = 30.0 * deg2rad;
-    var cos_a = Math.cos(a_rad);
-    var sin_a = Math.sin(a_rad);
+    //var deg2rad = Math.PI / 180.0;
+    //var a_rad = 30.0 * deg2rad;
+    //var cos_a = Math.cos(a_rad);
+    //var sin_a = Math.sin(a_rad);
 
-    var rot = [
-        cos_a,  0.0,  -sin_a,  0.0,
-        0.0,    1.0,  0.0,     0.0,
-        sin_a,  0.0,  cos_a,   0.0,
-        0.0,    0.0,  0.0,     1.0
-    ];
+    //var rot = [
+        //cos_a,  0.0,  -sin_a,  0.0,
+        //0.0,    1.0,  0.0,     0.0,
+        //sin_a,  0.0,  cos_a,   0.0,
+        //0.0,    0.0,  0.0,     1.0
+    //];
 
-    // Scaling by (5,2,1)
+    //// Scaling by (5,2,1)
 
-    var sca = [
-        5.0,  0.0,  0.0,  0.0,
-        0.0,  2.0,  0.0,  0.0,
-        0.0,  0.0,  1.0,  0.0,
-        0.0,  0.0,  0.0,  1.0
-    ];
+    //var sca = [
+        //5.0, 0.0, 0.0, 0.0,
+        //0.0, 2.0, 0.0, 0.0,
+        //0.0, 0.0, 1.0, 0.0,
+        //0.0, 0.0, 0.0, 1.0
+    //];
 
-    // Multiplication of the previous transformations
-    //this.multMatrix(tra);     // GT = GT * tra
-    //this.multMatrix(rot);     // GT = GT * rot
+    //// Multiplication of the previous transformations
     //this.multMatrix(sca);     // GT = GT * sca
+    //this.multMatrix(tra);     // GT = GT * tra
+    ////this.multMatrix(rot);     // GT = GT * rot
 
+    this.pushMatrix();
+        this.translate(0, 5, 0);
+        this.obj.display();
+    this.popMatrix();
+
+    this.scale(5, 2, 1);
+    this.translate(5, 0, 2);
+    //this.rotate(30, 0, 1, 0);
 
     // ---- END Geometric transformation section
 

@@ -19,9 +19,7 @@ TPscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.axis = new CGFaxis(this);
-    this.allVertexCube = new MyUnitCube(this);
-    this.quadTransformsCube = new MyUnitCubeQuad(this);
-
+    this.table = new MyTable(this);
 };
 
 TPscene.prototype.initLights = function() {
@@ -69,10 +67,7 @@ TPscene.prototype.display = function() {
 
     // ---- END Background, camera and axis setup
 
-    this.allVertexCube.display();
-
-    this.translate(2.5, 0, 0);
-    this.quadTransformsCube.display();
+    this.table.display();
 
     this.shader.unbind();
 };

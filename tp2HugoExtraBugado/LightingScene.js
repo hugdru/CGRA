@@ -32,9 +32,9 @@ LightingScene.prototype.init = function(application) {
     this.materialDefault = new CGFappearance(this);
 
     this.materialFloor = new CGFappearance(this);
-    this.materialFloor.setAmbient(0.5, 0.1, 0, 1);
-    this.materialFloor.setDiffuse(0.6, 0.2, 0, 1);
-    this.materialFloor.setSpecular(0, 0, 0, 1);
+    this.materialFloor.setAmbient(0.5, 0.25, 0, 1);
+    this.materialFloor.setDiffuse(0.7, 0.3, 0, 1);
+    this.materialFloor.setSpecular(0.8, 0.4, 0, 1);
     this.materialFloor.setShininess(1);
 
     this.materialWall = new CGFappearance(this);
@@ -52,7 +52,7 @@ LightingScene.prototype.init = function(application) {
     this.materialTableLegs = new CGFappearance(this);
     this.materialTableLegs.setAmbient(0.3, 0.3, 0.3, 1);
     this.materialTableLegs.setDiffuse(0.5, 0.5, 0.5, 1);
-    this.materialTableLegs.setSpecular(0.7, 0.7, 0.7, 1);
+    this.materialTableLegs.setSpecular(0.6, 0.6, 0.6, 1);
     this.materialTableLegs.setShininess(10);
 
     this.materialA = new CGFappearance(this);
@@ -68,11 +68,12 @@ LightingScene.prototype.init = function(application) {
     this.materialB.setShininess(120);
 
     // Scene elements
+    this.wall = new Plane(this, this.materialWall);
     this.table = new MyTable(this, this.materialTableTop, this.materialTableLegs);
-    this.wall = new Plane(this);
+    this.chair = new MyChair(this, this.materialTableTop);
     this.boardA = new Plane(this, BOARD_A_DIVISIONS);
     this.boardB = new Plane(this, BOARD_B_DIVISIONS);
-    this.chair = new MyChair(this, this.materialTableTop);
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -157,7 +158,8 @@ LightingScene.prototype.display = function() {
     // ---- BEGIN Primitive drawing section
 
     // Floor
-    this.materialFloor.apply();
+    //this.materialFloor.apply();
+    this.materialDefault.apply();
     this.pushMatrix();
         this.translate(7.5, 0, 7.5);
         this.rotate(-90 * degToRad, 1, 0, 0);
@@ -183,18 +185,18 @@ LightingScene.prototype.display = function() {
 
     // First Table And Chair
     this.pushMatrix();
-    this.translate(5, 0, 8);
-    this.table.display();
-    this.translate(0, 0, 1.5);
-    this.chair.display();
+        this.translate(5, 0, 8);
+        this.table.display();
+        this.translate(0, 0, 1.50);
+        this.chair.display();
     this.popMatrix();
 
     // Second Table And Chair
     this.pushMatrix();
-    this.translate(12, 0, 8);
-    this.table.display();
-    this.translate(0, 0, 1.5);
-    this.chair.display();
+        this.translate(12, 0, 8);
+        this.table.display();
+        this.translate(0, 0, 1.50);
+        this.chair.display();
     this.popMatrix();
 
     // Board A

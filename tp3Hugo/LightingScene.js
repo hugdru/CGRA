@@ -111,9 +111,9 @@ LightingScene.prototype.initLights = function() {
     this.lights[3].setAmbient(0, 0, 0, 1);
     this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[3].setSpecular(1.0, 1.0, 0, 1.0);
-    this.lights[3].setConstantAttenuation(0);
+    this.lights[3].setConstantAttenuation(1);
     this.lights[3].setLinearAttenuation(0);
-    this.lights[3].setQuadraticAttenuation(1.0);
+    this.lights[3].setQuadraticAttenuation(0);
     this.lights[3].enable();
 
     this.shader.unbind();

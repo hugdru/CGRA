@@ -7,6 +7,7 @@ function MyPrism(scene, slices, stacks) {
 
     this.slices = slices;
     this.stacks = stacks;
+    this.stackStep = 1/stacks;
 
     this.base = new MyBase(this.scene, slices);
 
@@ -30,18 +31,21 @@ MyPrism.prototype.display = function() {
     this.indices = [];
     this.normals = [];
 
-    //for (var n = 0; n < this.slices; ++n) {
-        //this.vertices.push(
-            //Math.cos(sliceIndex * this.teta),
-            //Math.sin(sliceIndex * this.teta),
-            //stac
-        //);
-        //// Vertex 2
-        //this.vertices.push(
-            //Math.cos(nextSlice * this.teta),
-            //Math.sin(nextSlice * this.teta),
-            //0
-        //);
+    for (var sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
+        for (var stackIndex = 0; stackIndex < this.stacks; ++stackIndex) {
+/*            this.vertices.push(*/
+                //Math.cos(sliceIndex * this.teta),
+                //Math.sin(sliceIndex * this.teta),
+                //stac
+            //);
+            //// Vertex 2
+            //this.vertices.push(
+                //Math.cos(nextSlice * this.teta),
+                //Math.sin(nextSlice * this.teta),
+                //0
+            /*);*/
+        }
+    }
 
 
 };

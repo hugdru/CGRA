@@ -25,12 +25,23 @@ MyPrism.prototype.display = function() {
         this.base.display();
     this.scene.popMatrix();
 
-    //var nextSlice;
-    //this.vertices = [0, 0, 0];
-    //this.indices = [];
-    //this.normals = [0, 0, 1];
+    var nextSlice;
+    this.vertices = [];
+    this.indices = [];
+    this.normals = [];
 
     //for (var n = 0; n < this.slices; ++n) {
         //this.vertices.push(
+            //Math.cos(sliceIndex * this.teta),
+            //Math.sin(sliceIndex * this.teta),
+            //stac
+        //);
+        //// Vertex 2
+        //this.vertices.push(
+            //Math.cos(nextSlice * this.teta),
+            //Math.sin(nextSlice * this.teta),
+            //0
+        //);
+
 
 };

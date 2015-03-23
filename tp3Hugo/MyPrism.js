@@ -9,7 +9,6 @@ function MyPrism(scene, slices, stacks) {
     this.stacks = stacks;
 
     this.base = new MyBase(this.scene, slices);
-    //this.plane = new MyPlane(this.scene, slices, stacks);
 
     this.teta = 2 * Math.PI / this.slices;
 }
@@ -25,4 +24,13 @@ MyPrism.prototype.display = function() {
         this.scene.translate(0, 0, 1);
         this.base.display();
     this.scene.popMatrix();
+
+    //var nextSlice;
+    //this.vertices = [0, 0, 0];
+    //this.indices = [];
+    //this.normals = [0, 0, 1];
+
+    //for (var n = 0; n < this.slices; ++n) {
+        //this.vertices.push(
+
 };

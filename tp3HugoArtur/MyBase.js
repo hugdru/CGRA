@@ -8,7 +8,6 @@ function MyBase(scene, slices) {
     this.slices = slices;
 
     this.teta = 2 * Math.PI / this.slices;
-    this.tetaPlusHalf = 1.5 * this.teta;
 
     this.initBuffers();
 }
@@ -49,4 +48,3 @@ MyBase.prototype.initBuffers = function() {
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
-

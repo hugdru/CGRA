@@ -160,7 +160,9 @@ LightingScene.prototype.display = function() {
     this.materialDefault.apply();
     // Prism
     this.pushMatrix();
-        this.translate(6, 3, 3);
+        this.translate(3, 2, 4);
+        this.scale(1.5, 2, 1.5);
+        this.rotate(90 * degToRad, 1, 0, 0);
         this.prism.display();
     this.popMatrix();
 

@@ -68,6 +68,7 @@ LightingScene.prototype.init = function(application) {
     this.materialB.setShininess(120);
 
     // Scene elements
+    this.cylinder = new MyCylinder(this, 8, 20);
     this.prism = new MyPrism(this, 8, 20);
     this.table = new MyTable(this, this.materialTableTop, this.materialTableLegs);
     this.wall = new Plane(this);
@@ -158,6 +159,15 @@ LightingScene.prototype.display = function() {
     // ---- BEGIN Primitive drawing section
 
     this.materialDefault.apply();
+
+    // Cylinder
+    this.pushMatrix();
+        this.translate(7, 4, 4);
+        this.scale(1.5, 2, 1.5);
+        this.rotate(90 * degToRad, 1, 0, 0);
+        this.cylinder.display();
+    this.popMatrix();
+
     // Prism
     this.pushMatrix();
         this.translate(3, 2, 4);

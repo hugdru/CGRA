@@ -1,8 +1,8 @@
 /**
- * MyPrism
+ * MyCylinder
  * @constructor
  */
-function MyPrism(scene, slices, stacks) {
+function MyCylinder(scene, slices, stacks) {
     CGFobject.call(this, scene);
 
     this.slices = slices;
@@ -10,16 +10,15 @@ function MyPrism(scene, slices, stacks) {
     this.stackStep = 1 / stacks;
 
     this.teta = (2 * Math.PI) / this.slices;
-    this.halfTeta = this.teta / 2;
-    this.startVertexPeriod = (this.stacks + 1) * 2;
+    this.startVertexPeriod = this.stacks + 1;
 
     this.initBuffers();
 }
 
-MyPrism.prototype = Object.create(CGFobject.prototype);
-MyPrism.prototype.constructor = MyPrism;
+MyCylinder.prototype = Object.create(CGFobject.prototype);
+MyCylinder.prototype.constructor = MyCylinder;
 
-MyPrism.prototype.initBuffers = function() {
+MyCylinder.prototype.initBuffers = function() {
 
     this.vertices = [0, 0, 0.5];
     this.indices = [];
@@ -45,8 +44,7 @@ MyPrism.prototype.initBuffers = function() {
             } else {
                 this.vertices.push(
                     Math.cos(pointRad),
-                    Math.sin(pointRad),
-                    -0.5
+                    Math.sin(pointRad), -0.5
                 );
             }
 
@@ -66,14 +64,11 @@ MyPrism.prototype.initBuffers = function() {
             // Normals
             if (i === 0) {
                 this.normals.push(
-                    0,
-                    0,
-                    1
+                    0, 0, 1
                 );
             } else {
                 this.normals.push(
-                    0,
-                    0, -1
+                    0, 0, -1
                 );
 
             }
@@ -90,55 +85,61 @@ MyPrism.prototype.initBuffers = function() {
     // The lateral faces
     var lateralFacesOffset = basePeriod * 2 + 1;
     for (sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
-        var stackAcc = -0.5;
-        nextSlice = sliceIndex + 1;
-        var periodSlicesN = this.startVertexPeriod * sliceIndex + lateralFacesOffset;
+
         // A lateral face
+        var stackAcc = -0.5;
+        var periodSlicesN = this.startVertexPeriod * sliceIndex + lateralFacesOffset;
+        var periodSlicesNnext = this.startVertexPeriod * (sliceIndex + 1) + lateralFacesOffset;
         for (var stackIndex = 0; stackIndex <= this.stacks; ++stackIndex) {
 
-            /* Vertices */
-            // Vertex 1
+            /* Vertex */
             var currentRad = sliceIndex * this.teta;
+            var currentRadCos = Math.cos(currentRad);
+            var currentRadSin = Math.sin(currentRad);
             this.vertices.push(
-                Math.cos(currentRad),
-                Math.sin(currentRad),
-                stackAcc
-            );
-            // Vertex 2
-            var nextRad = nextSlice * this.teta;
-            this.vertices.push(
-                Math.cos(nextRad),
-                Math.sin(nextRad),
+                currentRadCos,
+                currentRadSin,
                 stackAcc
             );
             stackAcc += this.stackStep;
 
             /* Normals */
             this.normals.push(
-                Math.cos(currentRad + this.halfTeta),
-                Math.sin(currentRad + this.halfTeta),
-                0
-            );
-            this.normals.push(
-                Math.cos(currentRad + this.halfTeta),
-                Math.sin(currentRad + this.halfTeta),
+                currentRadCos,
+                currentRadSin,
                 0
             );
 
             /* Indices */
             if (stackIndex != this.stacks) {
-                var startVertex = 2 * (stackIndex + 1);
-                this.indices.push(
-                    startVertex + periodSlicesN,
-                    (startVertex - 2) + periodSlicesN,
-                    (startVertex - 1) + periodSlicesN,
-                    startVertex + periodSlicesN,
-                    (startVertex - 1) + periodSlicesN,
-                    (startVertex + 1) + periodSlicesN
-                );
+                var startVertex = stackIndex + 1;
+                if (sliceIndex != (this.slices - 1)) {
+                    this.indices.push(
+                        startVertex + periodSlicesN,
+                        startVertex - 1 + periodSlicesN,
+                        startVertex - 1 + periodSlicesNnext,
+                        startVertex + periodSlicesN,
+                        startVertex - 1 + periodSlicesNnext,
+                        startVertex + periodSlicesNnext
+                    );
+                } else {
+                    this.indices.push(
+                        startVertex + periodSlicesN,
+                        startVertex - 1 + periodSlicesN,
+                        0 + stackIndex + lateralFacesOffset,
+                        startVertex + periodSlicesN,
+                        0 + stackIndex + lateralFacesOffset,
+                        1 + stackIndex + lateralFacesOffset
+                    );
+                }
             }
         }
     }
+
+    console.log(this.vertices);
+    console.log(this.vertices.length);
+    console.log(this.indices);
+    console.log(this.indices.length);
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

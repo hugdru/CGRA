@@ -46,9 +46,9 @@ MyLamp.prototype.initBuffers = function() {
 
             /* Normal */
             this.normals.push(
-                -vertexX,
-                -vertexY,
-                -vertexZ
+                vertexX,
+                vertexY,
+                vertexZ
             );
 
             /* Indices */
@@ -57,34 +57,34 @@ MyLamp.prototype.initBuffers = function() {
                 if (tetaIndex != (this.tetaDivisions - 1)) {
                     this.indices.push(
                         startVertex + tetaPeriodTimesN,
+                        startVertex + 1 + tetaPeriodTimesNnext,
                         startVertex + 1 + tetaPeriodTimesN,
-                        startVertex + 1 + tetaPeriodTimesNnext,
                         startVertex + tetaPeriodTimesN,
-                        startVertex + 1 + tetaPeriodTimesNnext,
-                        startVertex + tetaPeriodTimesNnext
+                        startVertex + tetaPeriodTimesNnext,
+                        startVertex + 1 + tetaPeriodTimesNnext
                     );
                 } else {
                     this.indices.push(
                         startVertex + tetaPeriodTimesN,
+                        0 + tetaPeriodTimesNnext,
                         0 + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext,
                         startVertex + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext,
-                        startVertex + tetaPeriodTimesNnext
+                        startVertex + tetaPeriodTimesNnext,
+                        0 + tetaPeriodTimesNnext
                     );
                 }
             } else {
                 if (tetaIndex != (this.tetaDivisions - 1)) {
                     this.indices.push(
                         startVertex + tetaPeriodTimesN,
-                        startVertex + 1 + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext
+                        0 + tetaPeriodTimesNnext,
+                        startVertex + 1 + tetaPeriodTimesN
                     );
                 } else {
                     this.indices.push(
                         startVertex + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext
+                        0 + tetaPeriodTimesNnext,
+                        0 + tetaPeriodTimesN
                     );
                 }
             }

@@ -136,11 +136,6 @@ MyCylinder.prototype.initBuffers = function() {
         }
     }
 
-    console.log(this.vertices);
-    console.log(this.vertices.length);
-    console.log(this.indices);
-    console.log(this.indices.length);
-
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };

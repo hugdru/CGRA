@@ -97,6 +97,28 @@ LightingScene.prototype.init = function(application) {
     this.boardAppearance.setShininess(120);
     this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
+    this.clockAppearance = new CGFappearance(this);
+    this.clockAppearance.loadTexture("resources/images/clock.png");
+    this.clockAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+    this.clockAppearance.setSpecular(0.5, 0.5, 0.5, 1);
+    this.clockAppearance.setShininess(120);
+    this.clockAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+
+    this.hourHandApperance = new CGFappearance(this);
+    this.hourHandApperance.setDiffuse(0.4, 0.7, 0.7, 1);
+    this.hourHandApperance.setSpecular(0.2, 0.5, 0.5, 1);
+    this.hourHandApperance.setShininess(120);
+
+    this.minuteHandAppearance = new CGFappearance(this);
+    this.minuteHandAppearance.setDiffuse(0.4, 0.8, 0.4, 1);
+    this.minuteHandAppearance.setSpecular(0.5, 0.3, 0.2, 1);
+    this.minuteHandAppearance.setShininess(120);
+
+    this.secondHandAppearance = new CGFappearance(this);
+    this.secondHandAppearance.setDiffuse(0.4, 0.2, 0.1, 1);
+    this.secondHandAppearance.setSpecular(0.3, 0.4, 0.9, 1);
+    this.secondHandAppearance.setShininess(120);
+
     // Scene elements
     this.table = new MyTable(this, this.tableTopAppearance, this.tableLegsAppearance);
     this.floor = new MyQuad(this, 0.0, 10.0, 0.0, 12.0);
@@ -108,6 +130,8 @@ LightingScene.prototype.init = function(application) {
     this.cylinder = new MyCylinder(this, 8, 20);
     //this.prism = new MyPrism(this, 8, 20);
     this.chair = new MyChair(this, this.tableTopAppearance);
+    this.clock = new MyClock(this, this.clockAppearance,
+                             this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance);
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -197,6 +221,13 @@ LightingScene.prototype.display = function() {
         //this.rotate(90 * degToRad, 1, 0, 0);
         //this.prism.display();
     //this.popMatrix();
+
+    // Clock
+    this.pushMatrix();
+        this.translate(8 - 0.7, 8 - 0.7, 0.1 + 0.05);
+        this.scale(0.7, 0.7, 0.10);
+        this.clock.display();
+    this.popMatrix();
 
     // MyLamp
     this.pushMatrix();

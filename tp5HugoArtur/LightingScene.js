@@ -28,13 +28,8 @@ LightingScene.prototype.init = function(application) {
 
     this.axis = new CGFaxis(this);
 
-    // Scene elements
-    this.table = new MyTable(this);
-    this.floor = new MyQuad(this, 0.0, 10.0, 0.0, 12.0);
-    this.leftWall = new MyQuad(this, -1.5, 2.5, -0.55, 1.55);
-    this.wall = new Plane(this);
-    this.boardA = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_A_DIVISIONS);
-    this.boardB = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_B_DIVISIONS);
+    // Enables Textures
+    this.enableTextures(true);
 
     // Materials
     this.materialDefault = new CGFappearance(this);
@@ -63,26 +58,23 @@ LightingScene.prototype.init = function(application) {
     this.materialFloor.setSpecular(0.2, 0.2, 0.2, 1);
     this.materialFloor.setShininess(50);
 
-    this.materialTableLegs = new CGFappearance(this);
-    this.materialTableLegs.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialTableLegs.setDiffuse(0.8784, 0.8745, 0.8588, 1);
-    this.materialTableLegs.setSpecular(0.9, 0.9, 0.9, 1);
-    this.materialTableLegs.setShininess(200);
-
     this.materialTableBoard = new CGFappearance(this);
     this.materialTableBoard.setAmbient(0.3, 0.3, 0.3, 1);
     this.materialTableBoard.setDiffuse(0.4, 0.2, 0, 1);
     this.materialTableBoard.setSpecular(0.1, 0.1, 0.1, 1);
     this.materialTableBoard.setShininess(80);
 
-    // Enables Textures
-    this.enableTextures(true);
+    this.tableTopAppearance = new CGFappearance(this);
+    this.tableTopAppearance.loadTexture("resources/images/table.png");
+    this.tableTopAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.tableTopAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+    this.tableTopAppearance.setShininess(30);
 
-    this.tableAppearance = new CGFappearance(this);
-    this.tableAppearance.loadTexture("resources/images/table.png");
-    this.tableAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
-    this.tableAppearance.setSpecular(0.2, 0.2, 0.2, 1);
-    this.tableAppearance.setShininess(30);
+    this.tableLegsAppearance = new CGFappearance(this);
+    this.tableLegsAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.tableLegsAppearance.setDiffuse(0.8784, 0.8745, 0.8588, 1);
+    this.tableLegsAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+    this.tableLegsAppearance.setShininess(200);
 
     this.floorAppearance = new CGFappearance(this);
     this.floorAppearance.loadTexture("resources/images/floor.png");
@@ -104,6 +96,18 @@ LightingScene.prototype.init = function(application) {
     this.boardAppearance.setSpecular(0.5, 0.5, 0.5, 1);
     this.boardAppearance.setShininess(120);
     this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+
+    // Scene elements
+    this.table = new MyTable(this, this.tableTopAppearance, this.tableLegsAppearance);
+    this.floor = new MyQuad(this, 0.0, 10.0, 0.0, 12.0);
+    this.leftWall = new MyQuad(this, -1.5, 2.5, -0.55, 1.55);
+    this.wall = new Plane(this);
+    this.boardA = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_A_DIVISIONS);
+    this.boardB = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_B_DIVISIONS);
+    this.lamp = new MyLamp(this, 8, 20);
+    this.cylinder = new MyCylinder(this, 8, 20);
+    //this.prism = new MyPrism(this, 8, 20);
+    this.chair = new MyChair(this, this.tableTopAppearance);
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -186,63 +190,85 @@ LightingScene.prototype.display = function() {
 
     // ---- BEGIN Primitive drawing section
 
+    // Prism
+    //this.pushMatrix();
+        //this.translate(3, 2, 4);
+        //this.scale(1.5, 2, 1.5);
+        //this.rotate(90 * degToRad, 1, 0, 0);
+        //this.prism.display();
+    //this.popMatrix();
+
+    // MyLamp
+    this.pushMatrix();
+        this.translate(7.5, 8 - 1.2, 7.5);
+        this.scale(1.2, 1.2, 1.2);
+        this.lamp.display();
+    this.popMatrix();
+
+    // Cylinder
+    this.pushMatrix();
+        this.translate(7, 4, 4);
+        this.scale(1.5, 2, 1.5);
+        this.rotate(90 * degToRad, 1, 0, 0);
+        this.cylinder.display();
+    this.popMatrix();
+
     // Floor
     this.pushMatrix();
-    this.translate(7.5, 0, 7.5);
-    this.rotate(-90 * degToRad, 1, 0, 0);
-    this.scale(15, 15, 0.2);
-
-    this.floorAppearance.apply();
-    this.floor.display();
+        this.translate(7.5, 0, 7.5);
+        this.rotate(-90 * degToRad, 1, 0, 0);
+        this.scale(15, 15, 0.2);
+        this.floorAppearance.apply();
+        this.floor.display();
     this.popMatrix();
 
     // Left Wall
     this.pushMatrix();
-    this.translate(0, 4, 7.5);
-    this.rotate(90 * degToRad, 0, 1, 0);
-    this.scale(15, 8, 0.2);
-
-    this.windowAppearance.apply();
-    this.leftWall.display();
+        this.translate(0, 4, 7.5);
+        this.rotate(90 * degToRad, 0, 1, 0);
+        this.scale(15, 8, 0.2);
+        this.windowAppearance.apply();
+        this.leftWall.display();
     this.popMatrix();
 
     // Plane Wall
     this.pushMatrix();
-    this.translate(7.5, 4, 0);
-    this.scale(15, 8, 0.2);
-
-    this.materialWall.apply();
-    this.wall.display();
+        this.translate(7.5, 4, 0);
+        this.scale(15, 8, 0.2);
+        this.materialWall.apply();
+        this.wall.display();
     this.popMatrix();
 
-    // First Table
+    // First Table And Chair
     this.pushMatrix();
-    this.translate(5, 0, 8);
-    this.table.display(this.materialTableLegs, this.tableAppearance);
+        this.translate(5, 0, 8);
+        this.table.display();
+        this.translate(0, 0, 1.5);
+        this.chair.display();
     this.popMatrix();
 
-    // Second Table
+    // Second Table And Chair
     this.pushMatrix();
-    this.translate(12, 0, 8);
-    this.table.display(this.materialTableLegs, this.tableAppearance);
+        this.translate(12, 0, 8);
+        this.table.display();
+        this.translate(0, 0, 1.5);
+        this.chair.display();
     this.popMatrix();
 
     // Board A
     this.pushMatrix();
-    this.translate(4, 4.5, 0.2);
-    this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-
-    this.slidesAppearance.apply();
-    this.boardA.display();
+        this.translate(4, 4.5, 0.2);
+        this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+        this.slidesAppearance.apply();
+        this.boardA.display();
     this.popMatrix();
 
     // Board B
     this.pushMatrix();
-    this.translate(10.5, 4.5, 0.2);
-    this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-
-    this.boardAppearance.apply();
-    this.boardB.display();
+        this.translate(10.5, 4.5, 0.2);
+        this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+        this.boardAppearance.apply();
+        this.boardB.display();
     this.popMatrix();
 
     // ---- END Primitive drawing section

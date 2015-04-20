@@ -99,25 +99,25 @@ LightingScene.prototype.init = function(application) {
 
     this.clockAppearance = new CGFappearance(this);
     this.clockAppearance.loadTexture("resources/images/clock.png");
-    this.clockAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-    this.clockAppearance.setSpecular(0.5, 0.5, 0.5, 1);
-    this.clockAppearance.setShininess(120);
+    this.clockAppearance.setDiffuse(1, 1, 1, 1);
+    this.clockAppearance.setSpecular(0, 0, 0, 1);
+    this.clockAppearance.setShininess(1);
     this.clockAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
     this.hourHandApperance = new CGFappearance(this);
     this.hourHandApperance.setDiffuse(0.4, 0.7, 0.7, 1);
-    this.hourHandApperance.setSpecular(0.2, 0.5, 0.5, 1);
-    this.hourHandApperance.setShininess(120);
+    this.hourHandApperance.setSpecular(0, 0, 0, 1);
+    this.hourHandApperance.setShininess(1);
 
     this.minuteHandAppearance = new CGFappearance(this);
-    this.minuteHandAppearance.setDiffuse(0.4, 0.8, 0.4, 1);
-    this.minuteHandAppearance.setSpecular(0.5, 0.3, 0.2, 1);
-    this.minuteHandAppearance.setShininess(120);
+    this.minuteHandAppearance.setDiffuse(0.8, 0.8, 0.2, 1);
+    this.minuteHandAppearance.setSpecular(0, 0, 0, 1);
+    this.minuteHandAppearance.setShininess(1);
 
     this.secondHandAppearance = new CGFappearance(this);
     this.secondHandAppearance.setDiffuse(0.4, 0.2, 0.1, 1);
-    this.secondHandAppearance.setSpecular(0.3, 0.4, 0.9, 1);
-    this.secondHandAppearance.setShininess(120);
+    this.secondHandAppearance.setSpecular(0, 0, 0, 1);
+    this.secondHandAppearance.setShininess(1);
 
     // Scene elements
     this.table = new MyTable(this, this.tableTopAppearance, this.tableLegsAppearance);
@@ -150,7 +150,7 @@ LightingScene.prototype.initLights = function() {
     this.lights[3].setPosition(0.5, 4, 7.5, 1.0);
 
     this.lights[0].setAmbient(0, 0, 0, 1);
-    this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0);
+    this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
 
@@ -158,7 +158,7 @@ LightingScene.prototype.initLights = function() {
     this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[1].enable();
 
-    this.lights[2].setSpecular(1, 1, 1, 1);
+    this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
     this.lights[2].setConstantAttenuation(0);
     this.lights[2].setQuadraticAttenuation(0);
     this.lights[2].setLinearAttenuation(1.0);
@@ -202,7 +202,6 @@ LightingScene.prototype.display = function() {
     // Draw axis
     this.axis.display();
 
-    this.materialDefault.apply();
 
     // ---- END Background, camera and axis setup
 
@@ -229,6 +228,7 @@ LightingScene.prototype.display = function() {
         this.clock.display();
     this.popMatrix();
 
+    this.materialDefault.apply();
     // MyLamp
     this.pushMatrix();
         this.translate(7.5, 8 - 1.2, 7.5);

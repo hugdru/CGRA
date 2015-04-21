@@ -14,31 +14,33 @@ function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearanc
     this.hourHand = new MyClockHand(this.scene);
     this.minuteHand = new MyClockHand(this.scene);
     this.secondHand = new MyClockHand(this.scene);
+    this.degToRad = Math.PI / 180;
 }
 
 MyClock.prototype = Object.create(CGFobject.prototype);
 MyClock.prototype.constructor = MyClock;
 
 MyClock.prototype.display = function() {
+
     if (typeof this.clockAppearance !== 'undefined') this.clockAppearance.apply();
     this.cylinder.display();
     this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.65);
         if (typeof this.hourHandAppearance !== 'undefined') this.hourHandAppearance.apply();
         this.scene.pushMatrix();
+            this.scene.translate(0, 0, 0.51);
             this.scene.scale(0.050, 0.50, 1);
             this.hourHand.display();
         this.scene.popMatrix();
-        this.scene.translate(0, 0, 0.05);
         if (typeof this.minuteHandAppearance !== 'undefined') this.minuteHandAppearance.apply();
         this.scene.pushMatrix();
-            this.scene.scale(0.035, 0.65, 0);
+            this.scene.translate(0, 0, 0.53);
+            this.scene.scale(0.035, 0.80, 0);
             this.minuteHand.display();
         this.scene.popMatrix();
-        this.scene.translate(0, 0, 0.05);
         if (typeof this.secondHandAppearance !== 'undefined') this.secondHandAppearance.apply();
         this.scene.pushMatrix();
-            this.scene.scale(0.020, 0.85, 0);
+            this.scene.translate(0, 0, 0.55);
+            this.scene.scale(0.010, 0.85, 0);
             this.secondHand.display();
         this.scene.popMatrix();
     this.scene.popMatrix();

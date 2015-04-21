@@ -2,7 +2,7 @@
  * MyCylinder
  * @constructor
  */
-function MyCylinder(scene, slices, stacks) {
+function MyCylinder(scene, slices, stacks, firstBaseAppearance, secondBaseAppearance) {
     CGFobject.call(this, scene);
 
     this.slices = slices;
@@ -11,6 +11,9 @@ function MyCylinder(scene, slices, stacks) {
 
     this.teta = (2 * Math.PI) / this.slices;
     this.startVertexPeriod = this.stacks + 1;
+
+    this.firstBaseAppearance = firstBaseAppearance;
+    this.secondBaseAppearance = secondBaseAppearance;
 
     this.initBuffers();
 }
@@ -30,6 +33,14 @@ MyCylinder.prototype.initBuffers = function() {
 
     // The bases
     for (var i = 0; i < 2; ++i) {
+
+        // Set bases Appearances
+        if (i === 0) {
+            if (typeof this.firstBaseAppearance !== 'undefined') this.firstBaseAppearance.apply();
+        } else {
+            if (typeof this.secondBaseAppearance !== 'undefined') this.secondBaseAppearance.apply();
+        }
+
         for (sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
 
             // Vertices

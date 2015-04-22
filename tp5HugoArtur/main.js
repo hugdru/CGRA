@@ -5,9 +5,10 @@ serialInclude=function(a){var b=console,c=serialInclude.l;if(a.length>0)c.splice
 serialInclude([
     '../lib/CGF.js',
     'LightingScene.js',
-    'MyBase.js',
     'MyChair.js',
     'MyCylinder.js',
+    'MyCylinderBase.js',
+    'MyCylinderLateralFaces.js',
     'MyPrism.js',
     'MyQuad.js',
     'MyTable.js',

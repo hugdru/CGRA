@@ -2,7 +2,7 @@
  * MyClock
  * @constructor
  */
-function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearance, secondHandAppearance) {
+function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearance, secondHandAppearance, firstBaseAppearance, secondBaseAppearance, lateralFacesAppearance) {
     CGFobject.call(this, scene);
 
     this.clockAppearance = clockAppearance;
@@ -10,7 +10,7 @@ function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearanc
     this.minuteHandAppearance = minuteHandAppearance;
     this.secondHandAppearance = secondHandAppearance;
 
-    this.cylinder = new MyCylinder(this.scene, 12, 1);
+    this.cylinder = new MyCylinder(this.scene, 12, 1, firstBaseAppearance, secondBaseAppearance, lateralFacesAppearance);
     this.hourHand = new MyClockHand(this.scene);
     this.minuteHand = new MyClockHand(this.scene);
     this.secondHand = new MyClockHand(this.scene);

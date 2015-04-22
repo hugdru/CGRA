@@ -23,6 +23,7 @@ MyCylinderBase.prototype.initBuffers = function() {
     this.vertices = [0, 0, 0];
     this.indices = [];
     this.normals = [0, 0, 1];
+    this.texCoords = [0.5, 0.5];
 
     if (typeof this.baseAppearance !== 'undefined') this.baseAppearance.apply();
     for (var sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
@@ -33,6 +34,11 @@ MyCylinderBase.prototype.initBuffers = function() {
             Math.cos(sliceIndex * this.teta),
             Math.sin(sliceIndex * this.teta),
             0
+        );
+
+        this.texCoords.push(
+            0.5 + 0.5 * Math.cos(sliceIndex * this.teta),
+            0.5 - 0.5 * Math.sin(sliceIndex * this.teta)
         );
 
         // Indices

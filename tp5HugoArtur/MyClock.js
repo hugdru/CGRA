@@ -15,10 +15,31 @@ function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearanc
     this.minuteHand = new MyClockHand(this.scene, 0.035, 0.80, 180);
     this.secondHand = new MyClockHand(this.scene, 0.010, 0.85, 210);
     this.degToRad = Math.PI / 180;
+
+    this.secondsAndMinutesToDegree = 180 / 30;
+    this.hoursToDegree = 180 / 6;
 }
 
 MyClock.prototype = Object.create(CGFobject.prototype);
 MyClock.prototype.constructor = MyClock;
+
+MyClock.prototype.update = function(currTime) {
+    if (typeof this.setStartingTime == 'undefined') {
+        this.setStartingTime = currTime;
+    } else {
+        var diffTime = currTime - this.setStartingTime;
+
+        var seconds = diffTime / 1000;
+        this.secondHand.setAngle(Math.round(seconds) * this.secondsAndMinutesToDegree);
+
+        var minutes = seconds / 60;
+        this.minuteHand.setAngle(minutes * this.secondsAndMinutesToDegree);
+
+        var hours = minutes / 60;
+        this.hourHand.setAngle(hours * this.hoursToDegree);
+
+    }
+};
 
 MyClock.prototype.display = function() {
 

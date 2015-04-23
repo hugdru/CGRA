@@ -1,4 +1,8 @@
-/** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
+/* Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
+/**
+ * MyObject
+ * @constructor
+ */
 function Plane(scene, width, height, nrDivs) {
     CGFobject.call(this, scene);
 
@@ -36,7 +40,7 @@ function Plane(scene, width, height, nrDivs) {
     this.patchLength = 1.0 / nrDivs;
 
     this.initBuffers();
-};
+}
 
 Plane.prototype = Object.create(CGFobject.prototype);
 Plane.prototype.constructor = Plane;
@@ -101,8 +105,8 @@ Plane.prototype.initBuffers = function() {
     var ind = 0;
 
 
-    for (var j = 0; j < this.nrDivs; j++) {
-        for (var i = 0; i <= this.nrDivs; i++) {
+    for (j = 0; j < this.nrDivs; j++) {
+        for (i = 0; i <= this.nrDivs; i++) {
             this.indices.push(ind);
             this.indices.push(ind + this.nrDivs + 1);
 

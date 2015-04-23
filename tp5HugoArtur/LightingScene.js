@@ -65,7 +65,7 @@ LightingScene.prototype.init = function(application) {
     this.materialTableBoard.setShininess(80);
 
     this.tableTopAppearance = new CGFappearance(this);
-    this.tableTopAppearance.loadTexture("resources/images/table.png");
+    this.tableTopAppearance.loadTexture('resources/images/table.png');
     this.tableTopAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
     this.tableTopAppearance.setSpecular(0.2, 0.2, 0.2, 1);
     this.tableTopAppearance.setShininess(30);
@@ -77,32 +77,32 @@ LightingScene.prototype.init = function(application) {
     this.tableLegsAppearance.setShininess(200);
 
     this.floorAppearance = new CGFappearance(this);
-    this.floorAppearance.loadTexture("resources/images/floor.png");
+    this.floorAppearance.loadTexture('resources/images/floor.png');
 
     this.windowAppearance = new CGFappearance(this);
-    this.windowAppearance.loadTexture("resources/images/window.png");
-    this.windowAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+    this.windowAppearance.loadTexture('resources/images/window.png');
+    this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.slidesAppearance = new CGFappearance(this);
-    this.slidesAppearance.loadTexture("resources/images/slides.png");
+    this.slidesAppearance.loadTexture('resources/images/slides.png');
     this.slidesAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
     this.slidesAppearance.setSpecular(0.2, 0.2, 0.2, 1);
     this.slidesAppearance.setShininess(30);
-    this.slidesAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+    this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.boardAppearance = new CGFappearance(this);
-    this.boardAppearance.loadTexture("resources/images/board.png");
+    this.boardAppearance.loadTexture('resources/images/board.png');
     this.boardAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
     this.boardAppearance.setSpecular(0.5, 0.5, 0.5, 1);
     this.boardAppearance.setShininess(120);
-    this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+    this.boardAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.clockAppearance = new CGFappearance(this);
-    this.clockAppearance.loadTexture("resources/images/clock.png");
+    this.clockAppearance.loadTexture('resources/images/clock.png');
     this.clockAppearance.setDiffuse(1, 1, 1, 1);
     this.clockAppearance.setSpecular(0, 0, 0, 1);
     this.clockAppearance.setShininess(1);
-    this.clockAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+    this.clockAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.hourHandApperance = new CGFappearance(this);
     this.hourHandApperance.setDiffuse(0.4, 0.7, 0.7, 1);
@@ -132,6 +132,9 @@ LightingScene.prototype.init = function(application) {
     this.chair = new MyChair(this, this.tableTopAppearance);
     this.clock = new MyClock(this, this.clockAppearance,
                              this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.clockAppearance, undefined, undefined);
+
+    this.setUpdatePeriod(100);
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -177,7 +180,11 @@ LightingScene.prototype.initLights = function() {
 LightingScene.prototype.updateLights = function() {
     for (i = 0; i < this.lights.length; i++)
         this.lights[i].update();
-}
+};
+
+LightingScene.prototype.update = function(currTime) {
+    this.clock.update(currTime);
+};
 
 
 LightingScene.prototype.display = function() {

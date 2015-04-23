@@ -1,6 +1,5 @@
 /**
  * MyObject
- * @param gl {WebGLRenderingContext}
  * @constructor
  */
 function MyQuad(scene, minS, maxS, minT, maxT) {
@@ -10,7 +9,7 @@ function MyQuad(scene, minS, maxS, minT, maxT) {
     this.maxS = maxS;
     this.maxT = maxT;
     this.initBuffers();
-};
+}
 
 MyQuad.prototype = Object.create(CGFobject.prototype);
 MyQuad.prototype.constructor = MyQuad;

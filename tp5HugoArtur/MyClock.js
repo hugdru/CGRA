@@ -11,9 +11,9 @@ function MyClock(scene, clockAppearance, hourHandAppearance, minuteHandAppearanc
     this.secondHandAppearance = secondHandAppearance;
 
     this.cylinder = new MyCylinder(this.scene, 12, 1, firstBaseAppearance, secondBaseAppearance, lateralFacesAppearance);
-    this.hourHand = new MyClockHand(this.scene);
-    this.minuteHand = new MyClockHand(this.scene);
-    this.secondHand = new MyClockHand(this.scene);
+    this.hourHand = new MyClockHand(this.scene, 0.050, 0.50, 90);
+    this.minuteHand = new MyClockHand(this.scene, 0.035, 0.80, 180);
+    this.secondHand = new MyClockHand(this.scene, 0.010, 0.85, 210);
     this.degToRad = Math.PI / 180;
 }
 
@@ -28,19 +28,16 @@ MyClock.prototype.display = function() {
         if (typeof this.hourHandAppearance !== 'undefined') this.hourHandAppearance.apply();
         this.scene.pushMatrix();
             this.scene.translate(0, 0, 0.51);
-            this.scene.scale(0.050, 0.50, 1);
             this.hourHand.display();
         this.scene.popMatrix();
         if (typeof this.minuteHandAppearance !== 'undefined') this.minuteHandAppearance.apply();
         this.scene.pushMatrix();
             this.scene.translate(0, 0, 0.53);
-            this.scene.scale(0.035, 0.80, 0);
             this.minuteHand.display();
         this.scene.popMatrix();
         if (typeof this.secondHandAppearance !== 'undefined') this.secondHandAppearance.apply();
         this.scene.pushMatrix();
             this.scene.translate(0, 0, 0.55);
-            this.scene.scale(0.010, 0.85, 0);
             this.secondHand.display();
         this.scene.popMatrix();
     this.scene.popMatrix();

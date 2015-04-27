@@ -3,7 +3,8 @@ var degToRad = Math.PI / 180.0;
 var BOARD_WIDTH = 6.0;
 var BOARD_HEIGHT = 4.0;
 
-var BOARD_A_DIVISIONS = 30;
+var FRONT_WALL_DIVISIONS = 100;
+var BOARD_A_DIVISIONS = 100;
 var BOARD_B_DIVISIONS = 100;
 
 function LightingScene() {
@@ -46,11 +47,20 @@ LightingScene.prototype.init = function(application) {
     this.materialB.setSpecular(0.8, 0.8, 0.8, 1);
     this.materialB.setShininess(120);
 
-    this.materialWall = new CGFappearance(this);
-    this.materialWall.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialWall.setDiffuse(0.4784, 0.0784, 0.0784, 1);
-    this.materialWall.setSpecular(0, 0.2, 0.8, 1);
-    this.materialWall.setShininess(120);
+    this.materialFrontWallUp = new CGFappearance(this);
+    this.materialFrontWallUp.setAmbient(0.3, 0.3, 0.3, 1);
+    this.materialFrontWallUp.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.materialFrontWallUp.setSpecular(0, 0.2, 0.8, 1);
+    this.materialFrontWallUp.setShininess(120);
+    this.materialFrontWallUp.loadTexture('resources/images/wallUpTexture.png');
+    this.materialFrontWallUp.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    this.materialFrontWallDown = new CGFappearance(this);
+    this.materialFrontWallDown.setAmbient(0.3, 0.3, 0.3, 1);
+    this.materialFrontWallDown.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.materialFrontWallDown.setSpecular(0, 0.2, 0.8, 1);
+    this.materialFrontWallDown.setShininess(120);
+    this.materialFrontWallDown.loadTexture('resources/images/wallDownTexture.png');
+    this.materialFrontWallDown.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.materialFloor = new CGFappearance(this);
     this.materialFloor.setAmbient(0.3, 0.3, 0.3, 1);
@@ -123,12 +133,12 @@ LightingScene.prototype.init = function(application) {
     this.table = new MyTable(this, this.tableTopAppearance, this.tableLegsAppearance);
     this.floor = new MyQuad(this, 0.0, 10.0, 0.0, 12.0);
     this.leftWall = new MyQuad(this, -1.5, 2.5, -0.55, 1.55);
-    this.wall = new Plane(this);
+    this.frontWallUp = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, FRONT_WALL_DIVISIONS);
+    this.frontWallDown = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, FRONT_WALL_DIVISIONS);
     this.boardA = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_A_DIVISIONS);
     this.boardB = new Plane(this, BOARD_WIDTH, BOARD_HEIGHT, BOARD_B_DIVISIONS);
     this.lamp = new MyLamp(this, 8, 20);
     //this.cylinder = new MyCylinder(this, 8, 20);
-    //this.prism = new MyPrism(this, 8, 20);
     this.chair = new MyChair(this, this.tableTopAppearance);
     this.clock = new MyClock(this, this.clockAppearance,
                              this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.clockAppearance, undefined, undefined);
@@ -253,12 +263,18 @@ LightingScene.prototype.display = function() {
         this.leftWall.display();
     this.popMatrix();
 
-    // Plane Wall
+    // The front wall
     this.pushMatrix();
-        this.translate(7.5, 4, 0);
-        this.scale(15, 8, 0.2);
-        this.materialWall.apply();
-        this.wall.display();
+        this.translate(7.5, 6, 0);
+        this.scale(15, 4, 0.2);
+        this.materialFrontWallUp.apply();
+        this.frontWallUp.display();
+    this.popMatrix();
+    this.pushMatrix();
+        this.translate(7.5, 2, 0);
+        this.scale(15, 4, 0.2);
+        this.materialFrontWallDown.apply();
+        this.frontWallDown.display();
     this.popMatrix();
 
     // First Table And Chair

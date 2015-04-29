@@ -59,6 +59,7 @@ MyScene.prototype.init = function(application) {
     this.tableTopAppearance.setShininess(30);
 
     this.chairEncostoAppearance = new CGFappearance(this);
+    this.chairEncostoAppearance.loadTexture('resources/images/chairEncostoTexture.jpg');
     this.chairEncostoAppearance.setAmbient(0.3, 0.3, 0.3, 1);
     this.chairEncostoAppearance.setDiffuse(0.8784, 0.8745, 0.8588, 1);
     this.chairEncostoAppearance.setSpecular(0.9, 0.9, 0.9, 1);
@@ -150,7 +151,8 @@ MyScene.prototype.init = function(application) {
     //this.cylinder = new MyCylinder(this, 8, 20);
     this.chair = new MyChair(this,
                              this.chairEncostoAppearance, this.chairTampoAppearance, this.pernasAppearance,
-                             CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS);
+                             CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS
+                            );
     this.clock = new MyClock(this, this.clockAppearance,
                              this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.clockAppearance, undefined, undefined);
 

@@ -2,10 +2,20 @@
  * MyCylinderBase
  * @constructor
  */
-function MyCylinderBase(scene, slices, baseAppearance) {
+function MyCylinderBase(scene, slices, baseAppearance,
+                        minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.slices = slices;
+    this.slices = slices || 5;
+    this.minS = minS || 0;
+    this.maxS = maxS || 1;
+    this.minT = minT || 0;
+    this.maxT = maxT || 1;
+
+    this.diffSHalf = (this.maxS - this.minS) / 2;
+    this.diffTHalf = (this.maxT - this.minT) / 2;
+    this.centerS = this.minS + this.diffSHalf;
+    this.centerT = this.minT + this.diffTHalf;
 
     this.teta = 2 * Math.PI / this.slices;
 
@@ -37,8 +47,8 @@ MyCylinderBase.prototype.initBuffers = function() {
         );
 
         this.texCoords.push(
-            0.5 + 0.5 * Math.cos(sliceIndex * this.teta),
-            0.5 - 0.5 * Math.sin(sliceIndex * this.teta)
+            this.centerS + this.diffSHalf * Math.cos(sliceIndex * this.teta),
+            this.centerT - this.diffTHalf * Math.sin(sliceIndex * this.teta)
         );
 
         // Indices

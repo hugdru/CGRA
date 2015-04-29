@@ -30,7 +30,7 @@ MyChair.prototype.display = function() {
         // Criar encosto
         if (typeof this.materialEncosto !== 'undefined') this.materialEncosto.apply();
         this.scene.pushMatrix();
-            this.scene.translate(0, 2.375, 0.9375);
+            this.scene.translate(0, 2.375 + 0.125, 0.9375);
             this.scene.scale(2, 2, 0.125);
             this.cubeEncosto.display();
         this.scene.popMatrix();

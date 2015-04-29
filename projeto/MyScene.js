@@ -42,59 +42,62 @@ MyScene.prototype.init = function(application) {
     // Materials
     this.materialDefault = new CGFappearance(this);
 
-    this.materialA = new CGFappearance(this);
-    this.materialA.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialA.setDiffuse(0.6, 0.6, 0.6, 1);
-    this.materialA.setSpecular(0, 0.2, 0.8, 1);
-    this.materialA.setShininess(120);
+    /** Floor and related Appearances **/
+    this.floorAppearance = new CGFappearance(this);
+    this.floorAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.floorAppearance.setDiffuse(0, 0.2, 0.4, 1);
+    this.floorAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+    this.floorAppearance.setShininess(50);
+    this.floorAppearance.loadTexture('resources/images/floor.jpg');
+    /** End of Floor and related Appearances **/
 
-    this.materialB = new CGFappearance(this);
-    this.materialB.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialB.setDiffuse(0.6, 0.6, 0.6, 1);
-    this.materialB.setSpecular(0.8, 0.8, 0.8, 1);
-    this.materialB.setShininess(120);
-
-    this.materialFrontWallUp = new CGFappearance(this);
-    this.materialFrontWallUp.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialFrontWallUp.setDiffuse(0.4784, 0.0784, 0.0784, 1);
-    this.materialFrontWallUp.setSpecular(0, 0.2, 0.8, 1);
-    this.materialFrontWallUp.setShininess(120);
-    this.materialFrontWallUp.loadTexture('resources/images/floor.png');
-    this.materialFrontWallDown = new CGFappearance(this);
-    this.materialFrontWallDown.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialFrontWallDown.setDiffuse(0.4784, 0.0784, 0.0784, 1);
-    this.materialFrontWallDown.setSpecular(0, 0.2, 0.8, 1);
-    this.materialFrontWallDown.setShininess(120);
-    this.materialFrontWallDown.loadTexture('resources/images/floor.png');
-
-    this.materialFloor = new CGFappearance(this);
-    this.materialFloor.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialFloor.setDiffuse(0, 0.2, 0.4, 1);
-    this.materialFloor.setSpecular(0.2, 0.2, 0.2, 1);
-    this.materialFloor.setShininess(50);
-    this.materialFloor.loadTexture('resources/images/floor.png');
-
-    this.materialTableBoard = new CGFappearance(this);
-    this.materialTableBoard.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialTableBoard.setDiffuse(0.4, 0.2, 0, 1);
-    this.materialTableBoard.setSpecular(0.1, 0.1, 0.1, 1);
-    this.materialTableBoard.setShininess(80);
-
+    /** Tables and Chairs Appearances**/
     this.tableTopAppearance = new CGFappearance(this);
     this.tableTopAppearance.loadTexture('resources/images/table.png');
     this.tableTopAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
     this.tableTopAppearance.setSpecular(0.2, 0.2, 0.2, 1);
     this.tableTopAppearance.setShininess(30);
 
-    this.tableLegsAppearance = new CGFappearance(this);
-    this.tableLegsAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-    this.tableLegsAppearance.setDiffuse(0.8784, 0.8745, 0.8588, 1);
-    this.tableLegsAppearance.setSpecular(0.9, 0.9, 0.9, 1);
-    this.tableLegsAppearance.setShininess(200);
+    this.chairEncostoAppearance = new CGFappearance(this);
+    this.chairEncostoAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.chairEncostoAppearance.setDiffuse(0.8784, 0.8745, 0.8588, 1);
+    this.chairEncostoAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+    this.chairEncostoAppearance.setShininess(200);
 
+    this.chairTampoAppearance = new CGFappearance(this);
+    this.chairTampoAppearance.loadTexture('resources/images/chairTampoTexture.jpg');
+    this.chairTampoAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.chairTampoAppearance.setDiffuse(0.8784, 0.8745, 0.8588, 1);
+    this.chairTampoAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+    this.chairTampoAppearance.setShininess(200);
+
+    this.pernasAppearance = new CGFappearance(this);
+    this.pernasAppearance.loadTexture('resources/images/chairPernasTexture.jpg');
+    this.pernasAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.pernasAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+    this.pernasAppearance.setShininess(30);
+    /** End of Tables and Chairs Appearances**/
+
+    /** Left Wall and related Appearances **/
     this.windowAppearance = new CGFappearance(this);
     this.windowAppearance.loadTexture('resources/images/window.png');
     this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    /** End of Left Wall and related Appearances **/
+
+    /** Front Wall and related Appearances **/
+    this.frontWallUpAppearance = new CGFappearance(this);
+    this.frontWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.frontWallUpAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.frontWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.frontWallUpAppearance.setShininess(120);
+    this.frontWallUpAppearance.loadTexture('resources/images/vintage_27.jpg');
+
+    this.frontWallDownAppearance = new CGFappearance(this);
+    this.frontWallDownAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.frontWallDownAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.frontWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.frontWallDownAppearance.setShininess(120);
+    this.frontWallDownAppearance.loadTexture('resources/images/floor.jpg');
 
     this.slidesAppearance = new CGFappearance(this);
     this.slidesAppearance.loadTexture('resources/images/slides.png');
@@ -131,21 +134,22 @@ MyScene.prototype.init = function(application) {
     this.secondHandAppearance.setDiffuse(0.4, 0.2, 0.1, 1);
     this.secondHandAppearance.setSpecular(0, 0, 0, 1);
     this.secondHandAppearance.setShininess(1);
+    /** End of Front Wall and related Appearances **/
 
     // Scene elements
     this.table = new MyTable(this,
-                             this.tableTopAppearance, this.tableLegsAppearance,
+                             this.tableTopAppearance, this.pernasAppearance,
                              TABLE_TOP_DIVISIONS, TABLE_LEGS_DIVISIONS);
-    this.floor = new Plane(this, FLOOR_DIVISIONS, 0, 10, 0, 12);
+    this.floor = new Plane(this, FLOOR_DIVISIONS, 0, 4, 0, 4);
     this.leftWall = new Plane(this, LEFT_WALL_DIVISIONS, -1.5, 2.5, -0.55, 1.55);
-    this.frontWallUp = new Plane(this, FRONT_WALL_DIVISIONS, 0, 15, 0, 17);
+    this.frontWallUp = new Plane(this, FRONT_WALL_DIVISIONS, 0, 1, 0, 1);
     this.frontWallDown = new Plane(this, FRONT_WALL_DIVISIONS, 0, 5, 0, 7);
     this.boardA = new Plane(this, BOARD_A_DIVISIONS, 0, 1, 0, 1);
     this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
     this.lamp = new MyLamp(this, 8, 20);
     //this.cylinder = new MyCylinder(this, 8, 20);
     this.chair = new MyChair(this,
-                             this.tableTopAppearance, this.materialFloor, this.slidesAppearance,
+                             this.chairEncostoAppearance, this.chairTampoAppearance, this.pernasAppearance,
                              CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS);
     this.clock = new MyClock(this, this.clockAppearance,
                              this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.clockAppearance, undefined, undefined);
@@ -257,7 +261,7 @@ MyScene.prototype.display = function() {
         this.translate(7.5, 0, 7.5);
         this.rotate(-90 * degToRad, 1, 0, 0);
         this.scale(15, 15, 0.2);
-        this.materialFloor.apply();
+        this.floorAppearance.apply();
         this.floor.display();
     this.popMatrix();
 
@@ -274,28 +278,38 @@ MyScene.prototype.display = function() {
     this.pushMatrix();
         this.translate(7.5, 5, 0);
         this.scale(15, 6, 0.2);
-        this.materialFrontWallUp.apply();
+        this.frontWallUpAppearance.apply();
         this.frontWallUp.display();
     this.popMatrix();
     this.pushMatrix();
         this.translate(7.5, 1, 0);
         this.scale(15, 2, 0.2);
-        this.materialFrontWallDown.apply();
+        this.frontWallDownAppearance.apply();
         this.frontWallDown.display();
     this.popMatrix();
 
     // First Table And Chair
     this.pushMatrix();
-        this.translate(5, 0, 8);
+        this.translate(5, 0, 11);
         this.table.display();
+        this.pushMatrix();
+            this.translate(0, 0, 1.5);
+            this.chair.display();
+        this.popMatrix();
+        this.rotate(Math.PI, 0, 1, 0);
         this.translate(0, 0, 1.5);
         this.chair.display();
     this.popMatrix();
 
     // Second Table And Chair
     this.pushMatrix();
-        this.translate(12, 0, 8);
+        this.translate(12, 0, 11);
         this.table.display();
+        this.pushMatrix();
+            this.translate(0, 0, 1.5);
+            this.chair.display();
+        this.popMatrix();
+        this.rotate(Math.PI, 0, 1, 0);
         this.translate(0, 0, 1.5);
         this.chair.display();
     this.popMatrix();

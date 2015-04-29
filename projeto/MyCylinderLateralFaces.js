@@ -2,16 +2,24 @@
  * MyCylinderLateralFaces
  * @constructor
  */
-function MyCylinderLateralFaces(scene, slices, stacks, lateralFacesAppearance) {
+function MyCylinderLateralFaces(scene, slices, stacks, lateralFacesAppearance,
+                               minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.slices = slices;
-    this.stacks = stacks;
-    this.stackStep = 1 / stacks;
+    this.slices = slices || 5;
+    this.stacks = stacks || 5;
+    this.minS = minS || 0;
+    this.maxS = maxS || 1;
+    this.minT = minT || 0;
+    this.maxT = maxT || 1;
+
+    this.patchLengthS = (this.maxS - this.minS) / 2;
+    this.patchLengthT = (this.maxT - this.minT) / 2;
+
+    this.stackStep = 1 / this.stacks;
 
     this.teta = (2 * Math.PI) / this.slices;
     this.startVertexPeriod = this.stacks + 1;
-    this.basePeriod = this.slices + 1;
 
     this.lateralFacesAppearance = lateralFacesAppearance;
 
@@ -25,18 +33,22 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
     this.normals = [];
+    this.texCoords = [];
 
-    // The lateral faces
+    if (typeof this.lateralFacesAppearance !== 'undefined') this.lateralFacesAppearance.apply();
+
+    var sCoord = this.maxS;
     for (sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
 
         // A lateral face
         var stackAcc = -0.5;
         var periodSlicesN = this.startVertexPeriod * sliceIndex;
         var periodSlicesNnext = this.startVertexPeriod * (sliceIndex + 1);
+        var currentRad = sliceIndex * this.teta;
+        var tCoord = this.minT;
         for (var stackIndex = 0; stackIndex <= this.stacks; ++stackIndex) {
 
             /* Vertex */
-            var currentRad = sliceIndex * this.teta;
             var currentRadCos = Math.cos(currentRad);
             var currentRadSin = Math.sin(currentRad);
             this.vertices.push(
@@ -44,7 +56,11 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
                 currentRadSin,
                 stackAcc
             );
-            stackAcc += this.stackStep;
+
+            this.texCoords.push(
+                sCoord,
+                tCoord
+            );
 
             /* Normals */
             this.normals.push(
@@ -76,7 +92,10 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
                     );
                 }
             }
+            stackAcc += this.stackStep;
+            tCoord += this.patchLengthT;
         }
+        sCoord -= this.patchLengthS;
     }
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

@@ -148,7 +148,7 @@ MyScene.prototype.init = function(application) {
     this.boardA = new Plane(this, BOARD_A_DIVISIONS, 0, 1, 0, 1);
     this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
     this.lamp = new MyLamp(this, 8, 20);
-    //this.cylinder = new MyCylinder(this, 8, 20);
+    this.cylinder = new MyCylinder(this, 8, 20, this.floorAppearance, this.floorAppearance, this.floorAppearance);
     this.chair = new MyChair(this,
                              this.chairEncostoAppearance, this.chairTampoAppearance, this.pernasAppearance,
                              CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS
@@ -243,6 +243,12 @@ MyScene.prototype.display = function() {
 
     // ---- BEGIN Primitive drawing section
 
+    // Cylinder
+    this.pushMatrix();
+        this.scale(10, 10, 10);
+        this.cylinder.display();
+    this.popMatrix();
+
     // Clock
     this.pushMatrix();
         this.translate(1 + 6 + 0.25, 8 - 0.7, 0.1 + 0.05);
@@ -251,7 +257,7 @@ MyScene.prototype.display = function() {
     this.popMatrix();
 
     this.materialDefault.apply();
-    // MyLamp
+    // Lamp
     this.pushMatrix();
         this.translate(7.5, 8 - 1.2, 7.5);
         this.scale(1.2, 1.2, 1.2);

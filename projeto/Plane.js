@@ -6,11 +6,11 @@
 function Plane(scene, nrDivs, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.minS = typeof minS !== 'undefined' ? minS : 0;
-    this.maxS = typeof maxS !== 'undefined' ? maxS : 1;
-    this.minT = typeof minT !== 'undefined' ? minT : 0;
-    this.maxT = typeof maxT !== 'undefined' ? maxT : 1;
-    this.nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
+    this.minS = minS || 0;
+    this.maxS = maxS || 1;
+    this.minT = minT || 0;
+    this.maxT = maxT || 1;
+    this.nrDivs = nrDivs || 1;
 
     this.objectPatchLength = 1.0 / this.nrDivs;
     this.texturePatchLengthS = (this.maxS - this.minS) / this.nrDivs;
@@ -40,8 +40,6 @@ Plane.prototype.initBuffers = function() {
     // Generate vertices and normals
     this.vertices = [];
     this.normals = [];
-
-    // Uncomment below to init texCoords
     this.texCoords = [];
 
     var yCoord = 0.5;

@@ -4,11 +4,13 @@ var FRONT_WALL_DIVISIONS = 30;
 var PROJECTION_WIDTH = 6.0;
 var PROJECTION_HEIGHT = 4.0;
 var PROJECTION_DIVISIONS = 50;
+var PROJECTION_SPACING = 0.35;
 
 var LEFT_WALL_DIVISIONS = 30;
 var WINDOW_DIVISIONS = 15;
 
 var FLOOR_DIVISIONS = 25;
+var TABLE_SPACING_FROM_CENTER = 3.5;
 var TABLE_TOP_DIVISIONS = 15;
 var TABLE_LEGS_DIVISIONS = 5;
 var CHAIR_ENCOSTO_DIVISIONS = 10;
@@ -266,33 +268,13 @@ MyScene.prototype.display = function() {
         //this.cylinder.display();
     //this.popMatrix();
 
-    // Clock
-    this.pushMatrix();
-        this.translate(1 + 6 + 0.25, 8 - 0.7, 0.1 + 0.05);
-        this.scale(0.7, 0.7, 0.10);
-        this.clock.display();
-    this.popMatrix();
-
     this.materialDefault.apply();
-    // Lamp
-    this.pushMatrix();
-        this.translate(7.5, 8 - 1.2, 7.5);
-        this.scale(1.2, 1.2, 1.2);
-        this.lamp.display();
-    this.popMatrix();
 
-    // Floor
-    this.pushMatrix();
-        this.translate(7.5, 0, 7.5);
-        this.rotate(-90 * degToRad, 1, 0, 0);
-        this.scale(15, 15, 0.2);
-        this.floorAppearance.apply();
-        this.floor.display();
-    this.popMatrix();
-
-    // The Left Wall
+    // The Left Wall and objects on it
     this.pushMatrix();
         this.translate(0, 0, 7.5);
+
+        // The upper wall
         this.pushMatrix();
             this.translate(0, 5, 0);
             this.rotate(90 * degToRad, 0, 1, 0);
@@ -300,6 +282,8 @@ MyScene.prototype.display = function() {
             this.leftWallUpAppearance.apply();
             this.leftWallUp.display();
         this.popMatrix();
+
+        // The lower wall
         this.pushMatrix();
             this.translate(0, 1, 0);
             this.rotate(90 * degToRad, 0, 1, 0);
@@ -316,18 +300,21 @@ MyScene.prototype.display = function() {
             this.leftWallWindowAppearance.apply();
             this.leftWallWindow.display();
         this.popMatrix();
-
     this.popMatrix();
 
-    // The front wall
+    // The front wall and objects on it
     this.pushMatrix();
         this.translate(7.5, 0, 0);
+
+        // The upper wall
         this.pushMatrix();
             this.translate(0, 5, 0);
             this.scale(15, 6, 0.2);
             this.frontWallUpAppearance.apply();
             this.frontWallUp.display();
         this.popMatrix();
+
+        // The lower wall
         this.pushMatrix();
             this.translate(0, 1, 0);
             this.scale(15, 2, 0.2);
@@ -335,49 +322,83 @@ MyScene.prototype.display = function() {
             this.frontWallDown.display();
         this.popMatrix();
 
-        // Slide projection
+        // The clock
         this.pushMatrix();
-            this.translate(0, 4.5, 0.2);
+            this.translate(0, 8 - 0.7, 0.1 + 0.05);
+            this.scale(0.7, 0.7, 0.10);
+            this.clock.display();
+        this.popMatrix();
+
+        // The slide projection
+        this.pushMatrix();
+            this.translate(-PROJECTION_WIDTH / 2 - PROJECTION_SPACING, 4.5, 0.2);
             this.scale(PROJECTION_WIDTH, PROJECTION_HEIGHT, 1);
             this.slideProjectionAppearance.apply();
             this.slideProjection.display();
         this.popMatrix();
 
-        // CGRA projection
+        // The CGRA projection
         this.pushMatrix();
-            this.translate(0, 4.5, 0.2);
+            this.translate(PROJECTION_WIDTH / 2 + PROJECTION_SPACING, 4.5, 0.2);
             this.scale(PROJECTION_WIDTH, PROJECTION_HEIGHT, 1);
             this.cgraProjectionAppearance.apply();
             this.cgraProjection.display();
         this.popMatrix();
     this.popMatrix();
 
-    // First Table And Chair
+    // The Floor and objects on it
     this.pushMatrix();
-        this.translate(5, 0, 11);
-        this.table.display();
+        this.translate(7.5, 0, 7.5);
+
+        // The Lamp
         this.pushMatrix();
+            this.translate(0, 8 - 1.2, 0);
+            this.scale(1.2, 1.2, 1.2);
+            this.lamp.display();
+        this.popMatrix();
+
+        // The Floor
+        this.pushMatrix();
+            this.rotate(-90 * degToRad, 1, 0, 0);
+            this.scale(15, 15, 0.2);
+            this.floorAppearance.apply();
+            this.floor.display();
+        this.popMatrix();
+
+        // First Table And Chair
+
+        this.translate(0, 0, TABLE_SPACING_FROM_CENTER);
+
+        var centerOnProjection = (PROJECTION_WIDTH - 5) / 2;
+        this.pushMatrix();
+            this.translate(-2.5 - PROJECTION_SPACING - centerOnProjection, 0, 0);
+            this.table.display();
+
+            this.pushMatrix();
+                this.translate(0, 0, 1.5);
+                this.chair.display();
+            this.popMatrix();
+
+            this.rotate(Math.PI, 0, 1, 0);
             this.translate(0, 0, 1.5);
             this.chair.display();
         this.popMatrix();
-        this.rotate(Math.PI, 0, 1, 0);
-        this.translate(0, 0, 1.5);
-        this.chair.display();
-    this.popMatrix();
 
-    // Second Table And Chair
-    this.pushMatrix();
-        this.translate(12, 0, 11);
-        this.table.display();
+        // Second Table And Chair
         this.pushMatrix();
+            this.translate(2.5 + PROJECTION_SPACING + centerOnProjection, 0, 0);
+            this.table.display();
+
+            this.pushMatrix();
+                this.translate(0, 0, 1.5);
+                this.chair.display();
+            this.popMatrix();
+
+            this.rotate(Math.PI, 0, 1, 0);
             this.translate(0, 0, 1.5);
             this.chair.display();
         this.popMatrix();
-        this.rotate(Math.PI, 0, 1, 0);
-        this.translate(0, 0, 1.5);
-        this.chair.display();
     this.popMatrix();
-
 
     // ---- END Primitive drawing section
 

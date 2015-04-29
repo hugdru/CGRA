@@ -1,13 +1,13 @@
 var degToRad = Math.PI / 180.0;
 
-var BOARD_WIDTH = 6.0;
-var BOARD_HEIGHT = 4.0;
-
 var FRONT_WALL_DIVISIONS = 30;
+var PROJECTION_WIDTH = 6.0;
+var PROJECTION_HEIGHT = 4.0;
+var PROJECTION_DIVISIONS = 50;
+
 var LEFT_WALL_DIVISIONS = 30;
 var WINDOW_DIVISIONS = 15;
-var BOARD_A_DIVISIONS = 50;
-var BOARD_B_DIVISIONS = 50;
+
 var FLOOR_DIVISIONS = 25;
 var TABLE_TOP_DIVISIONS = 15;
 var TABLE_LEGS_DIVISIONS = 5;
@@ -80,26 +80,6 @@ MyScene.prototype.init = function(application) {
     this.pernasAppearance.setShininess(30);
     /** End of Tables and Chairs Appearances**/
 
-    /** Left Wall and related Appearances **/
-    this.leftWallUpAppearance = new CGFappearance(this);
-    this.leftWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-    this.leftWallUpAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
-    this.leftWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
-    this.leftWallUpAppearance.setShininess(120);
-    this.leftWallUpAppearance.loadTexture('resources/images/leftWallUpTexture.jpg');
-
-    this.leftWallDownAppearance = new CGFappearance(this);
-    this.leftWallDownAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-    this.leftWallDownAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
-    this.leftWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
-    this.leftWallDownAppearance.setShininess(120);
-    this.leftWallDownAppearance.loadTexture('resources/images/leftWallDownTexture.jpg');
-
-    this.windowAppearance = new CGFappearance(this);
-    this.windowAppearance.loadTexture('resources/images/window.png');
-    this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-    /** End of Left Wall and related Appearances **/
-
     /** Front Wall and related Appearances **/
     this.frontWallUpAppearance = new CGFappearance(this);
     this.frontWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
@@ -115,19 +95,19 @@ MyScene.prototype.init = function(application) {
     this.frontWallDownAppearance.setShininess(120);
     this.frontWallDownAppearance.loadTexture('resources/images/floor.jpg');
 
-    this.slidesAppearance = new CGFappearance(this);
-    this.slidesAppearance.loadTexture('resources/images/slides.png');
-    this.slidesAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
-    this.slidesAppearance.setSpecular(0.2, 0.2, 0.2, 1);
-    this.slidesAppearance.setShininess(30);
-    this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    this.slideProjectionAppearance = new CGFappearance(this);
+    this.slideProjectionAppearance.loadTexture('resources/images/slideProjection.png');
+    this.slideProjectionAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.slideProjectionAppearance.setSpecular(0.2, 0.2, 0.2, 1);
+    this.slideProjectionAppearance.setShininess(30);
+    this.slideProjectionAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-    this.boardAppearance = new CGFappearance(this);
-    this.boardAppearance.loadTexture('resources/images/board.png');
-    this.boardAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-    this.boardAppearance.setSpecular(0.5, 0.5, 0.5, 1);
-    this.boardAppearance.setShininess(120);
-    this.boardAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    this.cgraProjectionAppearance = new CGFappearance(this);
+    this.cgraProjectionAppearance.loadTexture('resources/images/cgraProjection.png');
+    this.cgraProjectionAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+    this.cgraProjectionAppearance.setSpecular(0.5, 0.5, 0.5, 1);
+    this.cgraProjectionAppearance.setShininess(120);
+    this.cgraProjectionAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.clockAppearance = new CGFappearance(this);
     this.clockAppearance.loadTexture('resources/images/clock.png');
@@ -152,18 +132,38 @@ MyScene.prototype.init = function(application) {
     this.secondHandAppearance.setShininess(1);
     /** End of Front Wall and related Appearances **/
 
+    /** Left Wall and related Appearances **/
+    this.leftWallUpAppearance = new CGFappearance(this);
+    this.leftWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.leftWallUpAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.leftWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.leftWallUpAppearance.setShininess(120);
+    this.leftWallUpAppearance.loadTexture('resources/images/leftWallUpTexture.jpg');
+
+    this.leftWallDownAppearance = new CGFappearance(this);
+    this.leftWallDownAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.leftWallDownAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.leftWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.leftWallDownAppearance.setShininess(120);
+    this.leftWallDownAppearance.loadTexture('resources/images/leftWallDownTexture.jpg');
+
+    this.leftWallWindowAppearance = new CGFappearance(this);
+    this.leftWallWindowAppearance.loadTexture('resources/images/window.png');
+    this.leftWallWindowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    /** End of Left Wall and related Appearances **/
+
     // Scene elements
     this.table = new MyTable(this,
                              this.tableTopAppearance, this.pernasAppearance,
                              TABLE_TOP_DIVISIONS, TABLE_LEGS_DIVISIONS);
     this.floor = new Plane(this, FLOOR_DIVISIONS, 0, 4, 0, 4);
-    this.windowLeftWall = new Plane(this, LEFT_WALL_DIVISIONS);
+    this.leftWallWindow = new Plane(this, LEFT_WALL_DIVISIONS);
     this.frontWallUp = new Plane(this, FRONT_WALL_DIVISIONS, 0, 1, 0, 1);
     this.frontWallDown = new Plane(this, FRONT_WALL_DIVISIONS, 0, 5, 0, 7);
     this.leftWallUp = new Plane(this, LEFT_WALL_DIVISIONS, 0, 1, 0, 1);
     this.leftWallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
-    this.boardA = new Plane(this, BOARD_A_DIVISIONS, 0, 1, 0, 1);
-    this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
+    this.slideProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
+    this.cgraProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
     this.lamp = new MyLamp(this, 8, 20);
     this.cylinder = new MyCylinder(this, 8, 20, this.floorAppearance, this.floorAppearance, this.floorAppearance);
     this.chair = new MyChair(this,
@@ -310,27 +310,46 @@ MyScene.prototype.display = function() {
 
         // The window
         this.pushMatrix();
-            this.translate(0.1, 3, 0);
+            this.translate(0.1, 5, 0);
             this.rotate(90 * degToRad, 0, 1, 0);
-            this.scale(2, 2, 1);
-            this.windowAppearance.apply();
-            this.windowLeftWall.display();
+            this.scale(3.5, 3.5, 1);
+            this.leftWallWindowAppearance.apply();
+            this.leftWallWindow.display();
         this.popMatrix();
 
     this.popMatrix();
 
     // The front wall
     this.pushMatrix();
-        this.translate(7.5, 5, 0);
-        this.scale(15, 6, 0.2);
-        this.frontWallUpAppearance.apply();
-        this.frontWallUp.display();
-    this.popMatrix();
-    this.pushMatrix();
-        this.translate(7.5, 1, 0);
-        this.scale(15, 2, 0.2);
-        this.frontWallDownAppearance.apply();
-        this.frontWallDown.display();
+        this.translate(7.5, 0, 0);
+        this.pushMatrix();
+            this.translate(0, 5, 0);
+            this.scale(15, 6, 0.2);
+            this.frontWallUpAppearance.apply();
+            this.frontWallUp.display();
+        this.popMatrix();
+        this.pushMatrix();
+            this.translate(0, 1, 0);
+            this.scale(15, 2, 0.2);
+            this.frontWallDownAppearance.apply();
+            this.frontWallDown.display();
+        this.popMatrix();
+
+        // Slide projection
+        this.pushMatrix();
+            this.translate(0, 4.5, 0.2);
+            this.scale(PROJECTION_WIDTH, PROJECTION_HEIGHT, 1);
+            this.slideProjectionAppearance.apply();
+            this.slideProjection.display();
+        this.popMatrix();
+
+        // CGRA projection
+        this.pushMatrix();
+            this.translate(0, 4.5, 0.2);
+            this.scale(PROJECTION_WIDTH, PROJECTION_HEIGHT, 1);
+            this.cgraProjectionAppearance.apply();
+            this.cgraProjection.display();
+        this.popMatrix();
     this.popMatrix();
 
     // First Table And Chair
@@ -359,21 +378,6 @@ MyScene.prototype.display = function() {
         this.chair.display();
     this.popMatrix();
 
-    // Board A
-    this.pushMatrix();
-        this.translate(4, 4.5, 0.2);
-        this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-        this.slidesAppearance.apply();
-        this.boardA.display();
-    this.popMatrix();
-
-    // Board B
-    this.pushMatrix();
-        this.translate(10.5, 4.5, 0.2);
-        this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-        this.boardAppearance.apply();
-        this.boardB.display();
-    this.popMatrix();
 
     // ---- END Primitive drawing section
 

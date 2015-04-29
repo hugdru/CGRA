@@ -5,6 +5,7 @@ var BOARD_HEIGHT = 4.0;
 
 var FRONT_WALL_DIVISIONS = 30;
 var LEFT_WALL_DIVISIONS = 30;
+var WINDOW_DIVISIONS = 15;
 var BOARD_A_DIVISIONS = 50;
 var BOARD_B_DIVISIONS = 50;
 var FLOOR_DIVISIONS = 25;
@@ -80,6 +81,20 @@ MyScene.prototype.init = function(application) {
     /** End of Tables and Chairs Appearances**/
 
     /** Left Wall and related Appearances **/
+    this.leftWallUpAppearance = new CGFappearance(this);
+    this.leftWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.leftWallUpAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.leftWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.leftWallUpAppearance.setShininess(120);
+    this.leftWallUpAppearance.loadTexture('resources/images/leftWallUpTexture.jpg');
+
+    this.leftWallDownAppearance = new CGFappearance(this);
+    this.leftWallDownAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.leftWallDownAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.leftWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
+    this.leftWallDownAppearance.setShininess(120);
+    this.leftWallDownAppearance.loadTexture('resources/images/leftWallDownTexture.jpg');
+
     this.windowAppearance = new CGFappearance(this);
     this.windowAppearance.loadTexture('resources/images/window.png');
     this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
@@ -142,9 +157,11 @@ MyScene.prototype.init = function(application) {
                              this.tableTopAppearance, this.pernasAppearance,
                              TABLE_TOP_DIVISIONS, TABLE_LEGS_DIVISIONS);
     this.floor = new Plane(this, FLOOR_DIVISIONS, 0, 4, 0, 4);
-    this.leftWall = new Plane(this, LEFT_WALL_DIVISIONS, -1.5, 2.5, -0.55, 1.55);
+    this.windowLeftWall = new Plane(this, LEFT_WALL_DIVISIONS);
     this.frontWallUp = new Plane(this, FRONT_WALL_DIVISIONS, 0, 1, 0, 1);
     this.frontWallDown = new Plane(this, FRONT_WALL_DIVISIONS, 0, 5, 0, 7);
+    this.leftWallUp = new Plane(this, LEFT_WALL_DIVISIONS, 0, 1, 0, 1);
+    this.leftWallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
     this.boardA = new Plane(this, BOARD_A_DIVISIONS, 0, 1, 0, 1);
     this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
     this.lamp = new MyLamp(this, 8, 20);
@@ -244,10 +261,10 @@ MyScene.prototype.display = function() {
     // ---- BEGIN Primitive drawing section
 
     // Cylinder
-    this.pushMatrix();
-        this.scale(10, 10, 10);
-        this.cylinder.display();
-    this.popMatrix();
+    //this.pushMatrix();
+        //this.scale(10, 10, 10);
+        //this.cylinder.display();
+    //this.popMatrix();
 
     // Clock
     this.pushMatrix();
@@ -273,13 +290,33 @@ MyScene.prototype.display = function() {
         this.floor.display();
     this.popMatrix();
 
-    // Left Wall
+    // The Left Wall
     this.pushMatrix();
-        this.translate(0, 4, 7.5);
-        this.rotate(90 * degToRad, 0, 1, 0);
-        this.scale(15, 8, 0.2);
-        this.windowAppearance.apply();
-        this.leftWall.display();
+        this.translate(0, 0, 7.5);
+        this.pushMatrix();
+            this.translate(0, 5, 0);
+            this.rotate(90 * degToRad, 0, 1, 0);
+            this.scale(15, 6, 0.2);
+            this.leftWallUpAppearance.apply();
+            this.leftWallUp.display();
+        this.popMatrix();
+        this.pushMatrix();
+            this.translate(0, 1, 0);
+            this.rotate(90 * degToRad, 0, 1, 0);
+            this.scale(15, 2, 0.2);
+            this.leftWallDownAppearance.apply();
+            this.leftWallDown.display();
+        this.popMatrix();
+
+        // The window
+        this.pushMatrix();
+            this.translate(0.1, 3, 0);
+            this.rotate(90 * degToRad, 0, 1, 0);
+            this.scale(2, 2, 1);
+            this.windowAppearance.apply();
+            this.windowLeftWall.display();
+        this.popMatrix();
+
     this.popMatrix();
 
     // The front wall

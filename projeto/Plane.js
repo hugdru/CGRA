@@ -1,43 +1,20 @@
-/* Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
+/** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 /**
- * MyObject
+ * Plane
  * @constructor
  */
-function Plane(scene, width, height, nrDivs) {
+function Plane(scene, nrDivs, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    // dimensions =1 if not provided
-    width = typeof width !== 'undefined' ? width : 1;
-    height = typeof height !== 'undefined' ? height : 1;
+    this.minS = typeof minS !== 'undefined' ? minS : 0;
+    this.maxS = typeof maxS !== 'undefined' ? maxS : 1;
+    this.minT = typeof minT !== 'undefined' ? minT : 0;
+    this.maxT = typeof maxT !== 'undefined' ? maxT : 1;
+    this.nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
 
-    // nrDivs = 1 if not provided
-    nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
-
-    var horizontal = 0;
-    var vertical = 0;
-
-    if (width != height) {
-        if (width > height) {
-            horizontal = (((width - height) / 2) / width);
-        } else {
-            vertical = (((height - width) / 2) / height);
-        }
-    }
-
-    this.minS = 0.0 - horizontal;
-    this.maxS = 1.0 + horizontal;
-    this.minT = 0.0 - vertical;
-    this.maxT = 1.0 + vertical;
-
-    /*
-    this.minS=minS;
-    this.maxS=maxS
-    this.minT=minT;
-    this.maxT=maxT;
-    */
-
-    this.nrDivs = nrDivs;
-    this.patchLength = 1.0 / nrDivs;
+    this.objectPatchLength = 1.0 / this.nrDivs;
+    this.texturePatchLengthS = (this.maxS - this.minS) / this.nrDivs;
+    this.texturePatchLengthT = (this.maxT - this.minT) / this.nrDivs;
 
     this.initBuffers();
 }
@@ -47,8 +24,7 @@ Plane.prototype.constructor = Plane;
 
 Plane.prototype.initBuffers = function() {
     /* example for nrDivs = 3 :
-    (numbers represent index of point in vertices array)
-
+       (numbers represent index of point in vertices array)
             y
             ^
             |
@@ -59,7 +35,6 @@ Plane.prototype.initBuffers = function() {
     8    9  |  10  11
             |
     12  13  |  14  15
-
     */
 
     // Generate vertices and normals
@@ -70,10 +45,14 @@ Plane.prototype.initBuffers = function() {
     this.texCoords = [];
 
     var yCoord = 0.5;
+    var tCoord = this.minT;
 
-    for (var j = 0; j <= this.nrDivs; j++) {
+    for (var j = 0; j <= this.nrDivs; ++j)
+    {
         var xCoord = -0.5;
-        for (var i = 0; i <= this.nrDivs; i++) {
+        var sCoord = this.minS;
+        for (var i = 0; i <= this.nrDivs; ++i)
+        {
             this.vertices.push(xCoord, yCoord, 0);
 
             // As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
@@ -82,62 +61,67 @@ Plane.prototype.initBuffers = function() {
             this.normals.push(0, 0, 1);
 
             // texCoords should be computed here; uncomment and fill the blanks
+            this.texCoords.push(
+                sCoord, tCoord
+            );
 
-            this.texCoords.push(this.minS + ((this.maxS - this.minS) / this.nrDivs) * i, this.minT + ((this.maxT - this.minT) / this.nrDivs) * j);
-
-            xCoord += this.patchLength;
+            xCoord += this.objectPatchLength;
+            sCoord += this.texturePatchLengthS;
         }
-        yCoord -= this.patchLength;
+        yCoord -= this.objectPatchLength;
+        tCoord += this.texturePatchLengthT;
     }
 
     // Generating indices
     /* for nrDivs = 3 output will be
-        [
-             0,  4, 1,  5,  2,  6,  3,  7,
-                7,  4,
-             4,  8, 5,  9,  6, 10,  7, 11,
-               11,  8,
-             8, 12, 9, 13, 10, 14, 11, 15,
-        ]
-    Interpreting this index list as a TRIANGLE_STRIP will draw rows of the plane (with degenerate triangles in between. */
+       [
+       0,  4, 1,  5,  2,  6,  3,  7,
+       7,  4,
+       4,  8, 5,  9,  6, 10,  7, 11,
+       11,  8,
+       8, 12, 9, 13, 10, 14, 11, 15,
+       ]
+       Interpreting this index list as a TRIANGLE_STRIP will draw rows of the plane (with degenerate triangles in between. */
 
     this.indices = [];
     var ind = 0;
 
-
-    for (j = 0; j < this.nrDivs; j++) {
-        for (i = 0; i <= this.nrDivs; i++) {
+    for (var j = 0; j < this.nrDivs; ++j)
+    {
+        for (var i = 0; i <= this.nrDivs; ++i)
+        {
             this.indices.push(ind);
             this.indices.push(ind + this.nrDivs + 1);
 
-            ind++;
+            ++ind;
         }
-        if (j + 1 < this.nrDivs) {
-            // Extra vertices to create degenerate triangles so that the strip can wrap on the next row
-            // degenerate triangles will not generate fragments
-            this.indices.push(ind + this.nrDivs);
-            this.indices.push(ind);
-        }
+        if (j + 1 < this.nrDivs)
+            {
+                // Extra vertices to create degenerate triangles so that the strip can wrap on the next row
+                // degenerate triangles will not generate fragments
+                this.indices.push(ind + this.nrDivs);
+                this.indices.push(ind);
+            }
     }
 
     this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 
     /* Alternative with TRIANGLES instead of TRIANGLE_STRIP. More indices, but no degenerate triangles */
     /*
-        for (var j = 0; j < this.nrDivs; j++)
-        {
-            for (var i = 0; i < this.nrDivs; i++)
-            {
-                this.indices.push(ind, ind+this.nrDivs+1, ind+1);
-                this.indices.push(ind+1, ind+this.nrDivs+1, ind+this.nrDivs+2 );
+       for (var j = 0; j < this.nrDivs; j++)
+       {
+       for (var i = 0; i < this.nrDivs; i++)
+       {
+       this.indices.push(ind, ind+this.nrDivs+1, ind+1);
+       this.indices.push(ind+1, ind+this.nrDivs+1, ind+this.nrDivs+2 );
 
-                ind++;
-            }
-            ind++;
-        }
+       ind++;
+       }
+       ind++;
+       }
 
-        this.primitiveType = this.scene.gl.TRIANGLES;
-    */
+       this.primitiveType = this.scene.gl.TRIANGLES;
+       */
 
     this.initGLBuffers();
 };

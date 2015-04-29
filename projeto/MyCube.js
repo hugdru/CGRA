@@ -1,21 +1,20 @@
 /**
- * MyObject
+ * MyCube
  * @constructor
  */
-function MyUnitCubeQuad(scene) {
+function MyCube(scene, nrDivs, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.quad = new MyQuad(this.scene, 0.0, 1.0, 0.0, 1.0);
+    this.quad = new Plane(this.scene, nrDivs, minS, maxS, minT, maxT);
     this.quad.initBuffers();
 }
 
-MyUnitCubeQuad.prototype = Object.create(CGFobject.prototype);
-MyUnitCubeQuad.prototype.constructor = MyUnitCubeQuad;
+MyCube.prototype = Object.create(CGFobject.prototype);
+MyCube.prototype.constructor = MyCube;
 
-MyUnitCubeQuad.prototype.display = function() {
+MyCube.prototype.display = function() {
     var deg2rad = Math.PI / 180.0;
     var a_rad = 90.0 * deg2rad;
-
 
     //face da frente
     this.scene.pushMatrix();

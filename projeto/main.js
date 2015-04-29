@@ -35,23 +35,23 @@ serialInclude.l = new Array();
 
 serialInclude([
     '../lib/CGF.js',
-    'LightingScene.js',
+    'MyScene.js',
+    'Plane.js',
+    'MyCube.js',
+    'MyTable.js',
     'MyChair.js',
+    'MyPrism.js',
     'MyCylinder.js',
     'MyCylinderBase.js',
     'MyCylinderLateralFaces.js',
-    'MyPrism.js',
-    'MyQuad.js',
-    'MyTable.js',
-    'MyUnitCubeQuad.js',
-    'Plane.js',
     'MyLamp.js',
+    'MyQuad.js',
     'MyClock.js',
     'MyClockHand.js',
 
     main = function() {
         var app = new CGFapplication(document.body);
-        var myScene = new LightingScene();
+        var myScene = new MyScene();
         var myInterface = new CGFinterface();
 
         app.init();

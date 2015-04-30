@@ -2,14 +2,24 @@
  * MyLamp
  * @constructor
  */
-function MyLamp(scene, slices, stacks) {
+function MyLamp(scene, tetaDivisions, phiDivisions, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.tetaDivisions = slices;
-    this.phiDivisions = stacks;
+    this.tetaDivisions = tetaDivisions || 5;
+    this.phiDivisions = phiDivisions || 5;
+
+    this.minS = minS || 0;
+    this.maxS = maxS || 1;
+    this.minT = minT || 0;
+    this.maxT = maxT || 1;
 
     this.tetaStep = (2 * Math.PI) / this.tetaDivisions;
     this.phiStep = Math.PI / (2 * this.phiDivisions);
+
+    this.diffSHalf = (this.maxS - this.minS) / 2;
+    this.diffTHalf = (this.maxT - this.minT) / 2;
+    this.centerS = this.minS + this.diffSHalf;
+    this.centerT = this.minT + this.diffTHalf;
 
     this.tetaPeriod = this.tetaDivisions;
 
@@ -24,6 +34,7 @@ MyLamp.prototype.initBuffers = function() {
     this.vertices = [];
     this.normals = [];
     this.indices = [];
+    this.texCoords = [];
 
     var phiAcc = 0;
     for (var phiIndex = 0; phiIndex < this.phiDivisions; ++phiIndex) {
@@ -42,6 +53,11 @@ MyLamp.prototype.initBuffers = function() {
                 vertexX,
                 vertexY,
                 vertexZ
+            );
+
+            this.texCoords.push(
+                this.centerS + this.diffSHalf * vertexX,
+                this.centerT + this.diffTHalf * vertexZ
             );
 
             /* Normal */
@@ -95,6 +111,11 @@ MyLamp.prototype.initBuffers = function() {
         if (phiIndex == (this.phiDivisions - 1)) {
             this.vertices.push(
                 0, 1, 0
+            );
+
+            this.texCoords.push(
+                this.centerS,
+                this.centerT
             );
 
             this.normals.push(

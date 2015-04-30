@@ -102,6 +102,7 @@ MyScene.prototype.init = function(application) {
     this.frontWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
     this.frontWallDownAppearance.setShininess(120);
     this.frontWallDownAppearance.loadTexture('resources/images/floor.jpg');
+    this.frontWallDownAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.slideProjectionAppearance = new CGFappearance(this);
     this.slideProjectionAppearance.loadTexture('resources/images/slideProjection.png');
@@ -147,6 +148,7 @@ MyScene.prototype.init = function(application) {
     this.leftWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
     this.leftWallUpAppearance.setShininess(120);
     this.leftWallUpAppearance.loadTexture('resources/images/leftWallUpTexture.jpg');
+    this.leftWallUpAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.leftWallDownAppearance = new CGFappearance(this);
     this.leftWallDownAppearance.setAmbient(0.3, 0.3, 0.3, 1);
@@ -154,6 +156,7 @@ MyScene.prototype.init = function(application) {
     this.leftWallDownAppearance.setSpecular(0, 0.2, 0.8, 1);
     this.leftWallDownAppearance.setShininess(120);
     this.leftWallDownAppearance.loadTexture('resources/images/leftWallDownTexture.jpg');
+    this.leftWallDownAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.leftWallWindowAppearance = new CGFappearance(this);
     this.leftWallWindowAppearance.loadTexture('resources/images/window.png');
@@ -172,8 +175,9 @@ MyScene.prototype.init = function(application) {
     this.leftWallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
     this.slideProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
     this.cgraProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
-    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS);
-    this.cylinder = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS, this.floorAppearance, this.floorAppearance, this.floorAppearance);
+    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS, 0, 7, 0, 7);
+    this.column = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS,
+                                   this.floorAppearance, this.floorAppearance, this.floorAppearance);
     this.chair = new MyChair(this,
                              this.chairEncostoAppearance, this.chairTampoAppearance, this.pernasAppearance,
                              CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS
@@ -271,7 +275,7 @@ MyScene.prototype.display = function() {
     // Cylinder
     this.pushMatrix();
         this.scale(10, 10, 10);
-        this.cylinder.display();
+        this.column.display();
     this.popMatrix();
 
     // The Left Wall and objects on it
@@ -358,6 +362,7 @@ MyScene.prototype.display = function() {
         this.pushMatrix();
             this.translate(0, 8 - 1.2, 0);
             this.scale(1.2, 1.2, 1.2);
+            this.floorAppearance.apply();
             this.lamp.display();
         this.popMatrix();
 

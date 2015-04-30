@@ -2,7 +2,7 @@
  * MyCylinderLateralFaces
  * @constructor
  */
-function MyCylinderLateralFaces(scene, slices, stacks, lateralFacesAppearance,
+function MyCylinderLateralFaces(scene, slices, stacks,
                                minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
@@ -21,8 +21,6 @@ function MyCylinderLateralFaces(scene, slices, stacks, lateralFacesAppearance,
     this.teta = (2 * Math.PI) / this.slices;
     this.startVertexPeriod = this.stacks + 1;
 
-    this.lateralFacesAppearance = lateralFacesAppearance;
-
     this.initBuffers();
 }
 
@@ -34,8 +32,6 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
     this.indices = [];
     this.normals = [];
     this.texCoords = [];
-
-    if (typeof this.lateralFacesAppearance !== 'undefined') this.lateralFacesAppearance.apply();
 
     var sCoord = this.maxS;
     for (sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {

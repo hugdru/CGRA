@@ -10,6 +10,7 @@ function MyClockHand(scene, scaleX, scaleY, angle) {
 
     this.hand = new MyQuad(this.scene, 0, 1, 0, 1);
     this.degreeToRad = Math.PI / 180;
+
     if (typeof angle !== 'undefined') {
         this.setAngle(angle);
     } else {

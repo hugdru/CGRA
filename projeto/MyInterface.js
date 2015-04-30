@@ -7,7 +7,7 @@
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
-};
+}
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
 MyInterface.prototype.constructor = MyInterface;
@@ -34,7 +34,7 @@ MyInterface.prototype.init = function(application) {
 
     // add a group of controls (and open/expand by defult)
 
-    var group=this.gui.addFolder("Options");
+    var group = this.gui.addFolder('Options');
     group.open();
 
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
@@ -55,11 +55,11 @@ MyInterface.prototype.init = function(application) {
 
 /**
  * processKeyboard
- * @param event {Event}
+ * @param {Event} event
  */
 MyInterface.prototype.processKeyboard = function(event) {
     // call CGFinterface default code (omit if you want to override)
-    CGFinterface.prototype.processKeyboard.call(this,event);
+    CGFinterface.prototype.processKeyboard.call(this, event);
 
     // Check key codes e.g. here: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
     // or use String.fromCharCode(event.keyCode) to compare chars
@@ -69,6 +69,6 @@ MyInterface.prototype.processKeyboard = function(event) {
     {
         case (65):  // only works for capital 'A', as it is
             console.log("Key 'A' pressed");
-    };
+    }
 };
 

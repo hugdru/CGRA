@@ -17,6 +17,12 @@ var CHAIR_ENCOSTO_DIVISIONS = 10;
 var CHAIR_TAMPO_DIVISIONS = 7;
 var CHAIR_LEGS_DIVISIONS = 5;
 
+var CYLINDER_SLICES = 8;
+var CYLINDER_STACKS = 20;
+
+var SPHERE_TETA_DIVISIONS = 8;
+var SPHERE_PHI_DIVISIONS = 20;
+
 function MyScene() {
     CGFscene.call(this);
 }
@@ -166,8 +172,8 @@ MyScene.prototype.init = function(application) {
     this.leftWallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
     this.slideProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
     this.cgraProjection = new Plane(this, PROJECTION_DIVISIONS, 0, 1, 0, 1);
-    this.lamp = new MyLamp(this, 8, 20);
-    this.cylinder = new MyCylinder(this, 8, 20, this.floorAppearance, this.floorAppearance, this.floorAppearance);
+    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS);
+    this.cylinder = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS, this.floorAppearance, this.floorAppearance, this.floorAppearance);
     this.chair = new MyChair(this,
                              this.chairEncostoAppearance, this.chairTampoAppearance, this.pernasAppearance,
                              CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS
@@ -263,12 +269,10 @@ MyScene.prototype.display = function() {
     // ---- BEGIN Primitive drawing section
 
     // Cylinder
-    //this.pushMatrix();
-        //this.scale(10, 10, 10);
-        //this.cylinder.display();
-    //this.popMatrix();
-
-    this.materialDefault.apply();
+    this.pushMatrix();
+        this.scale(10, 10, 10);
+        this.cylinder.display();
+    this.popMatrix();
 
     // The Left Wall and objects on it
     this.pushMatrix();

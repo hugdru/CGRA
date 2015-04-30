@@ -6,8 +6,7 @@
 function MyTable(scene, topAppearance, legsAppearance,
                  nrDivsTop, nrDivsLegs,
                  minSTop, maxSTop, minTTop, maxTTop,
-                 minSLegs, maxSLegs, minTLegs, maxTLegs
-                ) {
+                 minSLegs, maxSLegs, minTLegs, maxTLegs) {
 
     CGFobject.call(this, scene);
     this.topCube = new MyCube(this.scene, nrDivsTop, minSTop, maxSTop, minTTop, maxTTop);

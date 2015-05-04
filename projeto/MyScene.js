@@ -201,7 +201,7 @@ MyScene.prototype.init = function(application) {
     /** Left Wall and related Appearances **/
     this.leftWallUpAppearance = new CGFappearance(this);
     this.leftWallUpAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-    this.leftWallUpAppearance.setDiffuse(0.4784, 0.0784, 0.0784, 1);
+    this.leftWallUpAppearance.setDiffuse(0.2, 0.02, 0.02, 1);
     this.leftWallUpAppearance.setSpecular(0, 0.2, 0.8, 1);
     this.leftWallUpAppearance.setShininess(120);
     this.leftWallUpAppearance.loadTexture('resources/images/leftWallUpTexture.jpg');

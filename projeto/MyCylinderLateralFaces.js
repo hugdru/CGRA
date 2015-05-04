@@ -13,8 +13,8 @@ function MyCylinderLateralFaces(scene, slices, stacks,
     this.minT = minT || 0;
     this.maxT = maxT || 1;
 
-    this.patchLengthS = (this.maxS - this.minS) / 2;
-    this.patchLengthT = (this.maxT - this.minT) / 2;
+    this.patchLengthS = (this.maxS - this.minS) / this.slices;
+    this.patchLengthT = (this.maxT - this.minT) / this.stacks;
 
     this.stackStep = 1 / this.stacks;
 

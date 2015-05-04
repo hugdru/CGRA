@@ -66,7 +66,7 @@ MyScene.prototype.init = function(application) {
         this.columnLateralAppearance.setDiffuse(0, 0.2, 0.4, 1);
         this.columnLateralAppearance.setSpecular(0.2, 0.2, 0.2, 1);
         this.columnLateralAppearance.setShininess(50);
-        this.columnLateralAppearance.loadTexture('resources/images/floor.jpg');
+        this.columnLateralAppearance.loadTexture('resources/images/columnLateralTexture.jpg');
         this.columnLateralAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.columnBasesAppearance = new CGFappearance(this);
@@ -75,7 +75,7 @@ MyScene.prototype.init = function(application) {
         this.columnBasesAppearance.setSpecular(0.2, 0.2, 0.2, 1);
         this.columnBasesAppearance.setShininess(50);
         this.columnBasesAppearance.loadTexture('resources/images/columnBaseTexture.jpg');
-        this.columnBasesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        //this.columnBasesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         /** End of Garbage Bin and Column **/
 
         /** Tables and Chairs Appearances **/

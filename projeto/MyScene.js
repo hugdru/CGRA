@@ -44,7 +44,7 @@ MyScene.prototype.init = function(application) {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-    this.axis = new CGFaxis(this);
+    //this.axis = new CGFaxis(this);
 
     // Enables Textures
     this.enableTextures(true);
@@ -303,7 +303,7 @@ MyScene.prototype.display = function() {
     this.updateLights();
 
     // Draw axis
-    this.axis.display();
+    //this.axis.display();
 
 
     // ---- END Background, camera and axis setup
@@ -403,7 +403,7 @@ MyScene.prototype.display = function() {
             this.floorAppearance.apply();
             this.floor.display();
         this.popMatrix();
-        this.translate(0, 0.3, 0);
+        this.translate(0, 0.01, 0);
 
         // The carpet
         this.pushMatrix();

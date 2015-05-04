@@ -48,6 +48,7 @@ serialInclude([
     'MyQuad.js',
     'MyClock.js',
     'MyClockHand.js',
+    'MyInterface.js',
 
     main = function() {
         var app = new CGFapplication(document.body);

@@ -49,11 +49,12 @@ serialInclude([
     'MyClock.js',
     'MyClockHand.js',
     'MyInterface.js',
+    'MyRobot.js',
 
     main = function() {
         var app = new CGFapplication(document.body);
         var myScene = new MyScene();
-        var myInterface = new CGFinterface();
+        var myInterface = new MyInterface();
 
         app.init();
 

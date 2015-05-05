@@ -1,47 +1,48 @@
 /**
- * MyQuad
+ * MyRobot
  * @constructor
  */
-function MyQuad(scene, minS, maxS, minT, maxT) {
+function MyRobot(scene, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
+
     this.minS = typeof minS !== 'undefined' ? minS : 0;
     this.maxS = typeof maxS !== 'undefined' ? maxS : 1;
     this.minT = typeof minT !== 'undefined' ? minT : 0;
     this.maxT = typeof maxT !== 'undefined' ? maxT : 1;
+
+    this.midS = this.minS + (this.maxS - this.minS) / 2;
+
     this.initBuffers();
 }
 
-MyQuad.prototype = Object.create(CGFobject.prototype);
-MyQuad.prototype.constructor = MyQuad;
+MyRobot.prototype = Object.create(CGFobject.prototype);
+MyRobot.prototype.constructor = MyRobot;
 
-MyQuad.prototype.initBuffers = function() {
+MyRobot.prototype.initBuffers = function() {
     this.vertices = [
-        0.5, 0.5, 0,
-        0.5, -0.5, 0,
-        -0.5, -0.5, 0,
-        -0.5, 0.5, 0
+        0, 0.3, 2,
+        0.5, 0.3, 0,
+        -0.5, 0.3, 0
     ];
 
     this.indices = [
-        2, 1, 0,
-        3, 2, 0
+        0, 1, 2
     ];
 
     this.texCoords = [
+        this.midS, this.maxT,
         this.maxS, this.minT,
-        this.maxS, this.maxT,
-        this.minS, this.maxT,
         this.minS, this.minT
     ];
 
     this.normals = [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
+        0, 1, 0,
+        0, 1, 0,
+        0, 1, 0
     ];
 
     this.primitiveType = this.scene.gl.TRIANGLES;
 
     this.initGLBuffers();
 };
+

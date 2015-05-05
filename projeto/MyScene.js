@@ -250,9 +250,13 @@ MyScene.prototype.init = function(application) {
     this.carpet = new Plane(this, CARPET_DIVISIONS);
     this.map = new Plane(this, MAP_DIVISIONS);
     this.paper = new Plane(this, PAPER_DIVISIONS);
+    this.robot = new MyRobot(this);
+
+    this.option1 = true;
+    this.option2 = false;
+    this.speed = 3;
 
     this.setUpdatePeriod(100);
-
 };
 
 MyScene.prototype.initCameras = function() {
@@ -302,6 +306,10 @@ MyScene.prototype.updateLights = function() {
 
 MyScene.prototype.update = function(currTime) {
     this.clock.update(currTime);
+};
+
+MyScene.prototype.doSomething = function () {
+    console.log("Doing something...");
 };
 
 
@@ -418,12 +426,21 @@ MyScene.prototype.display = function() {
     this.pushMatrix();
 
         this.translate(7.5, 0, 7.5);
+
         // The Floor
         this.pushMatrix();
             this.rotate(-90 * degToRad, 1, 0, 0);
             this.scale(15, 15, 0.2);
             this.floorAppearance.apply();
             this.floor.display();
+        this.popMatrix();
+
+        // The robot
+        this.pushMatrix();
+            this.translate(0, 3.7, 0);
+            this.rotate(Math.PI * (7 / 8), 0, -1, 0);
+            this.materialDefault.apply();
+            this.robot.display();
         this.popMatrix();
 
         this.translate(0, CONTENT_SPACING, 0);

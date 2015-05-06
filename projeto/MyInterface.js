@@ -3,7 +3,6 @@
  * @constructor
  */
 
-
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
@@ -59,16 +58,26 @@ MyInterface.prototype.init = function(application) {
  */
 MyInterface.prototype.processKeyboard = function(event) {
     // call CGFinterface default code (omit if you want to override)
-    CGFinterface.prototype.processKeyboard.call(this, event);
+    //CGFinterface.prototype.processKeyboard.call(this, event);
 
     // Check key codes e.g. here: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
     // or use String.fromCharCode(event.keyCode) to compare chars
 
     // for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-    switch (event.keyCode)
-    {
-        case (65):  // only works for capital 'A', as it is
-            console.log("Key 'A' pressed");
+    // w, s, a, d
+    switch (event.which || event.keyCode) {
+        case (119):
+            this.scene.robot.moveForwards();
+            break;
+        case (115):
+            this.scene.robot.moveBackwards();
+            break;
+        case (97):
+            this.scene.robot.rotateCounterClockWise();
+            break;
+        case (100):
+            this.scene.robot.rotateClockWise();
+            break;
     }
 };
 

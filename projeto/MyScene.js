@@ -252,9 +252,14 @@ MyScene.prototype.init = function(application) {
     this.paper = new Plane(this, PAPER_DIVISIONS);
     this.robot = new MyRobot(this);
 
-    this.option1 = true;
-    this.option2 = false;
-    this.speed = 3;
+    // Lights state
+    this.frontRightLightOn = true;
+    this.frontLeftLightOn = true;
+    this.backRightLightOn = true;
+    this.backLeftLightOn = true;
+
+    // Clock state
+    this.clockOn = true;
 
     this.setUpdatePeriod(100);
 };
@@ -305,11 +310,40 @@ MyScene.prototype.updateLights = function() {
 };
 
 MyScene.prototype.update = function(currTime) {
-    this.clock.update(currTime);
+    this.toggleLights();
+    if (this.clockOn) this.clock.update(currTime);
 };
 
-MyScene.prototype.doSomething = function () {
-    console.log("Doing something...");
+MyScene.prototype.pauseResumeClock = function() {
+    this.clockOn = this.clockOn ? false : true;
+};
+
+MyScene.prototype.toggleLights = function() {
+
+    if (this.frontLeftLightOn) {
+        this.lights[0].enable();
+    } else {
+        this.lights[0].disable();
+    }
+
+    if (this.frontRightLightOn) {
+        this.lights[1].enable();
+    } else {
+        this.lights[1].disable();
+    }
+
+    if (this.backRightLightOn) {
+        this.lights[2].enable();
+    } else {
+        this.lights[2].disable();
+    }
+
+    if (this.backLeftLightOn) {
+        this.lights[3].enable();
+    } else {
+        this.lights[3].disable();
+    }
+
 };
 
 

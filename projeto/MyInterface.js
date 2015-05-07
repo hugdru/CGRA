@@ -50,7 +50,26 @@ MyInterface.prototype.init = function(application) {
     //this.gui.add(this.scene, 'speed', -5, 5);
 
     // Pause / Resume clock button
-    this.gui.add(this.scene, 'pauseResumeClock').name('Pause/Resume Clock');
+    var pauseClockString = 'Pause Clock';
+    var resumeClockString = 'Resume Clock';
+    var clockStateButton = this.gui.add(this.scene, 'pauseResumeClock');
+    clockStateButton.clockActive = true;
+    clockStateButton.name(pauseClockString).onChange(
+        function() {
+
+            console.log(this);
+            console.log(pauseClockString);
+            console.log(resumeClockString);
+
+            if (this.clockActive) {
+                this.name(resumeClockString);
+                this.clockActive = false;
+            } else {
+                this.name(pauseClockString);
+                this.clockActive = true;
+            }
+        }
+    );
 
     // Lights check boxes
     var lightsGroup = this.gui.addFolder('Lights');

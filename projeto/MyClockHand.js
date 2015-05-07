@@ -33,3 +33,7 @@ MyClockHand.prototype.display = function() {
 MyClockHand.prototype.setAngle = function(angle) {
     this.angle = angle * this.degreeToRad;
 };
+
+MyClockHand.prototype.getAngle = function() {
+    return this.angle / this.degreeToRad;
+}

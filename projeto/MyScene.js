@@ -245,7 +245,7 @@ MyScene.prototype.init = function(application) {
                              CHAIR_ENCOSTO_DIVISIONS, CHAIR_TAMPO_DIVISIONS, CHAIR_LEGS_DIVISIONS
                             );
     this.clock = new MyClock(this, this.clockAppearance,
-                             this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.clockAppearance, undefined, undefined);
+                             this.hourHandApperance, this.minuteHandAppearance, this.secondHandAppearance, this.materialDefault, this.clockAppearance, this.materialDefault);
 
     this.carpet = new Plane(this, CARPET_DIVISIONS);
     this.map = new Plane(this, MAP_DIVISIONS);
@@ -311,11 +311,25 @@ MyScene.prototype.updateLights = function() {
 
 MyScene.prototype.update = function(currTime) {
     this.toggleLights();
-    if (this.clockOn) this.clock.update(currTime);
+    if (this.clockOn) {
+        if (!this.previousClockOn && (typeof this.previousClockOn !== 'undefined')) {
+            this.previousClockOn = true;
+            this.clock.resume();
+        }
+        this.clock.update(currTime);
+    }
 };
 
 MyScene.prototype.pauseResumeClock = function() {
-    this.clockOn = this.clockOn ? false : true;
+    //this.clockOn = this.clockOn ? false : true;
+
+    if (this.clockOn) {
+        this.clockOn = false;
+        this.previousClockOn = true;
+    } else {
+        this.clockOn = true;
+        this.previousClockOn = false;
+    }
 };
 
 MyScene.prototype.toggleLights = function() {

@@ -235,7 +235,7 @@ MyScene.prototype.init = function(application) {
     this.wallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
     this.slideProjection = new Plane(this, PROJECTION_DIVISIONS);
     this.cgraProjection = new Plane(this, PROJECTION_DIVISIONS);
-    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS);
+    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS, this.lampAppearance);
     this.column = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS,
                                    this.columnBasesAppearance, undefined, this.columnLateralAppearance);
     this.garbageBin = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS,
@@ -527,7 +527,6 @@ MyScene.prototype.display = function() {
         this.pushMatrix();
             this.translate(0, 8 - 1.2, 0);
             this.scale(1.2, 1.2, 1.2);
-            this.lampAppearance.apply();
             this.lamp.display();
         this.popMatrix();
 

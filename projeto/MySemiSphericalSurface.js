@@ -1,12 +1,14 @@
 /**
- * SemiSphericalSurface
+ * MySemiSphericalSurface
  * @constructor
  */
-function SemiSphericalSurface(scene, tetaDivisions, phiDivisions, minS, maxS, minT, maxT) {
+function MySemiSphericalSurface(scene, tetaDivisions, phiDivisions, surfaceAppearance, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
     this.tetaDivisions = tetaDivisions || 5;
     this.phiDivisions = phiDivisions || 5;
+
+    this.surfaceAppearance = surfaceAppearance;
 
     this.minS = minS || 0;
     this.maxS = maxS || 1;
@@ -26,10 +28,18 @@ function SemiSphericalSurface(scene, tetaDivisions, phiDivisions, minS, maxS, mi
     this.initBuffers();
 }
 
-SemiSphericalSurface.prototype = Object.create(CGFobject.prototype);
-SemiSphericalSurface.prototype.constructor = SemiSphericalSurface;
+MySemiSphericalSurface.prototype = Object.create(CGFobject.prototype);
+MySemiSphericalSurface.prototype.constructor = MySemiSphericalSurface;
 
-SemiSphericalSurface.prototype.initBuffers = function() {
+MySemiSphericalSurface.prototype.display = function() {
+
+    this.scene.pushMatrix();
+        if (typeof this.surfaceAppearance !== "undefined") this.surfaceAppearance.apply();
+        CGFobject.prototype.display.call(this);
+    this.scene.popMatrix();
+};
+
+MySemiSphericalSurface.prototype.initBuffers = function() {
 
     this.vertices = [];
     this.normals = [];

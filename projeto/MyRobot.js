@@ -3,19 +3,38 @@
  * @constructor
  */
 function MyRobot(scene,
-                 headTetaDivisions, phiDivisions, bodySlices, bodyStacks, armsSlices, armsStacks, wheelsSlices, wheelsStacks,
-                 headAppearance, bodyAppearance, leftArmAppearance, RightArmAppearance, leftWheelAppearance, rightWheelAppearance,
+                 headTetaDivisions, headPhiDivisions, bodySlices, bodyStacks, armsSlices, armsStacks, wheelsSlices, wheelsStacks,
+                 headAppearance, bodyFirstBaseAppearance, bodySecondBaseAppearance, bodyLateralFacesAppearance,
+                 leftArmAppearance, rightArmAppearance, leftWheelAppearance, rightWheelAppearance,
                  minHeadS, maxHeadS, minHeadT, maxHeadT,
-                 minBodyS, maxBodyS, minBodyT, maxBodyT,
-                 minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT) {
+                 minBodyFirstBaseS, maxBodyFirstBaseS, minBodyFirstBaseT, maxBodyFirstBaseT,
+                 minBodySecondBaseS, maxBodySecondBaseS, minBodySecondBaseT, maxBodySecondBaseT,
+                 minBodyLateralFacesS, maxBodyLateralFacesS, minBodyLateralFacesT, maxBodyLateralFacesT,
+                 minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT,
+                 minRightArmS, maxRightArmS, minRightArmT, maxRightArmT,
+                 minLeftWheelS, maxLeftWheelS, minLeftWheelT, maxLeftWheelT,
+                 minRightWheelS, maxRightWheelS, minRightWheelT, maxRightWheelT) {
     CGFobject.call(this, scene);
 
-    this.minS = typeof minS !== 'undefined' ? minS : 0;
-    this.maxS = typeof maxS !== 'undefined' ? maxS : 1;
-    this.minT = typeof minT !== 'undefined' ? minT : 0;
-    this.maxT = typeof maxT !== 'undefined' ? maxT : 1;
+    this.head = new MySemiSphericalSurface(this.scene, headTetaDivisions, headPhiDivisions, headAppearance, minHeadS, maxHeadS, minHeadT, maxHeadT);
+    this.body = new MyCylinder(this.scene, bodySlices, bodyStacks,
+                    bodyFirstBaseAppearance, bodySecondBaseAppearance, bodyLateralFacesAppearance,
+                    minBodyFirstBaseS, maxBodyFirstBaseS, minBodyFirstBaseT, maxBodyFirstBaseT,
+                    minBodySecondBaseS, maxBodySecondBaseS, minBodySecondBaseT, maxBodySecondBaseT,
+                    minBodyLateralFacesS, maxBodyLateralFacesS, minBodyLateralFacesT, maxBodyLateralFacesT);
 
-    this.midS = this.minS + (this.maxS - this.minS) / 2;
+    this.leftArm = new MyCylinder(this.scene, armsSlices, armsStacks,
+                    leftArmAppearance, minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT,
+                    minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT);
+
+    this.rightArm = new MyCylinder(this.scene, armsSlices, armsStacks,
+                    rightArmAppearance, minRightArmS, maxRightArmS, minRightArmT, maxRightArmT);
+
+    this.leftWheel = new MyCylinder(this.scene, wheelsSlices, wheelsStacks,
+                    leftWheelAppearance, minLeftWheelS, maxLeftWheelS, minLeftWheelT, maxLeftWheelT);
+
+    this.rightWheel = new MyCylinder(this.scene, wheelsSlices, wheelsStacks,
+                    rightWheelAppearance, minRightWheelS, maxRightWheelS, minRightWheelT, maxRightWheelT);
 
     this.translationFromReference = {x: 0, z: 0};
     this.angleFromReference = 0;
@@ -24,8 +43,6 @@ function MyRobot(scene,
     this.rotationDifferential = Math.PI / 180;
 
     this.speed = 1;
-
-    this.initBuffers();
 }
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -34,38 +51,14 @@ MyRobot.prototype.constructor = MyRobot;
 MyRobot.prototype.display = function() {
 
     this.scene.pushMatrix();
-        this.scene.translate(this.translationFromReference.x, 0, this.translationFromReference.z);
-        this.scene.rotate(this.angleFromReference, 0, 1, 0);
-        CGFobject.prototype.display.call(this);
+        this.scene.scale(5, 5, 5);
+        //this.head.display();
+        this.body.display();
+        //this.leftArm.display();
+        //this.rightArm.display();
+        //this.leftWheel.display();
+        //this.rightWheel.display();
     this.scene.popMatrix();
-};
-
-MyRobot.prototype.initBuffers = function() {
-    this.vertices = [
-        0, 0.3, 2,
-        0.5, 0.3, 0,
-        -0.5, 0.3, 0
-    ];
-
-    this.indices = [
-        0, 1, 2
-    ];
-
-    this.texCoords = [
-        this.midS, this.maxT,
-        this.maxS, this.minT,
-        this.minS, this.minT
-    ];
-
-    this.normals = [
-        0, 1, 0,
-        0, 1, 0,
-        0, 1, 0
-    ];
-
-    this.primitiveType = this.scene.gl.TRIANGLES;
-
-    this.initGLBuffers();
 };
 
 MyRobot.prototype.moveForwards = function() {
@@ -86,6 +79,6 @@ MyRobot.prototype.rotateClockWise = function() {
     this.angleFromReference -= this.speed * this.rotationDifferential;
 };
 
-MyRobot.prototype.setSpeed= function(speed) {
+MyRobot.prototype.setSpeed = function(speed) {
     this.speed = speed ? speed : 1;
-}
+};

@@ -2,12 +2,15 @@
  * MyCylinderLateralFaces
  * @constructor
  */
-function MyCylinderLateralFaces(scene, slices, stacks,
+function MyCylinderLateralFaces(scene, slices, stacks, facesAppearance,
                                minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
     this.slices = slices || 5;
     this.stacks = stacks || 5;
+
+    this.facesAppearance = facesAppearance;
+
     this.minS = minS || 0;
     this.maxS = maxS || 1;
     this.minT = minT || 0;
@@ -26,6 +29,11 @@ function MyCylinderLateralFaces(scene, slices, stacks,
 
 MyCylinderLateralFaces.prototype = Object.create(CGFobject.prototype);
 MyCylinderLateralFaces.prototype.constructor = MyCylinderLateralFaces;
+
+MyCylinderLateralFaces.prototype.display = function() {
+    if (typeof this.facesAppearance !== 'undefined') this.facesAppearance.apply();
+    CGFobject.prototype.display.call(this);
+};
 
 MyCylinderLateralFaces.prototype.initBuffers = function() {
     this.vertices = [];

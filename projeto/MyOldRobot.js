@@ -1,13 +1,8 @@
 /**
- * MyRobot
+ * MyOldRobot
  * @constructor
  */
-function MyRobot(scene,
-                 headTetaDivisions, phiDivisions, bodySlices, bodyStacks, armsSlices, armsStacks, wheelsSlices, wheelsStacks,
-                 headAppearance, bodyAppearance, leftArmAppearance, RightArmAppearance, leftWheelAppearance, rightWheelAppearance,
-                 minHeadS, maxHeadS, minHeadT, maxHeadT,
-                 minBodyS, maxBodyS, minBodyT, maxBodyT,
-                 minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT) {
+function MyOldRobot(scene, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
     this.minS = typeof minS !== 'undefined' ? minS : 0;
@@ -28,10 +23,10 @@ function MyRobot(scene,
     this.initBuffers();
 }
 
-MyRobot.prototype = Object.create(CGFobject.prototype);
-MyRobot.prototype.constructor = MyRobot;
+MyOldRobot.prototype = Object.create(CGFobject.prototype);
+MyOldRobot.prototype.constructor = MyOldRobot;
 
-MyRobot.prototype.display = function() {
+MyOldRobot.prototype.display = function() {
 
     this.scene.pushMatrix();
         this.scene.translate(this.translationFromReference.x, 0, this.translationFromReference.z);
@@ -40,7 +35,7 @@ MyRobot.prototype.display = function() {
     this.scene.popMatrix();
 };
 
-MyRobot.prototype.initBuffers = function() {
+MyOldRobot.prototype.initBuffers = function() {
     this.vertices = [
         0, 0.3, 2,
         0.5, 0.3, 0,
@@ -68,24 +63,24 @@ MyRobot.prototype.initBuffers = function() {
     this.initGLBuffers();
 };
 
-MyRobot.prototype.moveForwards = function() {
+MyOldRobot.prototype.moveForwards = function() {
     this.translationFromReference.x += this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
     this.translationFromReference.z += this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
 };
 
-MyRobot.prototype.moveBackwards = function() {
+MyOldRobot.prototype.moveBackwards = function() {
     this.translationFromReference.x -= this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
     this.translationFromReference.z -= this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
 };
 
-MyRobot.prototype.rotateCounterClockWise = function() {
+MyOldRobot.prototype.rotateCounterClockWise = function() {
     this.angleFromReference += this.speed * this.rotationDifferential;
 };
 
-MyRobot.prototype.rotateClockWise = function() {
+MyOldRobot.prototype.rotateClockWise = function() {
     this.angleFromReference -= this.speed * this.rotationDifferential;
 };
 
-MyRobot.prototype.setSpeed= function(speed) {
+MyOldRobot.prototype.setSpeed= function(speed) {
     this.speed = speed ? speed : 1;
 }

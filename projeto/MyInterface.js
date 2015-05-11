@@ -76,7 +76,7 @@ MyInterface.prototype.init = function(application) {
     lightsGroup.add(this.scene, 'backLeftLightOn').name('Back Left');
 
     // Robo options group
-    var robotGroup = this.gui.addFolder('Robot options');
+    var robotGroup = this.gui.addFolder('Robot Options');
     robotGroup.open();
 
     this.gui.add(this.scene, 'robotSpeed', 1, 10).name('Robot Speed');

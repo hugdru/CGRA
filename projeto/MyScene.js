@@ -250,7 +250,10 @@ MyScene.prototype.init = function(application) {
     this.carpet = new Plane(this, CARPET_DIVISIONS);
     this.map = new Plane(this, MAP_DIVISIONS);
     this.paper = new Plane(this, PAPER_DIVISIONS);
+
+    // Robot
     this.robot = new MyRobot(this);
+    this.robotSpeed = 1;
 
     // Lights state
     this.frontRightLightOn = true;
@@ -311,6 +314,7 @@ MyScene.prototype.updateLights = function() {
 
 MyScene.prototype.update = function(currTime) {
     this.toggleLights();
+    this.robot.setSpeed(this.robotSpeed);
     if (this.clockOn) {
         if (!this.previousClockOn && (typeof this.previousClockOn !== 'undefined')) {
             this.previousClockOn = true;
@@ -321,8 +325,6 @@ MyScene.prototype.update = function(currTime) {
 };
 
 MyScene.prototype.pauseResumeClock = function() {
-    //this.clockOn = this.clockOn ? false : true;
-
     if (this.clockOn) {
         this.clockOn = false;
         this.previousClockOn = true;

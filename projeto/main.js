@@ -44,6 +44,7 @@ serialInclude([
     'MyCylinder.js',
     'MyCylinderBase.js',
     'MyCylinderLateralFaces.js',
+    'MySemiSphericalSurface.js',
     'MyLamp.js',
     'MyQuad.js',
     'MyClock.js',

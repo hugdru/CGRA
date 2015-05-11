@@ -18,6 +18,8 @@ function MyRobot(scene, minS, maxS, minT, maxT) {
     this.movementDifferential = 0.1;
     this.rotationDifferential = Math.PI / 180;
 
+    this.speed = 1;
+
     this.initBuffers();
 }
 
@@ -62,19 +64,23 @@ MyRobot.prototype.initBuffers = function() {
 };
 
 MyRobot.prototype.moveForwards = function() {
-    this.translationFromReference.x += this.movementDifferential * Math.sin(this.angleFromReference);
-    this.translationFromReference.z += this.movementDifferential * Math.cos(this.angleFromReference);
+    this.translationFromReference.x += this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
+    this.translationFromReference.z += this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
 };
 
 MyRobot.prototype.moveBackwards = function() {
-    this.translationFromReference.x -= this.movementDifferential * Math.sin(this.angleFromReference);
-    this.translationFromReference.z -= this.movementDifferential * Math.cos(this.angleFromReference);
+    this.translationFromReference.x -= this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
+    this.translationFromReference.z -= this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
 };
 
 MyRobot.prototype.rotateCounterClockWise = function() {
-    this.angleFromReference += this.rotationDifferential;
+    this.angleFromReference += this.speed * this.rotationDifferential;
 };
 
 MyRobot.prototype.rotateClockWise = function() {
-    this.angleFromReference -= this.rotationDifferential;
+    this.angleFromReference -= this.speed * this.rotationDifferential;
 };
+
+MyRobot.prototype.setSpeed= function(speed) {
+    this.speed = speed ? speed : 1;
+}

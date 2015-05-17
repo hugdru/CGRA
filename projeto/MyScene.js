@@ -487,8 +487,6 @@ MyScene.prototype.display = function() {
 
         // The robot
         this.pushMatrix();
-            this.translate(0, 3.7, 0);
-            this.rotate(Math.PI * (7 / 8), 0, -1, 0);
             this.materialDefault.apply();
             this.robot.display();
         this.popMatrix();

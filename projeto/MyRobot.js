@@ -42,6 +42,22 @@ function MyRobot(scene,
     this.movementDifferential = 0.1;
     this.rotationDifferential = Math.PI / 180;
 
+    this.headScale = {x: 1, y: 1, z: 1};
+    this.bodyScale = {x: 1, y: 1, z: 1};
+    this.armsScale = {x: 1, y: 1, z: 1};
+    this.wheelsScale = {x: 1, y: 1, z: 1};
+
+    this.halfHead = {};
+    this.halfBody = {};
+    this.halfArms = {};
+    this.halfWheels = {};
+    for (var property in this.headScale) {
+        this.halfHead[property] = this.headScale[property] / 2;
+        this.halfBody[property] = this.bodyScale[property] / 2;
+        this.halfArms[property] = this.armsScale[property] / 2;
+        this.halfWheels[property] = this.wheelsScale[property] / 2;
+    }
+
     this.speed = 1;
 }
 
@@ -51,13 +67,36 @@ MyRobot.prototype.constructor = MyRobot;
 MyRobot.prototype.display = function() {
 
     this.scene.pushMatrix();
-        this.scene.scale(5, 5, 5);
-        //this.head.display();
-        this.body.display();
-        //this.leftArm.display();
-        //this.rightArm.display();
-        //this.leftWheel.display();
-        //this.rightWheel.display();
+
+        this.scene.translate(0, this.halfWheels.y + this.halfBody.y, 0)
+        this.scene.pushMatrix();
+            this.scene.rotate(Math.PI / 2, 1, 0, 0);
+            this.body.display();
+        this.scene.popMatrix();
+        // Head Area
+        this.scene.pushMatrix();
+            this.scene.translate(0, this.halfBody.y, 0);
+            this.head.display();
+        this.scene.popMatrix();
+        // Arms Area
+        this.scene.pushMatrix();
+            //this.scene.rotate(Math.PI / 2, 0, 1, 0);
+            //this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
+            var armsZTranslate = this.halfBody.z + this.halfArms.z;
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, armsZTranslate);
+                this.leftArm.display();
+            this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, -armsZTranslate);
+                this.rightArm.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
+        // Wheels Area
+        //this.scene.pushMatrix();
+            //this.leftWheel.display();
+            //this.rightWheel.display();
+        //this.scene.popMatrix();
     this.scene.popMatrix();
 };
 

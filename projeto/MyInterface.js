@@ -79,7 +79,7 @@ MyInterface.prototype.init = function(application) {
     var robotGroup = this.gui.addFolder('Robot Options');
     robotGroup.open();
 
-    this.gui.add(this.scene, 'robotSpeed', 1, 10).name('Robot Speed');
+    this.gui.add(this.scene, 'robotSpeed', 1, 10).name('Speed');
 
     return true;
 };

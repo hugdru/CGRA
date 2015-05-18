@@ -2,15 +2,17 @@
  * MyCylinderBase
  * @constructor
  */
-function MyCylinderBase(scene, slices,
+function MyCylinderBase(scene, slices, baseAppearance,
                         minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.slices = slices || 5;
+    this.slices = slices || 8;
     this.minS = minS || 0;
     this.maxS = maxS || 1;
     this.minT = minT || 0;
     this.maxT = maxT || 1;
+
+    this.baseAppearance = baseAppearance;
 
     this.diffSHalf = (this.maxS - this.minS) / 2;
     this.diffTHalf = (this.maxT - this.minT) / 2;
@@ -24,6 +26,11 @@ function MyCylinderBase(scene, slices,
 
 MyCylinderBase.prototype = Object.create(CGFobject.prototype);
 MyCylinderBase.prototype.constructor = MyCylinderBase;
+
+MyCylinderBase.prototype.display = function() {
+    if (typeof this.baseAppearance !== 'undefined') this.baseAppearance.apply();
+    CGFobject.prototype.display.call(this);
+};
 
 MyCylinderBase.prototype.initBuffers = function() {
 

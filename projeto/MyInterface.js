@@ -56,11 +56,6 @@ MyInterface.prototype.init = function(application) {
     clockStateButton.clockActive = true;
     clockStateButton.name(pauseClockString).onChange(
         function() {
-
-            console.log(this);
-            console.log(pauseClockString);
-            console.log(resumeClockString);
-
             if (this.clockActive) {
                 this.name(resumeClockString);
                 this.clockActive = false;
@@ -79,6 +74,12 @@ MyInterface.prototype.init = function(application) {
     lightsGroup.add(this.scene, 'frontRightLightOn').name('Front Right');
     lightsGroup.add(this.scene, 'backRightLightOn').name('Back Right');
     lightsGroup.add(this.scene, 'backLeftLightOn').name('Back Left');
+
+    // Robo options group
+    var robotGroup = this.gui.addFolder('Robot Options');
+    robotGroup.open();
+
+    this.gui.add(this.scene, 'robotSpeed', 1, 10).name('Speed');
 
     return true;
 };

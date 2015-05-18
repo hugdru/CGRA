@@ -44,12 +44,14 @@ serialInclude([
     'MyCylinder.js',
     'MyCylinderBase.js',
     'MyCylinderLateralFaces.js',
+    'MySemiSphericalSurface.js',
     'MyLamp.js',
     'MyQuad.js',
     'MyClock.js',
     'MyClockHand.js',
     'MyInterface.js',
     'MyRobot.js',
+    'MyOldRobot.js',
 
     main = function() {
         var app = new CGFapplication(document.body);

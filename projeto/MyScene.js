@@ -235,7 +235,7 @@ MyScene.prototype.init = function(application) {
     this.wallDown = new Plane(this, LEFT_WALL_DIVISIONS, 0, 4, 0, 1);
     this.slideProjection = new Plane(this, PROJECTION_DIVISIONS);
     this.cgraProjection = new Plane(this, PROJECTION_DIVISIONS);
-    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS);
+    this.lamp = new MyLamp(this, SPHERE_TETA_DIVISIONS, SPHERE_PHI_DIVISIONS, this.lampAppearance);
     this.column = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS,
                                    this.columnBasesAppearance, undefined, this.columnLateralAppearance);
     this.garbageBin = new MyCylinder(this, CYLINDER_SLICES, CYLINDER_STACKS,
@@ -250,7 +250,10 @@ MyScene.prototype.init = function(application) {
     this.carpet = new Plane(this, CARPET_DIVISIONS);
     this.map = new Plane(this, MAP_DIVISIONS);
     this.paper = new Plane(this, PAPER_DIVISIONS);
+
+    // Robot
     this.robot = new MyRobot(this);
+    this.robotSpeed = 1;
 
     // Lights state
     this.frontRightLightOn = true;
@@ -311,6 +314,7 @@ MyScene.prototype.updateLights = function() {
 
 MyScene.prototype.update = function(currTime) {
     this.toggleLights();
+    this.robot.setSpeed(this.robotSpeed);
     if (this.clockOn) {
         if (!this.previousClockOn && (typeof this.previousClockOn !== 'undefined')) {
             this.previousClockOn = true;
@@ -321,8 +325,6 @@ MyScene.prototype.update = function(currTime) {
 };
 
 MyScene.prototype.pauseResumeClock = function() {
-    //this.clockOn = this.clockOn ? false : true;
-
     if (this.clockOn) {
         this.clockOn = false;
         this.previousClockOn = true;
@@ -382,7 +384,6 @@ MyScene.prototype.display = function() {
 
     // Draw axis
     //this.axis.display();
-
 
     // ---- END Background, camera and axis setup
 
@@ -485,8 +486,6 @@ MyScene.prototype.display = function() {
 
         // The robot
         this.pushMatrix();
-            this.translate(0, 3.7, 0);
-            this.rotate(Math.PI * (7 / 8), 0, -1, 0);
             this.materialDefault.apply();
             this.robot.display();
         this.popMatrix();
@@ -525,7 +524,6 @@ MyScene.prototype.display = function() {
         this.pushMatrix();
             this.translate(0, 8 - 1.2, 0);
             this.scale(1.2, 1.2, 1.2);
-            this.lampAppearance.apply();
             this.lamp.display();
         this.popMatrix();
 

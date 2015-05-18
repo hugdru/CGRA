@@ -79,7 +79,23 @@ MyInterface.prototype.init = function(application) {
     var robotGroup = this.gui.addFolder('Robot Options');
     robotGroup.open();
 
-    this.gui.add(this.scene, 'robotSpeed', 1, 10).name('Speed');
+    robotGroup.add(this.scene, 'robotSpeed', 1, 10).name('Speed');
+
+    var appearancesNames = [];
+    for (var propertyName in this.scene.robotAppearances) {
+        appearancesNames.push(propertyName);
+    }
+
+    robotGroup.add(
+        this.scene,
+        'currRobotAppearance',
+        appearancesNames
+    ).name('texture').onChange(
+        function() {
+            var scene = this.object;
+            scene.robot.setAppearance(scene.robotAppearances[scene.currRobotAppearance]);
+        }
+    );
 
     return true;
 };

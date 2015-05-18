@@ -2,39 +2,39 @@
  * MyRobot
  * @constructor
  */
-function MyRobot(scene,
-                 headTetaDivisions, headPhiDivisions, bodySlices, bodyStacks, armsSlices, armsStacks, wheelsSlices, wheelsStacks,
-                 headAppearance, bodyFirstBaseAppearance, bodySecondBaseAppearance, bodyLateralFacesAppearance,
-                 leftArmAppearance, rightArmAppearance, leftWheelAppearance, rightWheelAppearance,
-                 minHeadS, maxHeadS, minHeadT, maxHeadT,
-                 minBodyFirstBaseS, maxBodyFirstBaseS, minBodyFirstBaseT, maxBodyFirstBaseT,
-                 minBodySecondBaseS, maxBodySecondBaseS, minBodySecondBaseT, maxBodySecondBaseT,
-                 minBodyLateralFacesS, maxBodyLateralFacesS, minBodyLateralFacesT, maxBodyLateralFacesT,
-                 minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT,
-                 minRightArmS, maxRightArmS, minRightArmT, maxRightArmT,
-                 minLeftWheelS, maxLeftWheelS, minLeftWheelT, maxLeftWheelT,
-                 minRightWheelS, maxRightWheelS, minRightWheelT, maxRightWheelT) {
+function MyRobot(scene, robotAppearanceList) {
     CGFobject.call(this, scene);
 
-    this.head = new MySemiSphericalSurface(this.scene, headTetaDivisions, headPhiDivisions, headAppearance, minHeadS, maxHeadS, minHeadT, maxHeadT);
-    this.body = new MyCylinder(this.scene, bodySlices, bodyStacks,
-                    bodyFirstBaseAppearance, bodySecondBaseAppearance, bodyLateralFacesAppearance,
-                    minBodyFirstBaseS, maxBodyFirstBaseS, minBodyFirstBaseT, maxBodyFirstBaseT,
-                    minBodySecondBaseS, maxBodySecondBaseS, minBodySecondBaseT, maxBodySecondBaseT,
-                    minBodyLateralFacesS, maxBodyLateralFacesS, minBodyLateralFacesT, maxBodyLateralFacesT);
+    this.head = new MySemiSphericalSurface(
+        this.scene,
+        robotAppearanceList.head.tetaDivisions, robotAppearanceList.head.phiDivisions, robotAppearanceList.head.appearance,
+        robotAppearanceList.head.minS, robotAppearanceList.head.maxS, robotAppearanceList.head.minT, robotAppearanceList.head.maxT);
 
-    this.leftArm = new MyCylinder(this.scene, armsSlices, armsStacks,
-                    leftArmAppearance, minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT,
-                    minLeftArmS, maxLeftArmS, minLeftArmT, maxLeftArmT);
+    this.body = new MyCylinder(
+        this.scene,
+        robotAppearanceList.body.slices, robotAppearanceList.body.stacks,
+        robotAppearanceList.body.baseAppearance, undefined, robotAppearanceList.body.lateralFacesAppearance,
+        robotAppearanceList.body.minBaseS, robotAppearanceList.body.maxBaseS, robotAppearanceList.body.minBaseT, robotAppearanceList.body.maxBaseT,
+        robotAppearanceList.body.minBaseS, robotAppearanceList.body.maxBaseS, robotAppearanceList.body.minBaseT, robotAppearanceList.body.maxBaseT,
+        robotAppearanceList.body.minLateralFacesS, robotAppearanceList.body.maxLateralFacesS, robotAppearanceList.body.minLateralFacesT, robotAppearanceList.body.maxLateralFacesT);
 
-    this.rightArm = new MyCylinder(this.scene, armsSlices, armsStacks,
-                    rightArmAppearance, minRightArmS, maxRightArmS, minRightArmT, maxRightArmT);
+    this.leftArm = new MyCylinder(
+        this.scene, robotAppearanceList.arms.slices, robotAppearanceList.arms.stacks,
+        robotAppearanceList.arms.baseAppearance, undefined, robotAppearanceList.lateralFacesAppearance,
+        robotAppearanceList.arms.minBaseS, robotAppearanceList.arms.maxBaseS, robotAppearanceList.arms.minBaseT, robotAppearanceList.arms.maxBaseT,
+        robotAppearanceList.arms.minBaseS, robotAppearanceList.arms.maxBaseS, robotAppearanceList.arms.minBaseT, robotAppearanceList.arms.maxBaseT,
+        robotAppearanceList.arms.minLateralFacesS, robotAppearanceList.arms.maxLateralFacesS, robotAppearanceList.arms.minLateralFacesT, robotAppearanceList.arms.maxLateralFacesT);
 
-    this.leftWheel = new MyCylinder(this.scene, wheelsSlices, wheelsStacks,
-                    leftWheelAppearance, minLeftWheelS, maxLeftWheelS, minLeftWheelT, maxLeftWheelT);
+    this.rightArm = this.leftArm;
 
-    this.rightWheel = new MyCylinder(this.scene, wheelsSlices, wheelsStacks,
-                    rightWheelAppearance, minRightWheelS, maxRightWheelS, minRightWheelT, maxRightWheelT);
+    this.leftWheel = new MyCylinder(
+        this.scene, robotAppearanceList.wheels.slices, robotAppearanceList.wheels.stacks,
+        robotAppearanceList.wheels.baseAppearance, undefined, robotAppearanceList.lateralFacesAppearance,
+        robotAppearanceList.wheels.minBaseS, robotAppearanceList.wheels.maxBaseS, robotAppearanceList.wheels.minBaseT, robotAppearanceList.wheels.maxBaseT,
+        robotAppearanceList.wheels.minBaseS, robotAppearanceList.wheels.maxBaseS, robotAppearanceList.wheels.minBaseT, robotAppearanceList.wheels.maxBaseT,
+        robotAppearanceList.wheels.minLateralFacesS, robotAppearanceList.wheels.maxLateralFacesS, robotAppearanceList.wheels.minLateralFacesT, robotAppearanceList.wheels.maxLateralFacesT);
+
+    this.rightWheel = this.leftWheel;
 
     this.translationFromReference = {x: 0, z: 0};
     this.angleFromReference = 0;
@@ -142,3 +142,10 @@ MyRobot.prototype.rotateClockWise = function() {
 MyRobot.prototype.setSpeed = function(speed) {
     this.speed = speed ? speed : 1;
 };
+
+MyRobot.prototype.setAppearance = function(appearancesList) {
+    this.head.setAppearance(appearancesList.head.appearance);
+    this.body.setAppearance(appearancesList.body.baseAppearance, undefined, appearancesList.body.lateralFacesAppearance);
+    this.leftArm.setAppearance(appearancesList.arms.baseAppearance, undefined, appearancesList.arms.lateralFacesAppearance);
+    this.leftWheel.setAppearance(appearancesList.wheels.baseAppearance, undefined, appearancesList.wheels.lateralFacesAppearance);
+}

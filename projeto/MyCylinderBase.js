@@ -72,3 +72,7 @@ MyCylinderBase.prototype.initBuffers = function() {
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
+
+MyCylinderBase.prototype.setAppearance = function(appearance) {
+    this.baseAppearance = appearance;
+};

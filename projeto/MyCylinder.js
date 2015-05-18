@@ -40,3 +40,9 @@ MyCylinder.prototype.display = function() {
         this.lateralFaces.display();
     this.scene.popMatrix();
 };
+
+MyCylinder.prototype.setAppearance = function(firstBaseAppearance, secondBaseAppearance, lateralFacesAppearance) {
+    this.firstBase.setAppearance(firstBaseAppearance);
+    this.secondBase.setAppearance(secondBaseAppearance);
+    this.lateralFaces.setAppearance(lateralFacesAppearance);
+};

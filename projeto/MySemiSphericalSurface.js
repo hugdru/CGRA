@@ -140,3 +140,6 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
     this.initGLBuffers();
 };
 
+MySemiSphericalSurface.prototype.setAppearance = function(appearance) {
+    this.surfaceAppearance = appearance;
+}

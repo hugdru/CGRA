@@ -104,3 +104,7 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
+
+MyCylinderLateralFaces.prototype.setAppearance = function(appearance) {
+    this.facesAppearance = appearance;
+}

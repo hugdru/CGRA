@@ -5,8 +5,6 @@
 function MyRobot(scene, robotAppearanceList) {
     CGFobject.call(this, scene);
 
-    console.log(robotAppearanceList);
-
     this.head = new MySemiSphericalSurface(
         this.scene,
         robotAppearanceList.head.tetaDivisions, robotAppearanceList.head.phiDivisions, robotAppearanceList.head.appearance,

@@ -42,7 +42,7 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
     this.texCoords = [];
 
     var sCoord = this.maxS;
-    for (sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
+    for (sliceIndex = 0; sliceIndex <= this.slices; ++sliceIndex) {
 
         // A lateral face
         var stackAcc = -0.5;
@@ -74,27 +74,16 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
             );
 
             /* Indices */
-            if (stackIndex != this.stacks) {
+            if (stackIndex != this.stacks && sliceIndex != this.slices) {
                 var startVertex = stackIndex + 1;
-                if (sliceIndex != (this.slices - 1)) {
-                    this.indices.push(
-                        startVertex + periodSlicesN,
-                        startVertex - 1 + periodSlicesN,
-                        startVertex - 1 + periodSlicesNnext,
-                        startVertex + periodSlicesN,
-                        startVertex - 1 + periodSlicesNnext,
-                        startVertex + periodSlicesNnext
-                    );
-                } else {
-                    this.indices.push(
-                        startVertex + periodSlicesN,
-                        startVertex - 1 + periodSlicesN,
-                        0 + stackIndex,
-                        startVertex + periodSlicesN,
-                        0 + stackIndex,
-                        1 + stackIndex
-                    );
-                }
+                this.indices.push(
+                    startVertex + periodSlicesN,
+                    startVertex - 1 + periodSlicesN,
+                    startVertex - 1 + periodSlicesNnext,
+                    startVertex + periodSlicesN,
+                    startVertex - 1 + periodSlicesNnext,
+                    startVertex + periodSlicesNnext
+                );
             }
             stackAcc += this.stackStep;
             tCoord += this.patchLengthT;
@@ -107,4 +96,4 @@ MyCylinderLateralFaces.prototype.initBuffers = function() {
 
 MyCylinderLateralFaces.prototype.setAppearance = function(appearance) {
     this.facesAppearance = appearance;
-}
+};

@@ -575,13 +575,9 @@ MyScene.prototype.display = function() {
 
     // ---- END Background, camera and axis setup
 
-
-    // ---- BEGIN Geometric transformation section
-
-    // ---- END Geometric transformation section
-
-
     // ---- BEGIN Primitive drawing section
+
+    this.column.display();
 
     // The Left Wall and objects on it
     this.pushMatrix();

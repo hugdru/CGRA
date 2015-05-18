@@ -142,3 +142,10 @@ MyRobot.prototype.rotateClockWise = function() {
 MyRobot.prototype.setSpeed = function(speed) {
     this.speed = speed ? speed : 1;
 };
+
+MyRobot.prototype.setAppearance = function(appearancesList) {
+    this.head.setAppearance(appearancesList.head.appearance);
+    this.body.setAppearance(appearancesList.body.baseAppearance, undefined, appearancesList.body.lateralFacesAppearance);
+    this.leftArm.setAppearance(appearancesList.arms.baseAppearance, undefined, appearancesList.arms.lateralFacesAppearance);
+    this.leftWheel.setAppearance(appearancesList.wheels.baseAppearance, undefined, appearancesList.wheels.lateralFacesAppearance);
+}

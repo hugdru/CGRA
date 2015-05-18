@@ -577,8 +577,6 @@ MyScene.prototype.display = function() {
 
     // ---- BEGIN Primitive drawing section
 
-    this.column.display();
-
     // The Left Wall and objects on it
     this.pushMatrix();
         this.translate(0, 0, 7.5);

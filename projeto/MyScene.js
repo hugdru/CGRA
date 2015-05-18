@@ -65,6 +65,15 @@ MyScene.prototype.init = function(application) {
     this.floorAppearance.loadTexture('resources/images/floor.jpg');
     this.floorAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
+
+    /** Robot Appearances **/
+
+    // Robot Appearance List Elements Terminator
+
+
+    // Robot Appearance List Elements Lord of the Rings
+
+
     this.robotAppearances = [];
     this.robotAppearances['Terminator'] =
         {
@@ -138,6 +147,7 @@ MyScene.prototype.init = function(application) {
                 lateralFacesAppearance: this.robotLegsLateralFacesAppearance1,
             }
         }
+    /** End of Robot Appearances **/
 
     this.carpetAppearance = new CGFappearance(this);
     this.carpetAppearance.setAmbient(0.5, 0.5, 0.5, 1);

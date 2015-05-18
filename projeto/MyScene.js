@@ -7,7 +7,7 @@ var PROJECTION_WIDTH = 6.0;
 var PROJECTION_HEIGHT = 4.0;
 var PROJECTION_DIVISIONS = 50;
 var PROJECTION_SPACING = 0.35;
- 
+
 var LEFT_WALL_DIVISIONS = 30;
 var WINDOW_DIVISIONS = 15;
 
@@ -64,6 +64,118 @@ MyScene.prototype.init = function(application) {
     this.floorAppearance.setShininess(2.5);
     this.floorAppearance.loadTexture('resources/images/floor.jpg');
     this.floorAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.robotAppearances = new Array(2);
+    this.robotAppearances.push(
+        {
+            head: {
+                tetaDivisions: 10,
+                phiDivisions: 10,
+                appearance: this.robotHeadAppearance0,
+                minS: 0,
+                maxS: 2,
+                minT: 0,
+                maxT: 2
+            },
+            body: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotBodyBaseAppearance0,
+                lateralFacesAppearance: this.robotBodyLateralFacesAppearance0,
+                minBaseS: 0,
+                maxBaseS: 2,
+                minBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            },
+            arms: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotArmsBaseAppearance0,
+                lateralFacesAppearance: this.robotArmsLateralFacesAppearance0,
+                minBaseS: 0,
+                maxBaseS: 2,
+                minBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            },
+            wheels: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotWheelsFirstBaseAppearance0,
+                lateralFacesAppearance: this.robotWheelsLateralFacesAppearance0,
+                minBaseS: 0,
+                maxBaseS: 2,
+                mindBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            }
+        }
+    );
+    this.robotAppearances.push(
+        {
+            head: {
+                tetaDivisions: 10,
+                phiDivisions: 10,
+                appearance: this.robotHeadAppearance1,
+                minS: 0,
+                maxS: 2,
+                minT: 0,
+                maxT: 2
+            },
+            body: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotBodyBaseAppearance1,
+                lateralFacesAppearance: this.robotBodyLateralFacesAppearance1,
+                minBaseS: 0,
+                maxBaseS: 2,
+                minBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            },
+            arms: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotArmsBaseAppearance1,
+                lateralFacesAppearance: this.robotArmsLateralFacesAppearance1,
+                minBaseS: 0,
+                maxBaseS: 2,
+                minBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            },
+            wheels: {
+                slices: 10,
+                stacks: 10,
+                baseAppearance: this.robotLegsFirstBaseAppearance1,
+                lateralFacesAppearance: this.robotLegsLateralFacesAppearance1,
+                minBaseS: 0,
+                maxBaseS: 2,
+                mindBaseT: 0,
+                maxBaseT: 2,
+                minLateralFacesS: 0,
+                maxLateralFacesS: 3,
+                minLateralFacesT: 0,
+                maxLateralFacesT: 3
+            }
+        }
+    );
 
     this.carpetAppearance = new CGFappearance(this);
     this.carpetAppearance.setAmbient(0.5, 0.5, 0.5, 1);
@@ -252,7 +364,7 @@ MyScene.prototype.init = function(application) {
     this.paper = new Plane(this, PAPER_DIVISIONS);
 
     // Robot
-    this.robot = new MyRobot(this);
+    this.robot = new MyRobot(this, this.robotAppearances[0]);
     this.robotSpeed = 1;
 
     // Lights state
@@ -484,13 +596,13 @@ MyScene.prototype.display = function() {
             this.floor.display();
         this.popMatrix();
 
+        this.translate(0, CONTENT_SPACING, 0);
+
         // The robot
         this.pushMatrix();
             this.materialDefault.apply();
             this.robot.display();
         this.popMatrix();
-
-        this.translate(0, CONTENT_SPACING, 0);
 
         // The carpet
         this.pushMatrix();

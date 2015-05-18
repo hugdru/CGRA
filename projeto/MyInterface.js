@@ -90,7 +90,7 @@ MyInterface.prototype.init = function(application) {
         this.scene,
         'currRobotAppearance',
         appearancesNames
-    ).name('texture').onChange(
+    ).name('Texture').onChange(
         function() {
             var scene = this.object;
             scene.robot.setAppearance(scene.robotAppearances[scene.currRobotAppearance]);

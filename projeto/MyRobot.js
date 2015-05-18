@@ -23,7 +23,7 @@ function MyRobot(scene, robotAppearanceList) {
 
     this.leftArm = new MyCylinder(
         this.scene, robotAppearanceList.arms.slices, robotAppearanceList.arms.stacks,
-        robotAppearanceList.arms.baseAppearance, undefined, robotAppearanceList.lateralFacesAppearance,
+        robotAppearanceList.arms.baseAppearance, undefined, robotAppearanceList.arms.lateralFacesAppearance,
         robotAppearanceList.arms.minBaseS, robotAppearanceList.arms.maxBaseS, robotAppearanceList.arms.minBaseT, robotAppearanceList.arms.maxBaseT,
         robotAppearanceList.arms.minBaseS, robotAppearanceList.arms.maxBaseS, robotAppearanceList.arms.minBaseT, robotAppearanceList.arms.maxBaseT,
         robotAppearanceList.arms.minLateralFacesS, robotAppearanceList.arms.maxLateralFacesS, robotAppearanceList.arms.minLateralFacesT, robotAppearanceList.arms.maxLateralFacesT);
@@ -32,7 +32,7 @@ function MyRobot(scene, robotAppearanceList) {
 
     this.leftWheel = new MyCylinder(
         this.scene, robotAppearanceList.wheels.slices, robotAppearanceList.wheels.stacks,
-        robotAppearanceList.wheels.baseAppearance, undefined, robotAppearanceList.lateralFacesAppearance,
+        robotAppearanceList.wheels.baseAppearance, undefined, robotAppearanceList.wheels.lateralFacesAppearance,
         robotAppearanceList.wheels.minBaseS, robotAppearanceList.wheels.maxBaseS, robotAppearanceList.wheels.minBaseT, robotAppearanceList.wheels.maxBaseT,
         robotAppearanceList.wheels.minBaseS, robotAppearanceList.wheels.maxBaseS, robotAppearanceList.wheels.minBaseT, robotAppearanceList.wheels.maxBaseT,
         robotAppearanceList.wheels.minLateralFacesS, robotAppearanceList.wheels.maxLateralFacesS, robotAppearanceList.wheels.minLateralFacesT, robotAppearanceList.wheels.maxLateralFacesT);

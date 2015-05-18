@@ -70,8 +70,122 @@ MyScene.prototype.init = function(application) {
 
     // Robot Appearance List Elements Terminator
 
+    var robotHeadAppearance0 = new CGFappearance(this);
+    robotHeadAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotHeadAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotHeadAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotHeadAppearance0.setShininess(2.5);
+    robotHeadAppearance0.loadTexture('resources/images/floor.jpg');
+    robotHeadAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotBodyBaseAppearance0 = new CGFappearance(this);
+    robotBodyBaseAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotBodyBaseAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotBodyBaseAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotBodyBaseAppearance0.setShininess(2.5);
+    robotBodyBaseAppearance0.loadTexture('resources/images/floor.jpg');
+    robotBodyBaseAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotBodyLateralFacesAppearance0 = new CGFappearance(this);
+    robotBodyLateralFacesAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotBodyLateralFacesAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotBodyLateralFacesAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotBodyLateralFacesAppearance0.setShininess(2.5);
+    robotBodyLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
+    robotBodyLateralFacesAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotArmsBaseAppearance0 = new CGFappearance(this);
+    robotArmsBaseAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotArmsBaseAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotArmsBaseAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotArmsBaseAppearance0.setShininess(2.5);
+    robotArmsBaseAppearance0.loadTexture('resources/images/floor.jpg');
+    robotArmsBaseAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotArmsLateralFacesAppearance0 = new CGFappearance(this);
+    robotArmsLateralFacesAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotArmsLateralFacesAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotArmsLateralFacesAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotArmsLateralFacesAppearance0.setShininess(2.5);
+    robotArmsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
+    robotArmsLateralFacesAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotWheelsBaseAppearance0 = new CGFappearance(this);
+    robotWheelsBaseAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotWheelsBaseAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotWheelsBaseAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotWheelsBaseAppearance0.setShininess(2.5);
+    robotWheelsBaseAppearance0.loadTexture('resources/images/floor.jpg');
+    robotWheelsBaseAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotWheelsLateralFacesAppearance0 = new CGFappearance(this);
+    robotWheelsLateralFacesAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotWheelsLateralFacesAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotWheelsLateralFacesAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
+    robotWheelsLateralFacesAppearance0.setShininess(2.5);
+    robotWheelsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
+    robotWheelsLateralFacesAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     // Robot Appearance List Elements Lord of the Rings
+
+    var robotHeadAppearance1 = new CGFappearance(this);
+    robotHeadAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotHeadAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotHeadAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotHeadAppearance1.setShininess(2.5);
+    robotHeadAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotHeadAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotBodyBaseAppearance1 = new CGFappearance(this);
+    robotBodyBaseAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotBodyBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotBodyBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotBodyBaseAppearance1.setShininess(2.5);
+    robotBodyBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotBodyBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotBodyLateralFacesAppearance1 = new CGFappearance(this);
+    robotBodyLateralFacesAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotBodyLateralFacesAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotBodyLateralFacesAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotBodyLateralFacesAppearance1.setShininess(2.5);
+    robotBodyLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotBodyLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotArmsBaseAppearance1 = new CGFappearance(this);
+    robotArmsBaseAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotArmsBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotArmsBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotArmsBaseAppearance1.setShininess(2.5);
+    robotArmsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotArmsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotArmsLateralFacesAppearance1 = new CGFappearance(this);
+    robotArmsLateralFacesAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotArmsLateralFacesAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotArmsLateralFacesAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotArmsLateralFacesAppearance1.setShininess(2.5);
+    robotArmsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotArmsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotWheelsBaseAppearance1 = new CGFappearance(this);
+    robotWheelsBaseAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotWheelsBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotWheelsBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotWheelsBaseAppearance1.setShininess(2.5);
+    robotWheelsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotWheelsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+    var robotWheelsLateralFacesAppearance1 = new CGFappearance(this);
+    robotWheelsLateralFacesAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
+    robotWheelsLateralFacesAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
+    robotWheelsLateralFacesAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotWheelsLateralFacesAppearance1.setShininess(2.5);
+    robotWheelsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    robotWheelsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+
+
+    /////////////////////////////////////////////////////
 
 
     this.robotAppearances = [];
@@ -80,7 +194,7 @@ MyScene.prototype.init = function(application) {
             head: {
                 tetaDivisions: 10,
                 phiDivisions: 10,
-                appearance: this.robotHeadAppearance0,
+                appearance: robotHeadAppearance0,
                 minS: 0,
                 maxS: 2,
                 minT: 0,
@@ -117,7 +231,7 @@ MyScene.prototype.init = function(application) {
             wheels: {
                 slices: 10,
                 stacks: 10,
-                baseAppearance: this.robotWheelsFirstBaseAppearance0,
+                baseAppearance: this.robotWheelsBaseAppearance0,
                 lateralFacesAppearance: this.robotWheelsLateralFacesAppearance0,
                 minBaseS: 0,
                 maxBaseS: 2,
@@ -143,8 +257,8 @@ MyScene.prototype.init = function(application) {
                 lateralFacesAppearance: this.robotArmsLateralFacesAppearance1,
             },
             wheels: {
-                baseAppearance: this.robotLegsFirstBaseAppearance1,
-                lateralFacesAppearance: this.robotLegsLateralFacesAppearance1,
+                baseAppearance: this.robotWheelsBaseAppearance1,
+                lateralFacesAppearance: this.robotWheelsLateralFacesAppearance1,
             }
         }
     /** End of Robot Appearances **/
@@ -336,8 +450,8 @@ MyScene.prototype.init = function(application) {
     this.paper = new Plane(this, PAPER_DIVISIONS);
 
     // Robot
-    //this.robot = new MyRobot(this, this.robotAppearances['Terminator']);
-    this.currRobotAppearance = 0;
+    this.robot = new MyRobot(this, this.robotAppearances['Terminator']);
+    this.currRobotAppearance = 'Terminator';
     this.robotSpeed = 1;
 
     // Lights state
@@ -399,8 +513,7 @@ MyScene.prototype.updateLights = function() {
 
 MyScene.prototype.update = function(currTime) {
     this.toggleLights();
-    //this.robot.setSpeed(this.robotSpeed);
-    //this.robot.setAppearance(this.currRobotAppearance);
+    this.robot.setSpeed(this.robotSpeed);
     if (this.clockOn) {
         if (!this.previousClockOn && (typeof this.previousClockOn !== 'undefined')) {
             this.previousClockOn = true;
@@ -574,8 +687,7 @@ MyScene.prototype.display = function() {
 
         // The robot
         this.pushMatrix();
-            this.materialDefault.apply();
-            //this.robot.display();
+            this.robot.display();
         this.popMatrix();
 
         // The carpet

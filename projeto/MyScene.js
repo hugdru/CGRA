@@ -75,7 +75,7 @@ MyScene.prototype.init = function(application) {
     robotHeadAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
     robotHeadAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
     robotHeadAppearance0.setShininess(2.5);
-    robotHeadAppearance0.loadTexture('resources/images/floor.jpg');
+    robotHeadAppearance0.loadTexture('resources/images/carpetTexture.jpg');
     robotHeadAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotBodyBaseAppearance0 = new CGFappearance(this);
@@ -99,7 +99,7 @@ MyScene.prototype.init = function(application) {
     robotArmsBaseAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
     robotArmsBaseAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
     robotArmsBaseAppearance0.setShininess(2.5);
-    robotArmsBaseAppearance0.loadTexture('resources/images/floor.jpg');
+    //robotArmsBaseAppearance0.loadTexture('resources/images/floor.jpg');
     robotArmsBaseAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotArmsLateralFacesAppearance0 = new CGFappearance(this);
@@ -107,7 +107,7 @@ MyScene.prototype.init = function(application) {
     robotArmsLateralFacesAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
     robotArmsLateralFacesAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
     robotArmsLateralFacesAppearance0.setShininess(2.5);
-    robotArmsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
+    //robotArmsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
     robotArmsLateralFacesAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotWheelsBaseAppearance0 = new CGFappearance(this);
@@ -115,7 +115,7 @@ MyScene.prototype.init = function(application) {
     robotWheelsBaseAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
     robotWheelsBaseAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
     robotWheelsBaseAppearance0.setShininess(2.5);
-    robotWheelsBaseAppearance0.loadTexture('resources/images/floor.jpg');
+    //robotWheelsBaseAppearance0.loadTexture('resources/images/floor.jpg');
     robotWheelsBaseAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotWheelsLateralFacesAppearance0 = new CGFappearance(this);
@@ -123,7 +123,7 @@ MyScene.prototype.init = function(application) {
     robotWheelsLateralFacesAppearance0.setDiffuse(0.3, 0.3, 0.3, 1);
     robotWheelsLateralFacesAppearance0.setSpecular(0.15, 0.15, 0.15, 1);
     robotWheelsLateralFacesAppearance0.setShininess(2.5);
-    robotWheelsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
+    //robotWheelsLateralFacesAppearance0.loadTexture('resources/images/floor.jpg');
     robotWheelsLateralFacesAppearance0.setTextureWrap('REPEAT', 'REPEAT');
 
     // Robot Appearance List Elements Lord of the Rings
@@ -133,7 +133,7 @@ MyScene.prototype.init = function(application) {
     robotHeadAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
     robotHeadAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
     robotHeadAppearance1.setShininess(2.5);
-    robotHeadAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    //robotHeadAppearance1.loadTexture('resources/images/carpetTexture.jpg');
     robotHeadAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotBodyBaseAppearance1 = new CGFappearance(this);
@@ -141,7 +141,7 @@ MyScene.prototype.init = function(application) {
     robotBodyBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
     robotBodyBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
     robotBodyBaseAppearance1.setShininess(2.5);
-    robotBodyBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    //robotBodyBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
     robotBodyBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotBodyLateralFacesAppearance1 = new CGFappearance(this);
@@ -173,7 +173,7 @@ MyScene.prototype.init = function(application) {
     robotWheelsBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
     robotWheelsBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
     robotWheelsBaseAppearance1.setShininess(2.5);
-    robotWheelsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    //robotWheelsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
     robotWheelsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotWheelsLateralFacesAppearance1 = new CGFappearance(this);
@@ -181,12 +181,10 @@ MyScene.prototype.init = function(application) {
     robotWheelsLateralFacesAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
     robotWheelsLateralFacesAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
     robotWheelsLateralFacesAppearance1.setShininess(2.5);
-    robotWheelsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
+    //robotWheelsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
     robotWheelsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
-
-    /////////////////////////////////////////////////////
-
+    /** End of Robot Appearances **/
 
     this.robotAppearances = [];
     this.robotAppearances['Terminator'] =
@@ -203,8 +201,8 @@ MyScene.prototype.init = function(application) {
             body: {
                 slices: 10,
                 stacks: 10,
-                baseAppearance: this.robotBodyBaseAppearance0,
-                lateralFacesAppearance: this.robotBodyLateralFacesAppearance0,
+                baseAppearance: robotBodyBaseAppearance0,
+                lateralFacesAppearance: robotBodyLateralFacesAppearance0,
                 minBaseS: 0,
                 maxBaseS: 2,
                 minBaseT: 0,
@@ -217,8 +215,8 @@ MyScene.prototype.init = function(application) {
             arms: {
                 slices: 10,
                 stacks: 10,
-                baseAppearance: this.robotArmsBaseAppearance0,
-                lateralFacesAppearance: this.robotArmsLateralFacesAppearance0,
+                baseAppearance: robotArmsBaseAppearance0,
+                lateralFacesAppearance: robotArmsLateralFacesAppearance0,
                 minBaseS: 0,
                 maxBaseS: 2,
                 minBaseT: 0,
@@ -231,8 +229,8 @@ MyScene.prototype.init = function(application) {
             wheels: {
                 slices: 10,
                 stacks: 10,
-                baseAppearance: this.robotWheelsBaseAppearance0,
-                lateralFacesAppearance: this.robotWheelsLateralFacesAppearance0,
+                baseAppearance: robotWheelsBaseAppearance0,
+                lateralFacesAppearance: robotWheelsLateralFacesAppearance0,
                 minBaseS: 0,
                 maxBaseS: 2,
                 mindBaseT: 0,
@@ -246,19 +244,19 @@ MyScene.prototype.init = function(application) {
     this.robotAppearances['Lord of the Rings'] =
         {
             head: {
-                appearance: this.robotHeadAppearance1,
+                appearance: robotHeadAppearance1,
             },
             body: {
-                baseAppearance: this.robotBodyBaseAppearance1,
-                lateralFacesAppearance: this.robotBodyLateralFacesAppearance1,
+                baseAppearance: robotBodyBaseAppearance1,
+                lateralFacesAppearance: robotBodyLateralFacesAppearance1,
             },
             arms: {
-                baseAppearance: this.robotArmsBaseAppearance1,
-                lateralFacesAppearance: this.robotArmsLateralFacesAppearance1,
+                baseAppearance: robotArmsBaseAppearance1,
+                lateralFacesAppearance: robotArmsLateralFacesAppearance1,
             },
             wheels: {
-                baseAppearance: this.robotWheelsBaseAppearance1,
-                lateralFacesAppearance: this.robotWheelsLateralFacesAppearance1,
+                baseAppearance: robotWheelsBaseAppearance1,
+                lateralFacesAppearance: robotWheelsLateralFacesAppearance1,
             }
         }
     /** End of Robot Appearances **/

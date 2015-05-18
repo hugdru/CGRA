@@ -5,6 +5,8 @@
 function MyRobot(scene, robotAppearanceList) {
     CGFobject.call(this, scene);
 
+    console.log(robotAppearanceList);
+
     this.head = new MySemiSphericalSurface(
         this.scene,
         robotAppearanceList.head.tetaDivisions, robotAppearanceList.head.phiDivisions, robotAppearanceList.head.appearance,
@@ -17,6 +19,7 @@ function MyRobot(scene, robotAppearanceList) {
         robotAppearanceList.body.minBaseS, robotAppearanceList.body.maxBaseS, robotAppearanceList.body.minBaseT, robotAppearanceList.body.maxBaseT,
         robotAppearanceList.body.minBaseS, robotAppearanceList.body.maxBaseS, robotAppearanceList.body.minBaseT, robotAppearanceList.body.maxBaseT,
         robotAppearanceList.body.minLateralFacesS, robotAppearanceList.body.maxLateralFacesS, robotAppearanceList.body.minLateralFacesT, robotAppearanceList.body.maxLateralFacesT);
+
 
     this.leftArm = new MyCylinder(
         this.scene, robotAppearanceList.arms.slices, robotAppearanceList.arms.stacks,
@@ -36,11 +39,11 @@ function MyRobot(scene, robotAppearanceList) {
 
     this.rightWheel = this.leftWheel;
 
-    this.translationFromReference = {x: 0, z: 0};
-    this.angleFromReference = 0;
+    //this.translationFromReference = {x: 0, z: 0};
+    //this.angleFromReference = 0;
 
-    this.movementDifferential = 0.1;
-    this.rotationDifferential = Math.PI / 180;
+    //this.movementDifferential = 0.1;
+    //this.rotationDifferential = Math.PI / 180;
 
     this.headScale = {x: 1, y: 1, z: 1};
     this.bodyScale = {x: 1, y: 1, z: 1};
@@ -60,7 +63,7 @@ function MyRobot(scene, robotAppearanceList) {
     this.armsInsideBodyDeltaX = this.halfArms.x / 4;
     this.wheelsInsideBodyDeltaX = this.halfBody.x / 2;
 
-    this.speed = 1;
+    //this.speed = 1;
 }
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -148,4 +151,4 @@ MyRobot.prototype.setAppearance = function(appearancesList) {
     this.body.setAppearance(appearancesList.body.baseAppearance, undefined, appearancesList.body.lateralFacesAppearance);
     this.leftArm.setAppearance(appearancesList.arms.baseAppearance, undefined, appearancesList.arms.lateralFacesAppearance);
     this.leftWheel.setAppearance(appearancesList.wheels.baseAppearance, undefined, appearancesList.wheels.lateralFacesAppearance);
-}
+};

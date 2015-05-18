@@ -6,8 +6,8 @@ function MyCylinderLateralFaces(scene, slices, stacks, facesAppearance,
                                minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.slices = slices || 5;
-    this.stacks = stacks || 5;
+    this.slices = slices || 8;
+    this.stacks = stacks || 8;
 
     this.facesAppearance = facesAppearance;
 

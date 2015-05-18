@@ -44,8 +44,8 @@ function MyRobot(scene,
 
     this.headScale = {x: 1, y: 1, z: 1};
     this.bodyScale = {x: 1, y: 1, z: 1};
-    this.armsScale = {x: 1, y: 1, z: 1};
-    this.wheelsScale = {x: 1, y: 1, z: 1};
+    this.armsScale = {x: 0.5, y: 0.15, z: 0.15};
+    this.wheelsScale = {x: 0.20, y: 0.50, z: 0.50};
 
     this.halfHead = {};
     this.halfBody = {};
@@ -57,6 +57,8 @@ function MyRobot(scene,
         this.halfArms[property] = this.armsScale[property] / 2;
         this.halfWheels[property] = this.wheelsScale[property] / 2;
     }
+    this.armsInsideBodyDeltaX = this.halfArms.x / 4;
+    this.wheelsInsideBodyDeltaX = this.halfBody.x / 2;
 
     this.speed = 1;
 }
@@ -68,35 +70,54 @@ MyRobot.prototype.display = function() {
 
     this.scene.pushMatrix();
 
-        this.scene.translate(0, this.halfWheels.y + this.halfBody.y, 0)
+        this.scene.translate(0, this.wheelsScale.y + this.halfBody.y, 0);
         this.scene.pushMatrix();
+            this.scene.scale(this.bodyScale.x, this.bodyScale.y, this.bodyScale.z);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
             this.body.display();
         this.scene.popMatrix();
         // Head Area
         this.scene.pushMatrix();
             this.scene.translate(0, this.halfBody.y, 0);
+            this.scene.scale(this.headScale.x, this.headScale.y, this.headScale.z);
             this.head.display();
         this.scene.popMatrix();
         // Arms Area
         this.scene.pushMatrix();
-            //this.scene.rotate(Math.PI / 2, 0, 1, 0);
-            //this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
-            var armsZTranslate = this.halfBody.z + this.halfArms.z;
+            var armsFromCenterX = -this.halfArms.x - this.bodyScale.x + this.armsInsideBodyDeltaX;
+            // Left Arm
             this.scene.pushMatrix();
-                this.scene.translate(0, 0, armsZTranslate);
+                this.scene.translate(armsFromCenterX, 0, 0);
+                this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
+                this.scene.rotate(Math.PI / 2, 0, 1, 0);
                 this.leftArm.display();
             this.scene.popMatrix();
+            // Right Arm
             this.scene.pushMatrix();
-                this.scene.translate(0, 0, -armsZTranslate);
+                this.scene.translate(-armsFromCenterX, 0, 0);
+                this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
+                this.scene.rotate(Math.PI / 2, 0, 1, 0);
                 this.rightArm.display();
             this.scene.popMatrix();
         this.scene.popMatrix();
         // Wheels Area
-        //this.scene.pushMatrix();
-            //this.leftWheel.display();
-            //this.rightWheel.display();
-        //this.scene.popMatrix();
+        this.scene.pushMatrix();
+            // Left Wheel
+            var wheelsFromCenterX = -this.bodyScale.x + this.halfWheels.x + this.wheelsInsideBodyDeltaX;
+            this.scene.pushMatrix();
+                this.scene.translate(wheelsFromCenterX, -this.halfBody.y, 0);
+                this.scene.scale(this.wheelsScale.x, this.wheelsScale.y, this.wheelsScale.z);
+                this.scene.rotate(Math.PI / 2, 0, 1, 0);
+                this.leftWheel.display();
+            this.scene.popMatrix();
+            // Right Wheel
+            this.scene.pushMatrix();
+                this.scene.translate(-wheelsFromCenterX, -this.halfBody.y, 0);
+                this.scene.scale(this.wheelsScale.x, this.wheelsScale.y, this.wheelsScale.z);
+                this.scene.rotate(Math.PI / 2, 0, 1, 0);
+                this.rightWheel.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
     this.scene.popMatrix();
 };
 

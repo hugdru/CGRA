@@ -5,8 +5,8 @@
 function MySemiSphericalSurface(scene, tetaDivisions, phiDivisions, surfaceAppearance, minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.tetaDivisions = tetaDivisions || 5;
-    this.phiDivisions = phiDivisions || 5;
+    this.tetaDivisions = tetaDivisions || 8;
+    this.phiDivisions = phiDivisions || 8;
 
     this.surfaceAppearance = surfaceAppearance;
 

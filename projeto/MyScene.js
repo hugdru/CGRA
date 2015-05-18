@@ -385,7 +385,6 @@ MyScene.prototype.display = function() {
     // Draw axis
     //this.axis.display();
 
-
     // ---- END Background, camera and axis setup
 
 

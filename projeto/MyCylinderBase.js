@@ -6,7 +6,7 @@ function MyCylinderBase(scene, slices, baseAppearance,
                         minS, maxS, minT, maxT) {
     CGFobject.call(this, scene);
 
-    this.slices = slices || 5;
+    this.slices = slices || 8;
     this.minS = minS || 0;
     this.maxS = maxS || 1;
     this.minT = minT || 0;

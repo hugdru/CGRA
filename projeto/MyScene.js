@@ -71,12 +71,12 @@ MyScene.prototype.init = function(application) {
     // Robot Appearance List Elements Terminator
 
     var robotHeadAppearance0 = new CGFappearance(this);
-    robotHeadAppearance0.setAmbient(0.5, 0.2, 0, 1);
-    robotHeadAppearance0.setDiffuse(0.6, 0.3, 0, 1);
-    robotHeadAppearance0.setSpecular(0.7, 0.4, 0, 1);
+    robotHeadAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
+    robotHeadAppearance0.setDiffuse(0.5, 0.5, 0.5, 1);
+    robotHeadAppearance0.setSpecular(0.4, 0.4, 0.4, 1);
     robotHeadAppearance0.setShininess(10);
-    //robotHeadAppearance0.loadTexture('resources/images/robotBodyTERM.jpg');
-    //robotHeadAppearance0.setTextureWrap('REPEAT', 'REPEAT');
+    robotHeadAppearance0.loadTexture('resources/images/minions.jpg');
+    robotHeadAppearance0.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     var robotBodyBaseAppearance0 = new CGFappearance(this);
     robotBodyBaseAppearance0.setAmbient(0.5, 0.5, 0.5, 1);
@@ -123,61 +123,62 @@ MyScene.prototype.init = function(application) {
     robotWheelsLateralFacesAppearance0.setDiffuse(0, 0, 0, 1);
     robotWheelsLateralFacesAppearance0.setSpecular(0, 0, 0, 1);
     robotWheelsLateralFacesAppearance0.setShininess(1);
+	
 
     // Robot Appearance List Elements Lord of the Rings
     var robotHeadAppearance1 = new CGFappearance(this);
-    robotHeadAppearance1.setAmbient(0, 0.2, 0, 1);
-    robotHeadAppearance1.setDiffuse(0, 0.3, 0, 1);
-    robotHeadAppearance1.setSpecular(0, 0.4, 0, 1);
-    robotHeadAppearance1.setShininess(10);
-
-    var robotBodyBaseAppearance1 = new CGFappearance(this);
-    robotBodyBaseAppearance1.setAmbient(0.2, 0.3, 0.3, 1);
-    robotBodyBaseAppearance1.setDiffuse(0.3, 0.4, 0.4, 1);
-    robotBodyBaseAppearance1.setSpecular(0.4, 0.5, 0.5, 1);
-    robotBodyBaseAppearance1.setShininess(10);
-    //robotBodyBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotBodyBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotHeadAppearance1.setAmbient(0.15, 0.15, 0.15, 1);;
+    robotHeadAppearance1.setDiffuse(0, 0, 0, 1);
+    robotHeadAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
+    robotHeadAppearance1.setShininess(50);
+	robotHeadAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotHeadAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+	
+	var robotBodyBaseAppearance1 = new CGFappearance(this);
+    robotBodyBaseAppearance1.setAmbient(0.05, 0.05, 0.05, 1);
+    robotBodyBaseAppearance1.setDiffuse(0, 0, 0, 1);
+    robotBodyBaseAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
+    robotBodyBaseAppearance1.setShininess(50);
+	robotBodyBaseAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotBodyBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotBodyLateralFacesAppearance1 = new CGFappearance(this);
-    robotBodyLateralFacesAppearance1.setAmbient(0.2, 0.6, 0.3, 1);
-    robotBodyLateralFacesAppearance1.setDiffuse(0.3, 0.7, 0.4, 1);
-    robotBodyLateralFacesAppearance1.setSpecular(0.4, 0.8, 0.5, 1);
-    robotBodyLateralFacesAppearance1.setShininess(10);
-    //robotBodyLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotBodyLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotBodyLateralFacesAppearance1.setAmbient(0.15, 0.15, 0.15, 1);
+    robotBodyLateralFacesAppearance1.setDiffuse(0, 0, 0, 1);
+    robotBodyLateralFacesAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
+    robotBodyLateralFacesAppearance1.setShininess(50);
+	robotBodyLateralFacesAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotBodyLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotArmsBaseAppearance1 = new CGFappearance(this);
-    robotArmsBaseAppearance1.setAmbient(0.6, 0, 0.1, 1);
-    robotArmsBaseAppearance1.setDiffuse(0.7, 0, 0.2, 1);
-    robotArmsBaseAppearance1.setSpecular(0.8, 0, 0.3, 1);
-    robotArmsBaseAppearance1.setShininess(10);
-    //robotArmsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotArmsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotArmsBaseAppearance1.setAmbient(0.8, 0.2, 0.2, 1)
+    robotArmsBaseAppearance1.setDiffuse(0.8, 0.2, 0.2, 1);
+    robotArmsBaseAppearance1.setSpecular(0.05, 0.05, 0.05, 1)
+    robotArmsBaseAppearance1.setShininess(50);
+    robotArmsBaseAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotArmsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotArmsLateralFacesAppearance1 = new CGFappearance(this);
-    robotArmsLateralFacesAppearance1.setAmbient(0.7, 0.3, 0.6, 1);
-    robotArmsLateralFacesAppearance1.setDiffuse(0.8, 0.4, 0.6, 1);
-    robotArmsLateralFacesAppearance1.setSpecular(0.9, 0.5, 0.6, 1);
-    robotArmsLateralFacesAppearance1.setShininess(10);
-    //robotArmsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotArmsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotArmsLateralFacesAppearance1.setAmbient(0.8, 0.2, 0.2, 1);
+    robotArmsLateralFacesAppearance1.setDiffuse(0.8, 0.2, 0.2, 1);
+    robotArmsLateralFacesAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
+    robotArmsLateralFacesAppearance1.setShininess(50);
+    robotArmsLateralFacesAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotArmsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotWheelsBaseAppearance1 = new CGFappearance(this);
-    robotWheelsBaseAppearance1.setAmbient(0.2, 0.2, 0.2, 1);
+    robotWheelsBaseAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
     robotWheelsBaseAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
-    robotWheelsBaseAppearance1.setSpecular(0.4, 0.4, 0.4, 1);
-    robotWheelsBaseAppearance1.setShininess(10);
-    //robotWheelsBaseAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotWheelsBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotWheelsBaseAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    robotWheelsBaseAppearance1.setShininess(2.5);
+    robotWheelsBaseAppearance1.loadTexture('resources/images/robotWheelsLOTR.jpg');
+    robotWheelsBaseAppearance1.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     var robotWheelsLateralFacesAppearance1 = new CGFappearance(this);
-    robotWheelsLateralFacesAppearance1.setAmbient(0.5, 0.5, 0.5, 1);
-    robotWheelsLateralFacesAppearance1.setDiffuse(0.3, 0.3, 0.3, 1);
-    robotWheelsLateralFacesAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
-    robotWheelsLateralFacesAppearance1.setShininess(10);
-    //robotWheelsLateralFacesAppearance1.loadTexture('resources/images/carpetTexture.jpg');
-    //robotWheelsLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
+    robotWheelsLateralFacesAppearance1.setAmbient(0, 0, 0, 1);
+    robotWheelsLateralFacesAppearance1.setDiffuse(0, 0, 0, 1);
+    robotWheelsLateralFacesAppearance1.setSpecular(0, 0, 0, 1);
+    robotWheelsLateralFacesAppearance1.setShininess(1);
 
     /** End of Robot Appearances **/
 

@@ -123,7 +123,7 @@ MyScene.prototype.init = function(application) {
     robotWheelsLateralFacesAppearance0.setDiffuse(0, 0, 0, 1);
     robotWheelsLateralFacesAppearance0.setSpecular(0, 0, 0, 1);
     robotWheelsLateralFacesAppearance0.setShininess(1);
-	
+
 
     // Robot Appearance List Elements Lord of the Rings
     var robotHeadAppearance1 = new CGFappearance(this);
@@ -131,15 +131,15 @@ MyScene.prototype.init = function(application) {
     robotHeadAppearance1.setDiffuse(0, 0, 0, 1);
     robotHeadAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
     robotHeadAppearance1.setShininess(50);
-	robotHeadAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotHeadAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
     robotHeadAppearance1.setTextureWrap('REPEAT', 'REPEAT');
-	
-	var robotBodyBaseAppearance1 = new CGFappearance(this);
+
+    var robotBodyBaseAppearance1 = new CGFappearance(this);
     robotBodyBaseAppearance1.setAmbient(0.05, 0.05, 0.05, 1);
     robotBodyBaseAppearance1.setDiffuse(0, 0, 0, 1);
     robotBodyBaseAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
     robotBodyBaseAppearance1.setShininess(50);
-	robotBodyBaseAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotBodyBaseAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
     robotBodyBaseAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotBodyLateralFacesAppearance1 = new CGFappearance(this);
@@ -147,7 +147,7 @@ MyScene.prototype.init = function(application) {
     robotBodyLateralFacesAppearance1.setDiffuse(0, 0, 0, 1);
     robotBodyLateralFacesAppearance1.setSpecular(0.05, 0.05, 0.05, 1);
     robotBodyLateralFacesAppearance1.setShininess(50);
-	robotBodyLateralFacesAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
+    robotBodyLateralFacesAppearance1.loadTexture('resources/images/robotBodyLOTR.jpg');
     robotBodyLateralFacesAppearance1.setTextureWrap('REPEAT', 'REPEAT');
 
     var robotArmsBaseAppearance1 = new CGFappearance(this);
@@ -200,9 +200,9 @@ MyScene.prototype.init = function(application) {
                 baseAppearance: robotBodyBaseAppearance0,
                 lateralFacesAppearance: robotBodyLateralFacesAppearance0,
                 minBaseS: 0,
-                maxBaseS: 2,
+                maxBaseS: 1,
                 minBaseT: 0,
-                maxBaseT: 2,
+                maxBaseT: 1,
                 minLateralFacesS: 0,
                 maxLateralFacesS: 3,
                 minLateralFacesT: 0,

@@ -133,44 +133,44 @@ MyRobot.prototype.display = function() {
 
 MyRobot.prototype.moveForwards = function() {
 
-    var oldX = this.translationFromReference.x;
-    var oldZ = this.translationFromReference.z;
+    var arc = this.movementDifferential * this.speed;
 
-    this.translationFromReference.x += this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
-    this.translationFromReference.z += this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
+    this.translationFromReference.x += arc * Math.sin(this.angleFromReference);
+    this.translationFromReference.z += arc * Math.cos(this.angleFromReference);
 
-    var wheelsRads = Math.sqrt(Math.pow(this.translationFromReference.x - oldX, 2) + Math.pow(this.translationFromReference.z - oldZ, 2));
-
-    this.wheelsRotation.left += wheelsRads;
-    this.wheelsRotation.right += wheelsRads;
+    this.wheelsRotation.left += arc; // arc / 1 ~= teta
+    this.wheelsRotation.right += arc;
 
 };
 
 MyRobot.prototype.moveBackwards = function() {
-    var oldX = this.translationFromReference.x;
-    var oldZ = this.translationFromReference.z;
 
-    this.translationFromReference.x -= this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
-    this.translationFromReference.z -= this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
+    var arc = this.movementDifferential * this.speed;
 
-    var wheelsRads = Math.sqrt(Math.pow(this.translationFromReference.x - oldX, 2) + Math.pow(this.translationFromReference.z - oldZ, 2));
+    this.translationFromReference.x -= arc * Math.sin(this.angleFromReference);
+    this.translationFromReference.z -= arc * Math.cos(this.angleFromReference);
 
-    this.wheelsRotation.left -= wheelsRads;
-    this.wheelsRotation.right -= wheelsRads;
+    this.wheelsRotation.left -= arc;
+    this.wheelsRotation.right -= arc;
 };
 
 MyRobot.prototype.rotateCounterClockWise = function() {
+
     this.angleFromReference += this.speed * this.rotationDifferential;
 
-    this.wheelsRotation.left -= 0.1;
-    this.wheelsRotation.right += 0.1;
+    var wheelsRads = this.rotationDifferential * this.speed;
+
+    this.wheelsRotation.left += wheelsRads;
+    this.wheelsRotation.right -= wheelsRads;
 };
 
 MyRobot.prototype.rotateClockWise = function() {
     this.angleFromReference -= this.speed * this.rotationDifferential;
 
-    this.wheelsRotation.left -= 0.1;
-    this.wheelsRotation.right += 0.1;
+    var wheelsRads = this.rotationDifferential * this.speed;
+
+    this.wheelsRotation.left += wheelsRads;
+    this.wheelsRotation.right -= wheelsRads;
 };
 
 MyRobot.prototype.setSpeed = function(speed) {

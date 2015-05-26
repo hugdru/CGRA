@@ -38,7 +38,7 @@ MyCylinderBase.prototype.initBuffers = function() {
     this.vertices = [0, 0, 0];
     this.indices = [];
     this.normals = [0, 0, 1];
-    this.texCoords = [0.5, 0.5];
+    this.texCoords = [this.centerS, this.centerT];
 
     for (var sliceIndex = 0; sliceIndex < this.slices; ++sliceIndex) {
 

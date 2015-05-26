@@ -37,12 +37,6 @@ function MyRobot(scene, robotAppearanceList) {
 
     this.rightWheel = this.leftWheel;
 
-    //this.translationFromReference = {x: 0, z: 0};
-    //this.angleFromReference = 0;
-
-    //this.movementDifferential = 0.1;
-    //this.rotationDifferential = Math.PI / 180;
-
     this.headScale = {x: 1, y: 1, z: 1};
     this.bodyScale = {x: 1, y: 1, z: 1};
     this.armsScale = {x: 0.5, y: 0.15, z: 0.15};
@@ -61,7 +55,15 @@ function MyRobot(scene, robotAppearanceList) {
     this.armsInsideBodyDeltaX = this.halfArms.x / 4;
     this.wheelsInsideBodyDeltaX = this.halfBody.x / 2;
 
-    //this.speed = 1;
+    // Robot Movement
+    this.translationFromReference = {x: 0, z: 0};
+    this.angleFromReference = 0;
+    this.wheelsRotation = {left: 0, right: 0};
+
+    this.movementDifferential = 0.1;
+    this.rotationDifferential = Math.PI / 180;
+
+    this.speed = 1;
 }
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -70,6 +72,11 @@ MyRobot.prototype.constructor = MyRobot;
 MyRobot.prototype.display = function() {
 
     this.scene.pushMatrix();
+
+        /** Simple Movement of the Robot**/
+        this.scene.translate(this.translationFromReference.x, 0, this.translationFromReference.z);
+        this.scene.rotate(this.angleFromReference, 0, 1, 0);
+        /** End of Simple Movement of the Robot**/
 
         this.scene.translate(0, this.wheelsScale.y + this.halfBody.y, 0);
         this.scene.pushMatrix();
@@ -108,6 +115,7 @@ MyRobot.prototype.display = function() {
             this.scene.pushMatrix();
                 this.scene.translate(wheelsFromCenterX, -this.halfBody.y, 0);
                 this.scene.scale(this.wheelsScale.x, this.wheelsScale.y, this.wheelsScale.z);
+                this.scene.rotate(this.wheelsRotation.left, 1, 0, 0);
                 this.scene.rotate(Math.PI / 2, 0, 1, 0);
                 this.leftWheel.display();
             this.scene.popMatrix();
@@ -115,6 +123,7 @@ MyRobot.prototype.display = function() {
             this.scene.pushMatrix();
                 this.scene.translate(-wheelsFromCenterX, -this.halfBody.y, 0);
                 this.scene.scale(this.wheelsScale.x, this.wheelsScale.y, this.wheelsScale.z);
+                this.scene.rotate(this.wheelsRotation.right, 1, 0, 0);
                 this.scene.rotate(Math.PI / 2, 0, 1, 0);
                 this.rightWheel.display();
             this.scene.popMatrix();
@@ -123,21 +132,45 @@ MyRobot.prototype.display = function() {
 };
 
 MyRobot.prototype.moveForwards = function() {
+
+    var oldX = this.translationFromReference.x;
+    var oldZ = this.translationFromReference.z;
+
     this.translationFromReference.x += this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
     this.translationFromReference.z += this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
+
+    var wheelsRads = Math.sqrt(Math.pow(this.translationFromReference.x - oldX, 2) + Math.pow(this.translationFromReference.z - oldZ, 2));
+
+    this.wheelsRotation.left += wheelsRads;
+    this.wheelsRotation.right += wheelsRads;
+
 };
 
 MyRobot.prototype.moveBackwards = function() {
+    var oldX = this.translationFromReference.x;
+    var oldZ = this.translationFromReference.z;
+
     this.translationFromReference.x -= this.speed * this.movementDifferential * Math.sin(this.angleFromReference);
     this.translationFromReference.z -= this.speed * this.movementDifferential * Math.cos(this.angleFromReference);
+
+    var wheelsRads = Math.sqrt(Math.pow(this.translationFromReference.x - oldX, 2) + Math.pow(this.translationFromReference.z - oldZ, 2));
+
+    this.wheelsRotation.left -= wheelsRads;
+    this.wheelsRotation.right -= wheelsRads;
 };
 
 MyRobot.prototype.rotateCounterClockWise = function() {
     this.angleFromReference += this.speed * this.rotationDifferential;
+
+    this.wheelsRotation.left -= 0.1;
+    this.wheelsRotation.right += 0.1;
 };
 
 MyRobot.prototype.rotateClockWise = function() {
     this.angleFromReference -= this.speed * this.rotationDifferential;
+
+    this.wheelsRotation.left -= 0.1;
+    this.wheelsRotation.right += 0.1;
 };
 
 MyRobot.prototype.setSpeed = function(speed) {

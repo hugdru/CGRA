@@ -34,7 +34,7 @@ MySemiSphericalSurface.prototype.constructor = MySemiSphericalSurface;
 MySemiSphericalSurface.prototype.display = function() {
 
     this.scene.pushMatrix();
-        if (typeof this.surfaceAppearance !== "undefined") this.surfaceAppearance.apply();
+        if (typeof this.surfaceAppearance !== 'undefined') this.surfaceAppearance.apply();
         CGFobject.prototype.display.call(this);
     this.scene.popMatrix();
 };
@@ -142,4 +142,4 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
 
 MySemiSphericalSurface.prototype.setAppearance = function(appearance) {
     this.surfaceAppearance = appearance;
-}
+};

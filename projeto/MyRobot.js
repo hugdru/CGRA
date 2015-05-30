@@ -57,7 +57,7 @@ function MyRobot(scene, robotAppearanceList) {
     this.translationFromReference = {x: 0, z: 0};
     this.angleFromReference = 0;
     this.movementDifferential = 0.1;
-    this.rotationDifferential = Math.PI / 180;
+    this.rotationDifferential = (Math.PI / 180) * 2;
     this.wheelsRotation = {left: 0, right: 0};
     this.speed = 1;
 
@@ -155,6 +155,8 @@ MyRobot.prototype.moveForwards = function() {
         this.armsSwingIncrementorSign = -1;
     }
     this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
+
+    this.lastLinearMoveWasForwards__ = true;
 };
 
 MyRobot.prototype.moveBackwards = function() {
@@ -174,7 +176,12 @@ MyRobot.prototype.moveBackwards = function() {
     } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
         this.armsSwingIncrementorSign = -1;
     }
+    if (this.lastLinearMoveWasForwards__) {
+        this.armsSwingIncrementorSign *= -1;
+    }
     this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
+
+    this.lastLinearMoveWasForwards__ = false;
 };
 
 MyRobot.prototype.rotateCounterClockWise = function() {

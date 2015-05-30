@@ -511,6 +511,8 @@ MyScene.prototype.update = function(currTime) {
         }
         this.clock.update(currTime);
     }
+
+    this.robot.update();
 };
 
 MyScene.prototype.pauseResumeClock = function() {

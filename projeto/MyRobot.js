@@ -63,9 +63,15 @@ function MyRobot(scene, robotAppearanceList) {
 
     // Robot Arms Animation
     this.armsSwingRotation = 0;
+    this.armsSwingIncrementorSign = -1;
     this.armsMaxSwingRotation = Math.PI / 4;
     this.armsSwingRotationStep = 0.1;
-    this.armsSwingIncrementorSign = -1;
+
+    // SayHi Animation
+    this.angleSayHiMaxElevation = Math.PI / 1.4;
+    this.angleDiffSayHiElevation = 0.2;
+    this.angleSayHiMaxSpan = Math.PI / 5;
+    this.angleDiffSayHiSpan = 0.3;
 }
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -95,16 +101,21 @@ MyRobot.prototype.display = function() {
         // Arms Area
         this.scene.pushMatrix();
             var armsFromCenterX = -this.armsScale.x - this.bodyScale.x;
-            // Left Arm
+            // Right Arm
             this.scene.pushMatrix();
                 this.scene.translate(armsFromCenterX, 0, 0);
-                this.scene.rotate(this.armsSwingRotation, 1, 0, 0);
+                if (this.sayHiOn) {
+                    this.sayHi();
+                    this.scene.rotate(this.armsSwingRotationSaved, 1, 0, 0);
+                } else {
+                    this.scene.rotate(this.armsSwingRotation, 1, 0, 0);
+                }
                 this.scene.translate(0, -this.halfArms.y, 0);
                 this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.leftArm.display();
             this.scene.popMatrix();
-            // Right Arm
+            // Left Arm
             this.scene.pushMatrix();
                 this.scene.translate(-armsFromCenterX, 0, 0);
                 this.scene.rotate(-this.armsSwingRotation, 1, 0, 0);
@@ -148,13 +159,7 @@ MyRobot.prototype.moveForwards = function() {
     this.wheelsRotation.left += arc; // arc / 1 ~= teta
     this.wheelsRotation.right += arc;
 
-    // Robot Arms Animation
-    if (this.armsSwingRotation <= -this.armsMaxSwingRotation) {
-        this.armsSwingIncrementorSign = 1;
-    } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
-        this.armsSwingIncrementorSign = -1;
-    }
-    this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
+    this.armsSwing(false);
 
     this.lastLinearMoveWasForwards__ = true;
 };
@@ -170,16 +175,7 @@ MyRobot.prototype.moveBackwards = function() {
     this.wheelsRotation.left -= arc;
     this.wheelsRotation.right -= arc;
 
-    // Robot Arms Animation
-    if (this.armsSwingRotation <= -this.armsMaxSwingRotation) {
-        this.armsSwingIncrementorSign = 1;
-    } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
-        this.armsSwingIncrementorSign = -1;
-    }
-    if (this.lastLinearMoveWasForwards__) {
-        this.armsSwingIncrementorSign *= -1;
-    }
-    this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
+    this.armsSwing(true);
 
     this.lastLinearMoveWasForwards__ = false;
 };
@@ -199,8 +195,8 @@ MyRobot.prototype.rotateClockWise = function() {
 
     var wheelsRads = this.rotationDifferential * this.speed;
 
-    this.wheelsRotation.left += wheelsRads;
-    this.wheelsRotation.right -= wheelsRads;
+    this.wheelsRotation.left -= wheelsRads;
+    this.wheelsRotation.right += wheelsRads;
 };
 
 MyRobot.prototype.setSpeed = function(speed) {
@@ -212,4 +208,77 @@ MyRobot.prototype.setAppearance = function(appearancesList) {
     this.body.setAppearance(appearancesList.body.baseAppearance, undefined, appearancesList.body.lateralFacesAppearance);
     this.leftArm.setAppearance(appearancesList.arms.baseAppearance, undefined, appearancesList.arms.lateralFacesAppearance);
     this.leftWheel.setAppearance(appearancesList.wheels.baseAppearance, undefined, appearancesList.wheels.lateralFacesAppearance);
+};
+
+MyRobot.prototype.armsSwing = function(backwards) {
+
+    if (this.armsSwingRotation <= -this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = 1;
+    } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = -1;
+    }
+    if (this.lastLinearMoveWasForwards__ && backwards) {
+        this.armsSwingIncrementorSign *= -1;
+    }
+    this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
+};
+
+MyRobot.prototype.enableSayHi = function() {
+
+    if (this.sayHiOn) return;
+
+    this.sayHiOn = true;
+
+    this.armsSwingRotationSaved = this.armsSwingRotation;
+
+    this.sayHiState = 0;
+    this.sayHiStateHiN = 0;
+
+    this.angleSayHiElevation = 0;
+
+    this.angleSayHiSpan = 0;
+};
+
+MyRobot.prototype.update = function() {
+    if (this.sayHiOn) this.sayHiParemeters();
+};
+
+MyRobot.prototype.sayHiParemeters = function() {
+    switch (this.sayHiState) {
+        case 0:
+            this.angleSayHiElevation += this.angleDiffSayHiElevation;
+            if (this.angleSayHiElevation >= this.angleSayHiMaxElevation) {
+                this.sayHiState = 1;
+            }
+            break;
+        case 1:
+            if (this.sayHiStateHiN == 4) {
+                this.sayHiState = 3;
+                break;
+            }
+
+            this.angleSayHiSpan -= this.angleDiffSayHiSpan;
+            if (this.angleSayHiSpan <= -this.angleSayHiMaxSpan) {
+                this.sayHiState = 2;
+            }
+            break;
+        case 2:
+            this.angleSayHiSpan += this.angleDiffSayHiSpan;
+            if (this.angleSayHiSpan >= this.angleSayHiMaxSpan) {
+                this.sayHiState = 1;
+                ++this.sayHiStateHiN;
+            }
+            break;
+        case 3:
+            this.angleSayHiElevation -= this.angleDiffSayHiElevation;
+            if (this.angleSayHiElevation <= this.angleSayHiMaxSpan) {
+                this.sayHiOn = false;
+            }
+            break;
+    }
+};
+
+MyRobot.prototype.sayHi = function() {
+    this.scene.rotate(this.angleSayHiSpan, 0, 0, 1);
+    this.scene.rotate(this.angleSayHiElevation, 0, 0, -1);
 };

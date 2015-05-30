@@ -126,6 +126,9 @@ MyInterface.prototype.processKeyboard = function(event) {
         case (100):
             this.scene.robot.rotateClockWise();
             break;
+        case (104):
+            this.scene.robot.enableSayHi();
+            break;
     }
 };
 

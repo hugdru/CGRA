@@ -18,12 +18,10 @@ function MySemiSphericalSurface(scene, tetaDivisions, phiDivisions, surfaceAppea
     this.tetaStep = (2 * Math.PI) / this.tetaDivisions;
     this.phiStep = Math.PI / (2 * this.phiDivisions);
 
-    this.diffSHalf = (this.maxS - this.minS) / 2;
-    this.diffTHalf = (this.maxT - this.minT) / 2;
-    this.centerS = this.minS + this.diffSHalf;
-    this.centerT = this.minT + this.diffTHalf;
+    this.patchLengthS = (this.maxS - this.minS) / this.tetaDivisions;
+    this.patchLengthT = (this.maxT - this.minT) / (this.phiDivisions + 1);
 
-    this.tetaPeriod = this.tetaDivisions;
+    this.tetaPeriod = this.tetaDivisions + 1;
 
     this.initBuffers();
 }
@@ -34,8 +32,8 @@ MySemiSphericalSurface.prototype.constructor = MySemiSphericalSurface;
 MySemiSphericalSurface.prototype.display = function() {
 
     this.scene.pushMatrix();
-        if (typeof this.surfaceAppearance !== 'undefined') this.surfaceAppearance.apply();
-        CGFobject.prototype.display.call(this);
+    if (typeof this.surfaceAppearance !== 'undefined') this.surfaceAppearance.apply();
+    CGFobject.prototype.display.call(this);
     this.scene.popMatrix();
 };
 
@@ -47,17 +45,20 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
     this.texCoords = [];
 
     var phiAcc = 0;
-    for (var phiIndex = 0; phiIndex < this.phiDivisions; ++phiIndex) {
+    var tCoord = this.maxT;
+    for (var phiIndex = 0; phiIndex <= this.phiDivisions; ++phiIndex) {
 
         var tetaAcc = 0;
         var tetaPeriodTimesN = this.tetaPeriod * phiIndex;
         var tetaPeriodTimesNnext = this.tetaPeriod * (phiIndex + 1);
-        for (var tetaIndex = 0; tetaIndex < this.tetaDivisions; ++tetaIndex) {
+
+        var sCoord = this.minS;
+        for (var tetaIndex = 0; tetaIndex <= this.tetaDivisions; ++tetaIndex) {
 
             /* Vertex */
-            var vertexX = Math.cos(phiAcc) * Math.cos(tetaAcc);
-            var vertexY = Math.sin(phiAcc);
-            var vertexZ = Math.cos(phiAcc) * Math.sin(tetaAcc);
+                var vertexX = Math.cos(phiAcc) * Math.cos(tetaAcc);
+                var vertexY = Math.sin(phiAcc);
+                var vertexZ = Math.cos(phiAcc) * Math.sin(tetaAcc);
 
             this.vertices.push(
                 vertexX,
@@ -66,8 +67,8 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
             );
 
             this.texCoords.push(
-                this.centerS + this.diffSHalf * vertexX,
-                this.centerT + this.diffTHalf * vertexZ
+                sCoord,
+                tCoord
             );
 
             /* Normal */
@@ -79,8 +80,8 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
 
             /* Indices */
             var startVertex = tetaIndex;
-            if (phiIndex != (this.phiDivisions - 1)) {
-                if (tetaIndex != (this.tetaDivisions - 1)) {
+            if (phiIndex != this.phiDivisions) {
+                if (tetaIndex != this.tetaDivisions) {
                     this.indices.push(
                         startVertex + tetaPeriodTimesN,
                         startVertex + 1 + tetaPeriodTimesNnext,
@@ -89,51 +90,14 @@ MySemiSphericalSurface.prototype.initBuffers = function() {
                         startVertex + tetaPeriodTimesNnext,
                         startVertex + 1 + tetaPeriodTimesNnext
                     );
-                } else {
-                    this.indices.push(
-                        startVertex + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext,
-                        0 + tetaPeriodTimesN,
-                        startVertex + tetaPeriodTimesN,
-                        startVertex + tetaPeriodTimesNnext,
-                        0 + tetaPeriodTimesNnext
-                    );
-                }
-            } else {
-                if (tetaIndex != (this.tetaDivisions - 1)) {
-                    this.indices.push(
-                        startVertex + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext,
-                        startVertex + 1 + tetaPeriodTimesN
-                    );
-                } else {
-                    this.indices.push(
-                        startVertex + tetaPeriodTimesN,
-                        0 + tetaPeriodTimesNnext,
-                        0 + tetaPeriodTimesN
-                    );
                 }
             }
-
             tetaAcc += this.tetaStep;
-        }
-
-        if (phiIndex == (this.phiDivisions - 1)) {
-            this.vertices.push(
-                0, 1, 0
-            );
-
-            this.texCoords.push(
-                this.centerS,
-                this.centerT
-            );
-
-            this.normals.push(
-                0, 1, 0
-            );
+            sCoord += this.patchLengthS;
         }
 
         phiAcc += this.phiStep;
+        tCoord -= this.patchLengthT;
     }
 
     this.primitiveType = this.scene.gl.TRIANGLES;

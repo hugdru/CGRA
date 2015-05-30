@@ -39,15 +39,13 @@ function MyRobot(scene, robotAppearanceList) {
 
     this.headScale = {x: 1, y: 1, z: 1};
     this.bodyScale = {x: 1, y: 1, z: 1};
-    this.armsScale = {x: 0.5, y: 0.15, z: 0.15};
+    this.armsScale = {x: 0.15, y: 0.5, z: 0.15};
     this.wheelsScale = {x: 0.20, y: 0.50, z: 0.50};
 
-    this.halfHead = {};
     this.halfBody = {};
     this.halfArms = {};
     this.halfWheels = {};
     for (var property in this.headScale) {
-        this.halfHead[property] = this.headScale[property] / 2;
         this.halfBody[property] = this.bodyScale[property] / 2;
         this.halfArms[property] = this.armsScale[property] / 2;
         this.halfWheels[property] = this.wheelsScale[property] / 2;
@@ -55,15 +53,19 @@ function MyRobot(scene, robotAppearanceList) {
     this.armsInsideBodyDeltaX = this.halfArms.x / 4;
     this.wheelsInsideBodyDeltaX = this.halfBody.x / 2;
 
-    // Robot Movement
+    // Robot Simple Movement
     this.translationFromReference = {x: 0, z: 0};
     this.angleFromReference = 0;
-    this.wheelsRotation = {left: 0, right: 0};
-
     this.movementDifferential = 0.1;
     this.rotationDifferential = Math.PI / 180;
-
+    this.wheelsRotation = {left: 0, right: 0};
     this.speed = 1;
+
+    // Robot Arms Animation
+    this.armsSwingRotation = 0;
+    this.armsMaxSwingRotation = Math.PI / 4;
+    this.armsSwingRotationStep = 0.1;
+    this.armsSwingIncrementorSign = -1;
 }
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -92,19 +94,23 @@ MyRobot.prototype.display = function() {
         this.scene.popMatrix();
         // Arms Area
         this.scene.pushMatrix();
-            var armsFromCenterX = -this.halfArms.x - this.bodyScale.x + this.armsInsideBodyDeltaX;
+            var armsFromCenterX = -this.armsScale.x - this.bodyScale.x;
             // Left Arm
             this.scene.pushMatrix();
                 this.scene.translate(armsFromCenterX, 0, 0);
+                this.scene.rotate(this.armsSwingRotation, 1, 0, 0);
+                this.scene.translate(0, -this.halfArms.y, 0);
                 this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
-                this.scene.rotate(Math.PI / 2, 0, 1, 0);
+                this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.leftArm.display();
             this.scene.popMatrix();
             // Right Arm
             this.scene.pushMatrix();
                 this.scene.translate(-armsFromCenterX, 0, 0);
+                this.scene.rotate(-this.armsSwingRotation, 1, 0, 0);
+                this.scene.translate(0, -this.halfArms.y, 0);
                 this.scene.scale(this.armsScale.x, this.armsScale.y, this.armsScale.z);
-                this.scene.rotate(Math.PI / 2, 0, 1, 0);
+                this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.rightArm.display();
             this.scene.popMatrix();
         this.scene.popMatrix();
@@ -133,6 +139,7 @@ MyRobot.prototype.display = function() {
 
 MyRobot.prototype.moveForwards = function() {
 
+    // Robot Simple Movement
     var arc = this.movementDifferential * this.speed;
 
     this.translationFromReference.x += arc * Math.sin(this.angleFromReference);
@@ -141,10 +148,18 @@ MyRobot.prototype.moveForwards = function() {
     this.wheelsRotation.left += arc; // arc / 1 ~= teta
     this.wheelsRotation.right += arc;
 
+    // Robot Arms Animation
+    if (this.armsSwingRotation <= -this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = 1;
+    } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = -1;
+    }
+    this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
 };
 
 MyRobot.prototype.moveBackwards = function() {
 
+    // Robot Simple Movement
     var arc = this.movementDifferential * this.speed;
 
     this.translationFromReference.x -= arc * Math.sin(this.angleFromReference);
@@ -152,6 +167,14 @@ MyRobot.prototype.moveBackwards = function() {
 
     this.wheelsRotation.left -= arc;
     this.wheelsRotation.right -= arc;
+
+    // Robot Arms Animation
+    if (this.armsSwingRotation <= -this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = 1;
+    } else if (this.armsSwingRotation >= this.armsMaxSwingRotation) {
+        this.armsSwingIncrementorSign = -1;
+    }
+    this.armsSwingRotation += this.armsSwingRotationStep * this.speed * this.armsSwingIncrementorSign;
 };
 
 MyRobot.prototype.rotateCounterClockWise = function() {

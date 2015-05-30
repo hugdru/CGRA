@@ -51,7 +51,6 @@ serialInclude([
     'MyClockHand.js',
     'MyInterface.js',
     'MyRobot.js',
-    'MyOldRobot.js',
 
     main = function() {
         var app = new CGFapplication(document.body);

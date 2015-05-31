@@ -181,7 +181,7 @@ MyScene.prototype.init = function(application) {
     robotWheelsLateralFacesAppearance1.setShininess(1);
 
     /** End of Robot Appearances **/
-
+	
     this.robotAppearances = [];
     this.robotAppearances['Terminator'] =
         {
@@ -411,6 +411,7 @@ MyScene.prototype.init = function(application) {
     this.lampAppearance.loadTexture('resources/images/lampSurfaceTexture.jpg');
     this.lampAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     /** End of Left Wall and related Appearances **/
+	
 
     // Scene elements
     this.table = new MyTable(this,
